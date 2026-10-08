@@ -100,7 +100,7 @@ def structural_report(model: BracketNet, ds: Dataset) -> dict:
     else:
         cat = "incorrect_closed"
     sub = None
-    if cat == "incorrect_closed" and g == "SO3" and K == 3:
+    if cat == "incorrect_closed" and g in ("SO3", "SO3img") and K == 3:
         sub = "chiral" if pr >= CHIRAL_PR else "other"
     return dict(
         generator_singular_values=sv.tolist(), generator_rank=int(np.sum(sv > 1e-3 * sv.max())),

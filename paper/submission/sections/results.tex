@@ -120,15 +120,19 @@ penalty switches on, by final outcome (post hoc). (c) Composition error by outco
 \end{figure}
 
 \subsection{A rendered-image benchmark}\label{sec:render}
-To check that the findings do not depend on the mild observation map, we rendered the SO(3) state as 20$\times$20
-images: the 3-D position of a Gaussian blob sets its image position and size, and the invariant coordinate sets its
-brightness ($p=400$). We applied the frozen protocol unchanged on 20 new seeds (300--319).
+To test a harder observation process, we rendered the SO(3) state as $20{\times}20$ images: the 3-D position of a
+Gaussian blob sets its image position and size, and the invariant coordinate sets its brightness ($p=400$). The
+frozen protocol was applied unchanged on 20 new seeds (300--319), with predictions registered in advance.
 \begin{itemize}
-\item BracketNet lowers closure relative to \textsc{+Comp.} (\REfourBracketnetClosure{} vs.\ \REfourCompClosure, lower on
-\REfourClosurebnvscompWins{} seeds, one-sided $p=\REfourClosurebnvscompP$).
-\item Outcomes, correct / chiral / non-closed: BracketNet \REfourBracketnetCorrect/\REfourBracketnetChiral/\REfourBracketnetNonclosed,
-\textsc{+Comp.} \REfourCompCorrect/\REfourCompChiral/\REfourCompNonclosed, Local \REfourLocalCorrect/\REfourLocalChiral/\REfourLocalNonclosed.
-\item The ground-truth distance changes by $\REfourGtbnvscompMeandiff$ ($[\REfourGtbnvscompCilo,\REfourGtbnvscompCihi]$).
+\item \emph{No baseline run closes} (Local \REfourLocalNonclosed/20, \textsc{+Comp.} \REfourCompNonclosed/20 non-closed).
+BracketNet lowers closure on \REfourClosurebnvscompWins{} seeds (\REfourBracketnetClosure{} vs.\ \REfourCompClosure,
+one-sided $p=\REfourClosurebnvscompP$).
+\item \emph{Every closed BracketNet run is chiral} (\REfourBracketnetChiral/20; none diagonal). This is read off the
+chirality invariant, which needs no latent alignment.
+\item \emph{Ground-truth recovery cannot be assessed by our alignment metric here.} The learned latents are far from
+an isometry of the true state (CKA with it \REfourBracketnetCkatruth, Procrustes residual \REfourBracketnetProcrustestruth).
+\item \emph{There is a small transport cost}: 10-step error rises by $\REfourMseonezerobnvscompMeandiff$
+($[\REfourMseonezerobnvscompCilo,\REfourMseonezerobnvscompCihi]$).
 \end{itemize}
-The benchmark is still synthetic. It tests a harder, high-dimensional observation process with the same latent
-structure; it does not test natural images.
+Under rendering, closure regularization therefore produced closed algebras only of the wrong class. The benchmark is
+still synthetic and does not test natural images.

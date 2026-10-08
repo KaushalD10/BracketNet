@@ -14,8 +14,8 @@ runs, selection status, where its raw results live, and how it was verified. No 
 | 6 | Disjoint-pair alignment and transfer | checkpoints of #4, probes 998/997 | 10 pairs × 4 methods × 3 groups | no | H3 | `results/final/alignment_transfer.json` | seed-disjointness checked (`statistical_audit.json`) |
 | 7 | E1 composition error by class | #4 | 80 SO(3) runs | no | registered after the numbers were first inspected; **descriptive only** | `results/review/summary_review.json` | recomputed |
 | 8 | E2 generator-span trace | 100–119 (re-run of #4 BracketNet SO(3)) | 20 | no | yes (prediction on \|χ\|); the closure-at-ramp diagnostic is **post hoc** | `results/review/runs/trace/` | 20/20 re-runs bit-identical to #4 |
-| 9 | E3 oracle-coefficient intervention | 400–419 | 80 | no | yes | `results/review/runs/oracle/` | see summary_review.json |
-| 10 | E4 rendered-image benchmark | 300–319 | 60 | no | yes | `results/review/runs/render/` | see summary_review.json |
+| 9 | E3 oracle-coefficient intervention | 400–419 | 80 | no | yes | `results/review/runs/oracle/` | from-scratch re-run of `SO3_oracle_bn_s400` bit-identical |
+| 10 | E4 rendered-image benchmark | 300–319 | 60 | no | yes | `results/review/runs/render/` | from-scratch re-run of `SO3img_bracketnet_s300` bit-identical; closed runs classified by chirality (alignment-free) |
 | 11 | E5 transfer prediction, all 190 pairs | checkpoints of #4 | 4 × 190 × 2 groups | no | yes; **prediction not supported** | `results/review/transfer_prediction.json`, `transfer_allpairs.json` | seed-level cluster bootstrap |
 | 12 | Closure flow from random subspaces (no learning) | flow seed 0 | 200 starts | no | no (verification of the classification) | `results/review/closure_flow.json` | 200/200 converged to χ ∈ {−1, 0, 1} |
 | 13 | Theory checks on data (chiral vs diagonal endpoint rules) | data seed 100 | — | no | before registration | `bracketnet/theory_checks.py`, tests T7 | recomputed in `verify_submission.py` |
@@ -35,7 +35,11 @@ The final paper does not use them.
 Filled in from `results/review/summary_review.json` after the runs (see SUBMISSION_READINESS.md for the final numbers):
 * E1 (descriptive): chiral composition error lower than correct — **observed** (3.3e-5 vs 7.9e-4, median).
 * E2: |χ| at the ramp larger for runs ending chiral — **observed, moderately** (AUC 0.75; medians 0.22 vs 0.13).
-* E3: fewer chiral solutions with true coefficients — see readiness report.
-* E4: closure lower than +Comp. on rendered images — see readiness report.
+* E3: fewer chiral solutions with true coefficients — **observed**: chiral 6/20 → 0/20 (exact McNemar p = 0.031);
+  correct-closed 11/20 → 20/20 (p = 0.0039); the oracle model without any closure term also reaches 20/20.
+* E4: (a) closure lower than +Comp. on rendered images — **observed** (20/20 seeds, one-sided p = 9.5e-7);
+  (b) chiral solutions under closure — **observed**: every closed BracketNet run is chiral (7/20, by the
+  alignment-free chirality invariant), and no baseline run closes. Ground-truth distance is not interpretable here
+  (latent CKA with the true state ≈ 0.61). Transport is slightly worse (+4.5e-4, CI [1.4e-4, 7.7e-4]).
 * E5: structural distance predicts transfer failure better than CKA — **not supported** (AUC 0.98 vs 1.00 for T²,
   0.62 vs 0.75 for SO(3); the SO(3) difference interval includes 0).

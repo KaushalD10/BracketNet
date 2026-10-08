@@ -1,5 +1,10 @@
 # BracketNet: Lie-closure regularization for learned transformation representations
 
+**Submission package (final review):** `paper/final_submission.pdf` (source in `paper/submission/`),
+`supplement/bracketnet_supplement_anonymous.zip`, and `docs/SUBMISSION_READINESS.md` (status and required human
+actions). The sections below describe the round-2 study; the final review added the endpoint-ambiguity mechanism, an
+oracle intervention, a rendered-image benchmark and a transfer-prediction analysis (`docs/FINAL_REVIEW_CHANGELOG.md`).
+
 This is the research code, raw results and manuscript for
 
 > **Closing the Algebra Is Not Enough: Lie-Closure Regularization Makes Learned Transformation Structure Comparable, Not Identifiable**

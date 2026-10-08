@@ -236,7 +236,5 @@ paper/final/*.log
 paper/final/*.out
 paper/final/*.blg
 
-# review phases in progress (committed in full on completion)
-results/review/runs/
+# review-phase checkpoints are not versioned (not needed to reproduce any number; runs are bit-reproducible)
 results/review/checkpoints/
-results/review/*_log.txt

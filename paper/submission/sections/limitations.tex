@@ -10,7 +10,7 @@ they assume a near-isometric encoder; the $T^2$ failures are seed-level fitting 
 \item \textbf{Limited baselines.} We compare controlled objective variants and an action-supervised oracle; we do not
 reimplement published methods with different supervision.
 \item \textbf{Statistics and protocol.} We use 20 seeds; effects outside SO(3) are small or concentrated in few
-seeds. No transport improvement is established. The closure-weight rule needed an amendment, committed before any fresh
+seeds. No transport improvement is established; on rendered images transport is slightly worse. The closure-weight rule needed an amendment, committed before any fresh
 run. One pre-registered prediction (structure beats CKA at predicting transfer failure) was not supported.
 \item \textbf{Theory is local or benchmark-specific.} The escape bound covers only small actions, the classification is
 specific to $\so(4)$ and $\so(5)$, and Prop.~\ref{prop:endpoint} characterizes the loss at the ground-truth embedding,

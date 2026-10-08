@@ -131,13 +131,24 @@ def e3():
     return out
 
 
+def render_class(r):
+    """Rendered benchmark: the learned latent is far from an isometry of the true state, so the Procrustes-based
+    ground-truth distance is not interpretable; the class of a closed span is identified by the alignment-free
+    chirality invariant (|chi| > 0.9: chiral; |chi| < 0.1: diagonal-type)."""
+    s = r["metrics"]["structure"]
+    if s["category"] == "nonclosed" or s["category"] == "collapsed":
+        return s["category"]
+    chi = chirality(np.array(r["metrics"]["generators"]))
+    return "incorrect_closed-chiral" if abs(chi) > 0.9 else ("diagonal_type" if abs(chi) < 0.1 else "other_closed")
+
+
 def e4():
     R = load("render")
     out = {}
     for tag, runs in R.items():
-        c = Counter(cls(r) for r in runs.values())
+        c = Counter(render_class(r) for r in runs.values())
         out[tag] = dict(n=len(runs), counts=dict(c), chiral=c.get("incorrect_closed-chiral", 0),
-                        correct=c.get("correct_closed", 0), nonclosed=c.get("nonclosed", 0),
+                        correct=c.get("correct_closed", 0) + c.get("diagonal_type", 0), nonclosed=c.get("nonclosed", 0),
                         **{k: [float(np.mean(v)), float(np.std(v, ddof=1))] for k, v in {
                             "closure": [r["metrics"]["closure_residual"] for r in runs.values()],
                             "gt": [r["metrics"]["structure"]["gt_algebra_distance"] for r in runs.values()],

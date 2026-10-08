@@ -39,6 +39,8 @@ ALLOWED = {
     "10^{-3}": "lr exponent", "10^{-5}": "wd", "10^{-6}": "eps", "2\\times10^{-3}": "lr",
     "3.2\\times10^{-3}": "theory check (recomputed below)", "10^{-31}": "theory check (recomputed below)",
     "0.002": "min exact p with n=10", "2014": "citation year",
+    "01": "subscript a_{01}", "02": "subscript a_{02}", "12": "subscript a_{12} / fragment of 0.12 (radius, recomputed)",
+    "95": "confidence level", "500": "test sequences (protocol)", "31": "exponent of 10^{-31} (recomputed below)",
 }
 
 
