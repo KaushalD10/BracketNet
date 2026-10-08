@@ -1,0 +1,40 @@
+\section{Experimental protocol}\label{sec:protocol}
+\paragraph{Benchmarks.}
+SO(2), $T^2$ and SO(3) act linearly on a latent state in $\mathbb R^d$ that includes an invariant coordinate
+($d=3,5,4$). The true algebra is therefore a proper subspace of $\so(d)$, and random spans do not close: the mean
+closure of random normalized spans is $0.60$ ($K{=}2$ in $\so(5)$) and $0.66$ ($K{=}3$ in $\so(4)$).
+
+States are drawn as $z_0\sim\mathcal N(0,I)$, and transitions apply $\exp(\sum_ka_kT_k)$ with
+$a_k\sim\mathcal N(0,0.24^2)$. Observations are $x=Qz+0.18\tanh(Bz)$, one fixed injective map per group. The rendered
+benchmark is described in Sec.~\ref{sec:render}. Each run trains on 1{,}400 triples and is evaluated on 500 ten-edge
+sequences.
+
+\paragraph{Selection on development seeds only.}
+We fixed the training budget, closure weight and closure objective on development seeds 5--9, with rules committed
+before those runs:
+\begin{itemize}
+\item \emph{Budget}: the smallest budget at which \textsc{+Comp.} transport is within 10\% of its value at 4{,}000
+updates. This rule is method-agnostic.
+\item \emph{Closure weight}: the $\lambda$ with the lowest closure among those whose transport is not worse than
+\textsc{+Comp.}'s. This rule needed an amendment, committed before any fresh run: no $\lambda$ met the constraint, so
+the tolerance was relaxed in steps of $10\%$, and $\lambda=\NLambda$ qualified at $1.20$.
+\end{itemize}
+The result is \NSteps{} updates, $\lambda=\NLambda$ and Eq.~\eqref{eq:close}. All runs evaluate the final iterate.
+$\lambda=0.1$, the originally planned weight, is evaluated at the same budget as a reference.
+
+\paragraph{Seeds and pre-registration.}
+Main evaluation: \NNseeds{} fresh seeds (100--119). Ablations: 200--209. Rendered benchmark: 300--319. Oracle
+intervention: 400--419. Each set was used once. Structural thresholds, primary hypotheses and the predictions for
+the mechanism and transfer experiments were committed before the corresponding runs.
+
+\paragraph{Structural categories (fixed in advance).}
+A run is \emph{collapsed} if $\sigma_{\min}/\sigma_{\max}(B)<0.1$, and \emph{closed} if its closure is at most 1\% of the
+random-span level. It is \emph{correct-closed} if it is closed and its ground-truth algebra distance (mean squared sine
+of the principal angles between $\spn(RAR^\top)$ and the true span, with $R$ the Procrustes map from codes to true
+states) is at most 10\% of chance. A closed SO(3) span with participation ratio $\ge3$ is \emph{chiral}.
+
+\paragraph{Statistics.}
+Seeds are the independent units; cross-seed quantities use the \NNpairs{} \emph{disjoint} seed pairs. The primary
+family compares BracketNet with \textsc{+Comp.}, one-sided, with exact paired sign-flip tests and Holm correction:
+closure (H1), ground-truth algebra distance (H2) and cross-seed algebra distance (H3), each for $T^2$ and SO(3).
+Everything else is secondary, and we call a difference detectable only if its 95\% interval excludes zero.

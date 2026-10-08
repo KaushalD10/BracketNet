@@ -1,0 +1,26 @@
+\section{Setting and method}\label{sec:method}
+Observations $x=h(u)$ come from states $u$ through an unknown injective map. Training data are unlabeled triples
+$(x_0,x_1,x_2)=(h(u),h(g_1u),h(g_2g_1u))$ with near-identity $g_i$ from an unknown compact group, and $K$ is given.
+
+The model has an encoder $E$, a decoder $D$, an action-inference network $a=q(z,z')$ (bounded by $0.65\tanh$) and
+generators $A_k\in\so(d)$, each rescaled to $\|A_k\|_F=\sqrt2$. An action is $\rho(a)=\exp(\sum_ka_kA_k)$.
+
+With $z_t=E(x_t)$ and $a_{st}=q(z_s,z_t)$, the losses are:
+\begin{itemize}
+\item reconstruction $\sum_t\|D(z_t)-x_t\|^2$;
+\item transport in latent and observation space,
+$\sum_{t<2}\|\rho(a_{t,t+1})z_t-z_{t+1}\|^2$ and $\sum_{t<2}\|D(\rho(a_{t,t+1})z_t)-x_{t+1}\|^2$;
+\item composition $\|\rho(a_{02})-\rho(a_{12})\rho(a_{01})\|_F^2$;
+\item a Gram penalty $\|B^\top B-2I\|_F^2$ and an anti-collapse term $\|\mathrm{Cov}(z)-I\|_F^2$;
+\item the closure residual
+\begin{equation}\label{eq:close}
+\Lc=\frac1{K^2}\sum_{i,j}\big\|(I-P_\varepsilon)\operatorname{vec}[A_i,A_j]\big\|_2^2,\qquad
+P_\varepsilon=B(B^\top B+\varepsilon I)^{-1}B^\top,
+\end{equation}
+where $B$ stacks the vectorized generators.
+\end{itemize}
+
+\textsc{Local} uses reconstruction, transport and the regularizers. \textsc{+Comp.} adds composition (weight 1.2).
+\textsc{BracketNet} adds $\lambda(t)\Lc$: $\lambda(t)=0$ for 35\% of updates, a linear ramp to $\lambda$ by 70\%,
+and frozen generators afterwards. All three share networks, data and optimizer (weights in
+Appendix~\ref{app:protocol}).

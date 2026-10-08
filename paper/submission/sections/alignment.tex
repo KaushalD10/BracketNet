@@ -1,0 +1,69 @@
+\section{Representation alignment: agreement in embeddings vs.\ agreement in transformations}\label{sec:align}
+Models trained from different seeds can be compared at five levels: embedding geometry, transformation algebra,
+group representation, inferred action, and ground truth. We compare each pair of models on a shared probe set:
+\begin{itemize}
+\item \emph{alignment}: the orthogonal Procrustes map $R$ from $E_a(x)$ to $E_b(x)$, fitted on probe set A;
+\item \emph{embedding agreement}: linear CKA;
+\item \emph{algebra agreement}: the cross-seed algebra distance between $\spn(RA^{(a)}R^\top)$ and $\spn(A^{(b)})$;
+\item \emph{transfer}: on a held-out probe set B, apply the action inferred by $a$ in $b$'s space,
+$\hat x_{t+1}=D_b(R\rho_aR^\top E_b(x_t))$. The \emph{transfer gap} is $0$ when this is as good as $b$'s own action
+and $1$ when it is no better than the identity.
+\end{itemize}
+Independent units are \NNpairs{} disjoint seed pairs, the same for every method.
+
+\begin{table}[t]
+\centering\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\caption{Cross-seed alignment on \NNpairs{} disjoint pairs (mean$\pm$s.d.). Algebra distance chance: $0.80$
+($T^2$), $0.50$ (SO(3)). Transfer gap: 0 = native, 1 = identity. Projected: transferred actions re-expressed in
+$b$'s generators.}
+\label{tab:align}
+\begin{tabular}{llccccc}
+\toprule
+Group & Method & CKA & Algebra dist. & Action disagr. & Transfer gap & Projected gap\\
+\midrule
+\tabinput{../../results/final/tables/alignment.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Algebras agree more, through a few discrete classes.}
+For SO(3), the cross-seed algebra distance falls from \NHthreeSOthreeMeanb{} to \NHthreeSOthreeMeana{} (lower in
+\NHthreeSOthreeWins{} pairs, Holm $p=\NHthreeSOthreeHolmp$). For $T^2$ it does not change significantly.
+
+The SO(3) pairs separate by class:
+\begin{itemize}
+\item both models correct: distance $0$ (\NPtSOthreeBNBothcorrect{} pair);
+\item both in the same \emph{wrong} chiral class: distance $0$ (\NPtSOthreeBNBothsameincorrecttype{} pair);
+\item correct vs.\ chiral: distance $\approx\frac12$, as fixed by Prop.~\ref{prop:classify} (\NPtSOthreeBNCloseddifferenttypes{} pairs);
+\item at least one model non-closed: \NPtSOthreeBNInvolvesnonclosedorcollapsed{} pairs.
+\end{itemize}
+All \NPtSOthreeCompInvolvesnonclosedorcollapsed{} \textsc{+Comp.} pairs involve a non-closed model and spread over
+$[0,1]$. Closure thus replaces continuous disagreement with disagreement between a few closed classes, so
+cross-model agreement does not certify correctness (Cor.~\ref{cor:agree}).
+
+\paragraph{Transfer tracks structural \emph{agreement}, not correctness.}
+Over all 190 pairs of each method (pooled, descriptive):
+\begin{itemize}
+\item SO(3) pairs of two correct models transfer almost perfectly: median gap \REfiveSOthreeBothcorrectGap{},
+\REfiveSOthreeBothcorrectFail\% failures (gap $>0.5$), over \REfiveSOthreeBothcorrectN{} pairs.
+\item Pairs of two models in the same wrong class also transfer: median gap \REfiveSOthreeBothsameincorrectGap{},
+\REfiveSOthreeBothsameincorrectFail\% failures. Aligning them through the ground truth instead of to each other
+breaks transfer (median gap \REfiveSOthreeBothsameincorrectOraclegap).
+\item Correct-vs-chiral pairs transfer worse: median gap \REfiveSOthreeCorrectvsincorrectGap{},
+\REfiveSOthreeCorrectvsincorrectFail\% failures.
+\end{itemize}
+What makes transformations reusable across models is that both models learned the \emph{same} algebra, whether or not
+it is correct.
+
+\paragraph{CKA vs.\ structural distance as predictors of transfer failure (pre-registered; prediction not supported).}
+We pre-registered that the label-free algebra distance would predict transfer failure better than CKA. It did not.
+\begin{itemize}
+\item AUC for $T^2$: CKA \REfiveTtwoAuccka{} vs.\ algebra distance \REfiveTtwoAucdist.
+\item AUC for SO(3): CKA \REfiveSOthreeAuccka{} vs.\ algebra distance \REfiveSOthreeAucdist; difference interval
+$[\REfiveSOthreeDifflo,\REfiveSOthreeDiffhi]$ (seed-level cluster bootstrap).
+\end{itemize}
+Most transfer failures come from seed-level encoder failures, which CKA detects. CKA is, however, blind to
+\emph{class} mismatches: SO(3) correct-vs-chiral pairs have median CKA \REfiveSOthreeCorrectvsincorrectCka{}, the same as
+correct pairs (\REfiveSOthreeBothcorrectCka), yet a far larger transfer gap. Embedding similarity and algebra
+agreement capture different failure modes, and a structural comparison needs both.

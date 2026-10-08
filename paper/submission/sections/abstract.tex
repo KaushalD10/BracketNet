@@ -1,0 +1,22 @@
+\begin{abstract}
+When do independently trained models learn the same \emph{transformation structure}, and when does agreement between
+them reflect the truth? We study this for transition-based representation learners that infer latent actions from
+pairs of observations and represent them with learned skew-symmetric generators. We add a Lie-closure penalty
+(BracketNet) and evaluate on SO(2), $T^2$ and SO(3) actions observed through nonlinear maps and through rendered
+images, with every choice fixed on development seeds and fresh seeds evaluated once.
+
+\textbf{(1)} Transition fitting alone recovers the abelian $T^2$ algebra in most runs, but leaves the SO(3) generator
+span non-closed in \NSOthreeCompCatNonclosed/20 runs. Closure regularization closes it, roughly halves the distance to
+the true algebra, and makes the algebras of independently trained models agree more (Holm-corrected
+$p\le\NHthreeSOthreeHolmp$), with no detectable change in transport error.
+\textbf{(2)} Closed is not correct. \NSOthreeBNChiral/20 SO(3) runs close onto a \emph{chiral} $\su(2)$. We prove why
+the objective favours it: a rotation about the axis through a point leaves that point fixed, so the true action cannot
+be inferred from endpoints, whereas a chiral algebra acts simply transitively and makes transport and composition
+exact. Composition errors, a pre-registered intervention with true action coefficients, and a generator-span trace
+agree with this account.
+\textbf{(3)} Transfer of transformations between models tracks whether they learned the \emph{same} algebra, even a
+wrong one. Linear CKA catches encoder failures but not these class mismatches.
+
+Algebraic closure turns continuous disagreement between models into disagreement among a few closed subalgebras: it
+makes learned transformation structure comparable, but not identifiable.
+\end{abstract}

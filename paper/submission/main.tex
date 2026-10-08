@@ -1,0 +1,62 @@
+% Anonymous submission source (UniReps 2026 workshop at NeurIPS 2026).
+% Style: the official neurips_2026.sty must be placed in this directory for submission (build.sh official).
+% build.sh proxy uses a community copy of the 2026 style only to approximate layout; build.sh fallback uses a
+% plain-article stand-in. Every number in the text is a macro generated from raw results.
+\documentclass{article}
+\IfFileExists{neurips_2026.sty}{%
+  \usepackage[dblblindworkshop]{neurips_2026}%
+  \workshoptitle{UniReps: Unifying Representations in Neural Models}%
+}{%
+  \usepackage[letterpaper,textwidth=5.5in,textheight=9in,top=1in,headheight=12pt,headsep=25pt,footskip=30pt]{geometry}%
+  \usepackage[numbers,sort&compress]{natbib}%
+  \usepackage{mathptmx}%
+}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[hidelinks,pdfusetitle=false]{hyperref}
+\hypersetup{pdfauthor={},pdftitle={Closing the Algebra Is Not Enough},pdfsubject={},pdfkeywords={},pdfcreator={},pdfproducer={}}
+\usepackage{microtype}
+\renewcommand{\ttdefault}{pcr}
+\emergencystretch=2em
+\makeatletter\newcommand{\tabinput}[1]{\@@input #1 }\makeatother
+\graphicspath{{../../figures/final/}{../../figures/review/}}
+\input{../../results/final/tables/numbers.tex}
+\input{../../results/review/numbers_review.tex}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newcommand{\so}{\mathfrak{so}}
+\newcommand{\su}{\mathfrak{su}}
+\newcommand{\Lc}{\mathcal{L}_{\mathrm{close}}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\spn}{\operatorname{span}}
+
+\title{Closing the Algebra Is Not Enough: Lie-Closure Regularization\\ Makes Learned Transformation Structure Comparable, Not Identifiable}
+\author{Anonymous Author(s)\\Affiliation\\Address\\\texttt{email}}
+\date{}
+
+\begin{document}
+\maketitle
+\input{sections/abstract}
+\input{sections/intro}
+\input{sections/related}
+\input{sections/setting_method}
+\input{sections/theory}
+\input{sections/protocol}
+\input{sections/results}
+\input{sections/alignment}
+\input{sections/ablations}
+\input{sections/limitations}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\newpage
+\appendix
+\input{sections/appendix}
+\end{document}

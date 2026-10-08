@@ -1,0 +1,27 @@
+\section{Limitations}\label{sec:limits}
+\begin{itemize}
+\item \textbf{Synthetic scope.} Both benchmarks, including the rendered one, are synthetic, low-dimensional and
+compact. We make no claim about natural images, physical systems or large models.
+\item \textbf{Known $K$, orthogonal actions.} Closure cannot discover the dimension and presupposes compact
+(orthogonal) actions.
+\item \textbf{No identifiability.} Wrong closed algebras are frequent for SO(3), and correct algebras still have
+irreducible action ambiguity (Prop.~\ref{prop:endpoint}c). Our ground-truth comparisons use orthogonal Procrustes, so
+they assume a near-isometric encoder; the $T^2$ failures are seed-level fitting failures shared by all methods.
+\item \textbf{Limited baselines.} We compare controlled objective variants and an action-supervised oracle; we do not
+reimplement published methods with different supervision.
+\item \textbf{Statistics and protocol.} We use 20 seeds; effects outside SO(3) are small or concentrated in few
+seeds. No transport improvement is established. The closure-weight rule needed an amendment, committed before any fresh
+run. One pre-registered prediction (structure beats CKA at predicting transfer failure) was not supported.
+\item \textbf{Theory is local or benchmark-specific.} The escape bound covers only small actions, the classification is
+specific to $\so(4)$ and $\so(5)$, and Prop.~\ref{prop:endpoint} characterizes the loss at the ground-truth embedding,
+not the optimization path.
+\end{itemize}
+
+\section{Conclusion}\label{sec:conclusion}
+Penalizing Lie closure changes \emph{how} independently trained transformation models disagree. Continuous scatter
+over generator spans becomes a choice among a few closed subalgebras. For SO(3) this raises algebraic agreement
+between models, and it lets actions transfer between models that made the same choice. But the choice is often wrong,
+for a reason we can state precisely: actions inferred from endpoints cannot see rotations about the axis through a
+point, and a chiral algebra hides that blind spot by fitting transitions and compositions exactly. For representation
+alignment, the lesson is that agreement must be measured at the level of transformations as well as embeddings, and
+that agreement at either level is not evidence of correctness.

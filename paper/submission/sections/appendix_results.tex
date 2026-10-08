@@ -1,0 +1,73 @@
+\section{Additional results}\label{app:results}
+\begin{table}[ht]
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Structural breakdown of fresh-seed runs (counts out of 20). Incorrect-closed runs are shown with the chiral
+count in parentheses. ``Bad action'' counts correct-closed runs whose action disagreement with the truth exceeds 0.5.
+PR: participation ratio.}
+\label{tab:structure}
+\begin{tabular}{llccccccc}
+\toprule
+Group & Method & Correct & Incorrect (chiral) & Non-closed & Collapsed & Bad action & Action disagr. & PR\\
+\midrule
+\tabinput{../../results/final/tables/structure.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Ablations on seeds 200--209 (mean$\pm$s.d.). Coverage is the fraction of the true span contained in the
+learned span. Categories: correct / incorrect / non-closed / collapsed. With misspecified $K$, ``correct'' is
+impossible by definition.}
+\label{tab:ablations}
+\begin{tabular}{llccccc}
+\toprule
+Group & Variant & 10-step MSE & Closure & GT dist. & Coverage & Categories\\
+\midrule
+\tabinput{../../results/final/tables/ablations.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering\scriptsize
+\caption{Development grid (seeds 5--9; selection only; means over 5 seeds). For each method: 10-step MSE,
+closure, correct-closed count.}
+\label{tab:devbudget}
+\begin{tabular}{llccccccccc}
+\toprule
+& & \multicolumn{3}{c}{Local} & \multicolumn{3}{c}{+Comp.} & \multicolumn{3}{c}{BracketNet}\\
+Group & Updates & MSE & closure & CC & MSE & closure & CC & MSE & closure & CC\\
+\midrule
+\tabinput{../../results/final/tables/dev_budget.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[ht]\centering
+\includegraphics[width=\linewidth]{fig_alignment.pdf}
+\caption{Cross-seed algebra distance on 10 disjoint pairs (grey lines join the same pair across methods; BN =
+BracketNet) and latent CKA.}\label{fig:align}
+\end{figure}
+
+\begin{figure}[ht]\centering
+\includegraphics[width=\linewidth]{fig_categories.pdf}
+\caption{Structural category of each fresh-seed run (BN = BracketNet).}\label{fig:cat}
+\end{figure}
+
+\begin{figure}[ht]\centering
+\includegraphics[width=\linewidth]{fig_dev_budget.pdf}
+\caption{Development-seed budget sweep (solid: $T^2$; dotted: SO(3)); the vertical line marks the selected budget.}
+\end{figure}
+
+\begin{figure}[ht]\centering
+\includegraphics[width=\linewidth]{fig_transport.pdf}
+\caption{Chained transport error (mean $\pm$ s.d., 20 fresh seeds).}
+\end{figure}
+
+\section{Reproducibility}
+The anonymized supplement contains the data generator, models, training and analysis code, the selection rules and
+review predictions, per-run result files for every run, the fresh-seed checkpoints, figure scripts and unit tests.
+Every number in the text is generated as a \LaTeX{} macro from the raw files.

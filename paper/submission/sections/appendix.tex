@@ -1,0 +1,74 @@
+\input{sections/appendix_proofs}
+
+\section{Protocol details}\label{app:protocol}
+\paragraph{Architecture and optimization.}
+$E,D,q$ are two-hidden-layer SiLU MLPs of width 64. The latent dimension is $d$, generators are initialized as
+$W\sim\mathcal N(0,1/d)$, and coefficients are $0.65\tanh(\cdot)$. Training uses AdamW (lr $2\times10^{-3}$, weight
+decay $10^{-5}$), batch 160, gradient clipping at 5, $\varepsilon=10^{-6}$, Gram weight 1 and anti-collapse weight 16.
+The anti-collapse weight was chosen in a preliminary round on seeds 5--6 by a method-agnostic criterion. The final
+iterate is evaluated, with no early stopping. All runs are CPU-only and bit-identical on repeat.
+
+\paragraph{Order of operations.}
+\begin{enumerate}
+\item Selection rules committed.
+\item Development grid (280 runs).
+\item Rules applied by script.
+\item Fresh seeds 100--119 and ablation seeds 200--209, each run once.
+\item Review predictions committed.
+\item Trace, oracle and rendered runs.
+\end{enumerate}
+No setting was changed after any fresh-seed result was seen.
+
+\paragraph{Rendered benchmark.}
+The image has $20\times20$ pixels on $[-3.2,3.2]^2$. The blob centre is $(z_1,z_2)$, its width is
+$0.45\,e^{0.3z_3}$ and its amplitude is $1+0.5\tanh z_4$. Positions are scaled by $0.7$ so that blobs stay in view.
+Centre, width and amplitude determine $z$, so the map is injective.
+
+\paragraph{Oracle intervention.}
+The transport terms use the true coefficients of each training edge. The composition term is dropped, because
+$a_{02}$ is a product rather than a single coefficient. $q$ is trained only by regression to the true coefficients,
+for evaluation.
+
+\section{Statistical audit}\label{app:stats}
+The six primary tests were recomputed from the raw run files by an independent implementation, and all matched. The
+$t$-interval can disagree with the primary sign-flip test when differences are skewed, so we also report the interval
+obtained by inverting the two-sided exact sign-flip test, which matches the primary procedure, and a percentile
+bootstrap interval.
+
+\begin{table}[ht]
+\centering\scriptsize
+\setlength{\tabcolsep}{2.4pt}
+\caption{Paired differences (BracketNet $-$ +Comp.). Intervals: $t$; sign-flip-inverted; bootstrap.}
+\begin{tabular}{llcccccc}
+\toprule
+Test & Group & $n$ & median diff. & skew & $t$ 95\% & inverted sign-flip 95\% & bootstrap 95\%\\
+\midrule
+\tabinput{../../results/review/tables/stats_audit.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Comparison of settings}\label{app:novelty}
+\begin{table}[ht]
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{2.9cm}p{2.6cm}p{2.3cm}p{2.0cm}p{1.9cm}}
+\toprule
+Work & Supervision & Learned structure & Closure & Cross-model structure\\
+\midrule
+Rao \& Ruderman; Sohl-Dickstein et al. & transformed pairs & linear generators & not enforced & no\\
+Cohen \& Welling 2014 & pairs, commutative group & irreps of a torus & abelian by design & no\\
+LieGAN / LaLiGAN & distributional invariance & generators (latent) & not penalized & no\\
+Homomorphism AE & transitions + action labels & homomorphism into matrix group & via composition & no\\
+CKA / shape metrics & trained networks & --- & --- & embeddings only\\
+This work & transitions, no labels & generators + endpoint actions & closure penalty & algebras, transfer\\
+\bottomrule
+\end{tabular}
+\end{table}
+These summaries describe each setting at the level needed to judge overlap; see the cited papers for details.
+
+\input{sections/appendix_results}
+
+\section{Use of AI assistance}
+Code, experiments, analyses and drafts of this manuscript were developed with substantial assistance from an AI
+coding assistant. The authors are responsible for all content and have checked the claims, proofs and results.

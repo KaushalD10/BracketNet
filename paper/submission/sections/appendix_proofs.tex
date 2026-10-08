@@ -1,0 +1,94 @@
+\section{Proofs}\label{app:proofs}
+\paragraph{Invariance law.}
+Under $B\mapsto BM$, $[A'_i,A'_j]=\sum_{k,l}M_{ki}M_{lj}[A_k,A_l]$, so the commutator matrix becomes
+$C(M\otimes M)$, while $P_0(BM)=P_0(B)$. Hence $R\mapsto R(M\otimes M)$, and the bounds follow from
+$\sigma(M\otimes M)=\{\sigma_i\sigma_j\}$. For $\varepsilon>0$,
+$P_\varepsilon(BM)=BM(M^\top GM+\varepsilon I)^{-1}M^\top B^\top=B(G+\varepsilon M^{-\top}M^{-1})^{-1}B^\top$.
+
+\paragraph{Proposition~\ref{prop:basic}.}
+\emph{(a)} The commutator is bilinear and antisymmetric and satisfies Jacobi, so closure makes $\mathfrak a$ a Lie
+subalgebra; the Lie subgroup theorem \citep[Ch.~5]{hall2015lie} gives the integrating subgroup. It need not be
+closed: an irrational line in a torus is an example.
+
+\emph{(b)} Write $X=\sum x_iA_i$, $Y=\sum y_jA_j$ and $r_{ij}=N[A_i,A_j]$. Then
+$\|N[X,Y]\|\le\|x\|\|y\|(\sum\|r_{ij}\|^2)^{1/2}=\|x\|\|y\|K\sqrt{\Lc}$ by Cauchy--Schwarz, and
+$\|X\|^2=x^\top Gx\ge\lambda_{\min}\|x\|^2$.
+
+\emph{(c)} Dynkin's form \citep{bonfiglioli2012topics} is
+$\log(e^Xe^Y)=\sum_{m\ge1}\frac{(-1)^{m-1}}{m}\sum\frac{[w]}{|w|\prod r_i!s_i!}$, summed over words
+$w=X^{r_1}Y^{s_1}\cdots X^{r_m}Y^{s_m}$ with $r_i+s_i\ge1$, where $[w]$ is right-nested.
+\begin{itemize}
+\item By submultiplicativity, $\|[w]\|\le2^{|w|-1}r^{|w|}$.
+\item Let $e_n$ bound $\|N[w]\|$ for $|w|=n$, so $e_1=0$ and $e_2\le\delta r^2$. Write $[w]=[W,Z]$ with $W$ a letter.
+\item $[W,P_0Z]$ has both arguments in $\mathfrak a$, so its escape is at most $\delta r\|Z\|\le\delta2^{n-2}r^n$;
+and $\|[W,NZ]\|\le2re_{n-1}$. By induction $e_n\le(n-1)2^{n-2}\delta r^n$.
+\item Each word therefore contributes at most $\frac{\delta}{4}(2r)^{|w|}/\prod r_i!s_i!$. The full sum is
+$\sum_m\frac1m(e^{4r}-1)^m=-\ln(2-e^{4r})$ for $r<\ln2/4$.
+\item The length-1 words lie in $\mathfrak a$ and account for $4r$; subtracting them gives the bound.
+\item The length-2 words sum to $\frac12[X,Y]$, whose escape is at most $\frac12\delta r^2$; replacing their crude
+contribution $4\delta r^2$ gives $\frac12\delta r^2+O(\delta r^3)$.
+\item The series converges absolutely on this ball, and the principal logarithm is analytic there
+($\|e^Xe^Y-I\|<1$). Both sides agree near $0$, hence on the whole connected ball.
+\end{itemize}
+
+\emph{(d)} With $d_t=\hat z_t-z_t$: $d_{t+1}=R_td_t-e_t$ and $\|R_td_t\|=\|d_t\|$.
+$\square$
+
+\paragraph{Proposition~\ref{prop:classify}.}
+Subalgebras of $\so(d)$ carry the ad-invariant negative-definite form $\operatorname{tr}(XY)$, hence are compact and
+reductive.
+
+\emph{(a)} A 2-dimensional reductive algebra is abelian. It is maximal abelian because
+$\operatorname{rank}\so(5)=2$, and maximal abelian subalgebras of a compact Lie algebra are conjugate
+\citep{adams1969lectures}.
+
+\emph{(b)} A 3-dimensional reductive subalgebra $\mathfrak h$ of $\so(4)$ cannot be abelian (the rank is 2), so
+$\mathfrak h\cong\su(2)$. Its projections onto the ideals $\su(2)_{L},\su(2)_{R}$ are zero or injective, because
+$\mathfrak h$ is simple.
+\begin{itemize}
+\item If one projection is zero, $\mathfrak h$ is a factor. The factors are ideals, hence invariant under all of
+$SO(4)$, and a reflection exchanges them.
+\item Otherwise $\mathfrak h$ is the graph of an automorphism of $\su(2)$. That automorphism is inner, and
+$SU(2)\times SU(2)\to SO(4)$ is onto, so $\mathfrak h$ is conjugate to the diagonal. The diagonal is the stabilizer
+algebra of a unit vector, i.e.\ $\so(3)$ on $\mathbb R^3\oplus\mathbb R$.
+\end{itemize}
+The Pfaffian is $SO(4)$-invariant and odd under reflections. It vanishes on rank-2 rotations and equals
+$\pm\frac12$ on unit elements of $\su(2)_{L/R}$.
+
+\emph{(c)} A 4-dimensional reductive subalgebra is $\su(2)\oplus\mathfrak u(1)$ with the $\mathfrak u(1)$ central.
+The centralizer of the diagonal $\so(3)$ is trivial, because $\so(4)\cong\Lambda^2\mathbb R^4$ decomposes as
+$\mathbf 3\oplus\mathbf 3$ under it, with no trivial summand. So the $\su(2)$ must be a factor, and the span cannot
+contain the diagonal. $\square$
+
+\paragraph{Proposition~\ref{prop:endpoint}.}
+Here $g\in SO(3)$ acts on $z_{1:3}$ and fixes $z_4$, so transitions preserve $\|z\|$.
+
+\emph{(a)} Identify $\mathbb R^4$ with the quaternions $\mathbb H$. The exponential of $\su(2)_L$ is left
+multiplication by unit quaternions, which acts simply transitively on each sphere $\|z\|=\rho>0$. For
+$\|z\|=\|z'\|$, $u=z'z^{-1}$ is the unique unit quaternion with $L_uz=z'$.
+\begin{itemize}
+\item $q=\log u$ is continuous wherever $u\neq-1$.
+\item $u_{02}=z_2z_0^{-1}=(z_2z_1^{-1})(z_1z_0^{-1})=u_{12}u_{01}$, so composition is exact.
+\item Closure is exact, the basis is orthonormal so the Gram penalty is $0$, and $\mathrm{Cov}(z)=I$ in population.
+\end{itemize}
+Only coefficients beyond the bound $0.65$ break exactness.
+
+\emph{(b)} Suppose a continuous rule gives $R(z,z')\in SO(3)$ with $R(z,z')z=z'$ and
+$R(z_0,z_2)=R(z_1,z_2)R(z_0,z_1)$ whenever all pairwise distances are $<\epsilon$ on a sphere $S\cong S^2$.
+\begin{itemize}
+\item Then $R(z,z)=I$, and products of $R$ along $\epsilon$-chains depend only on the endpoints and on the homotopy
+class of the chain, since homotopic chains differ by small-triangle moves.
+\item $S$ is simply connected, so fixing $e\in S$, $s(z)=R_{\text{chain}}(e\to z)$ is a continuous map
+$S\to SO(3)$ with $s(z)e=z$.
+\item For a unit $f\perp e$, $z\mapsto s(z)f$ is then a nowhere-vanishing tangent field on $S^2$, contradicting the
+hairy-ball theorem.
+\end{itemize}
+
+\emph{(c)} For fixed endpoints $(z,z')$, the set $\{g:gz=z'\}$ is a coset of the circle stabilizing $z$. Under
+Gaussian coefficients the conditional law of $g$ on that circle has a density, so
+$\mathbb E\|\hat g-g\|^2\ge\mathbb E\,\operatorname{tr}\operatorname{Cov}(g\mid z,z')>0$ for every estimator
+$\hat g$. $\square$
+
+\paragraph{Corollary~\ref{cor:agree}.}
+This is Prop.~\ref{prop:endpoint}(a) applied to both models, together with Prop.~\ref{prop:classify}(b) and the
+distance $\frac12$ between the diagonal and a chiral span. $\square$

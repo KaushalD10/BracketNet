@@ -1,0 +1,32 @@
+\section{Introduction}\label{sec:intro}
+Representation-similarity methods ask whether two networks embed data in the same way, up to a class of
+transformations \citep{kornblith2019similarity,williams2021generalized,moschella2023relative}. For models that learn
+how data \emph{transform}, there is a second question: do they agree on the transformations themselves? This matters
+when actions inferred by one model are to be used in another, and when a learned symmetry is read as a scientific
+statement. Embedding agreement does not settle it. Two models can embed the same data almost identically and still
+represent its transformations by different Lie algebras, and two models can agree perfectly with each other while
+both being wrong (Cor.~\ref{cor:agree}).
+
+We study this in transition-based symmetry learning \citep{park2022learning,keurti2023homomorphism,yang2024latent}. A
+model infers a latent action from a pair of observations and represents it through learned generators. Nothing in a
+transition loss requires those generators to span a Lie algebra, so a natural structural bias is to penalize
+commutators that leave their span. We ask:
+\emph{when do independently learned transformation representations become structurally comparable, and why does
+algebraic consistency fail to make them identifiable?}
+
+\paragraph{Contributions.}
+\begin{itemize}
+\item \textbf{An evaluation that separates five levels of agreement}: embedding, algebra, representation class,
+inferred action and ground truth. It includes cross-model transformation transfer, uses disjoint seed pairs as
+independent units, and pre-registers its primary tests.
+\item \textbf{Evidence that closure changes the \emph{kind} of disagreement.} For SO(3), transition fitting leaves
+generator spans non-closed and scattered. A closure penalty concentrates them on the three closed classes allowed in
+$\so(4)$, one correct and two chiral, which improves cross-model agreement without guaranteeing correctness.
+\item \textbf{A mechanism with a proof} (Prop.~\ref{prop:endpoint}). Endpoint-based action inference cannot capture
+rotations about the axis through a point, whereas chiral algebras make transport and composition exact. The objective
+therefore favours a wrong closed algebra. Three tests, two of them pre-registered, support this account.
+\item \textbf{A transfer analysis}: actions transfer between models that learned the same algebra, right or wrong.
+CKA catches representation failures but not algebra-class mismatches.
+\end{itemize}
+We also give a corrected invariance analysis of the closure loss and a local bound on how far products of group
+elements leave the learned span. The underlying Lie theory is standard; we cite it as such.

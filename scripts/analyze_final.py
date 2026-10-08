@@ -70,6 +70,12 @@ def paired(runs, g, a, b, key, alt="two-sided"):
     return paired_report([flat(runs[(g, a)][s])[key] for s in seeds], [flat(runs[(g, b)][s])[key] for s in seeds], alt)
 
 
+def mathsafe(v):
+    """Wrap values with math syntax so the macro works in text and in math mode."""
+    v = str(v)
+    return f"\\ensuremath{{{v}}}" if ("\\times" in v or "^" in v) else v
+
+
 def main():
     test, abl, dev = load("test"), load("ablation"), load("dev")
     S = dict(protocol=P, test={f"{g}/{t}": summarize_cell(v) for (g, t), v in test.items()},
@@ -301,7 +307,7 @@ def fp(x):
 
 def write_numbers(S):
     L = []
-    add = lambda name, val: L.append(f"\\newcommand{{{name}}}{{{val}}}")
+    add = lambda name, val: L.append(f"\\newcommand{{{name}}}{{{mathsafe(val)}}}")
     P_ = S["protocol"]
     add("\\NSteps", P_["training"]["steps"])
     add("\\NLambda", f"{P_['training']['closure_weight']:g}")

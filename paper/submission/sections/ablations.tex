@@ -1,0 +1,13 @@
+\section{Ablations}\label{sec:ablations}
+Ablations use seeds 200--209 with same-seed references (Appendix Table~\ref{tab:ablations}).
+\begin{itemize}
+\item \emph{Replication.} \textsc{+Comp.}\ again has higher SO(3) closure and ground-truth distance than BracketNet
+($+\NAbpSOthreeCompreferenceGtdistanceMeandiff$,
+$[\NAbpSOthreeCompreferenceGtdistanceCilo,\NAbpSOthreeCompreferenceGtdistanceCihi]$).
+\item \emph{Anti-collapse term.} Essential: at weight 1 the $T^2$ latent distorts (CKA with the truth
+\NAbTtwoWeakanticollapseCkatruth) and correct-closed runs fall to \NAbTtwoWeakanticollapseCc.
+\item \emph{No detectable effect}: the fit--close--refit schedule (constant penalty or no freeze), the Gram penalty,
+and a span-only closure objective. We do not claim the schedule is necessary.
+\item \emph{Misspecified $K$.} With $K{+}1$ no run is correct-closed (\NAbSOthreeKplusoneCc{} for SO(3)), as
+Prop.~\ref{prop:classify}(c) requires.
+\end{itemize}

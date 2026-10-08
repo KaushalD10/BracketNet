@@ -70,6 +70,11 @@ def e2():
                auc_abs_chi_at_ramp=auc([abs(r[f"chi_{ramp}"]) for r in closed], y),
                auc_abs_chi_at_init=auc([abs(r[f"chi_{steps[0]}"]) for r in closed], y),
                n_closed=len(closed), n_chiral=int(sum(y)))
+    # POST-HOC (not pre-registered): closure residual of the span at the ramp start as a predictor
+    out["posthoc_auc_closure_at_ramp"] = auc([r[f"closure_{ramp}"] for r in closed], y)
+    out["posthoc_correct_nearclosed_at_ramp"] = int(sum(r[f"closure_{ramp}"] < 0.1 for r in closed if r["final_class"] == "correct_closed"))
+    out["posthoc_chiral_far_at_ramp"] = int(sum(r[f"closure_{ramp}"] >= 0.1 for r in closed if r["final_class"] != "correct_closed"))
+    out["n_correct_closed"] = int(sum(r["final_class"] == "correct_closed" for r in closed))
     for c in ["correct_closed", "incorrect_closed-chiral", "nonclosed"]:
         sub = [r for r in rows if r["final_class"] == c]
         out[f"median_abs_chi_ramp_{c}"] = float(np.median([abs(r[f"chi_{ramp}"]) for r in sub])) if sub else None
@@ -150,10 +155,16 @@ def fp(x):
     return fmt(x, 2) if x >= 0.01 else f"{x / 10 ** int(np.floor(np.log10(x))):.1f}\\times10^{{{int(np.floor(np.log10(x)))}}}"
 
 
+def mathsafe(v):
+    """Wrap values with math syntax so the macro works in text and in math mode."""
+    v = str(v)
+    return f"\\ensuremath{{{v}}}" if ("\\times" in v or "^" in v) else v
+
+
 def main():
     S = dict(E1=e1())
     L = []
-    add = lambda n, v: L.append(f"\\newcommand{{{n}}}{{{v}}}")
+    add = lambda n, v: L.append(f"\\newcommand{{{n}}}{{{mathsafe(v)}}}")
     for k, v in S["E1"].items():
         kk = k.replace("_", "").replace("-", "")
         add(mac("Eone", kk, "n"), v["n"])
@@ -168,6 +179,10 @@ def main():
         add(mac("Etwo", "aucinit"), fmt(e["auc_abs_chi_at_init"], 2))
         add(mac("Etwo", "nclosed"), e["n_closed"])
         add(mac("Etwo", "nchiral"), e["n_chiral"])
+        add(mac("Etwo", "ncorrect"), e["n_correct_closed"])
+        add(mac("Etwo", "aucclosure"), fmt(e["posthoc_auc_closure_at_ramp"], 2))
+        add(mac("Etwo", "correctnear"), e["posthoc_correct_nearclosed_at_ramp"])
+        add(mac("Etwo", "chiralfar"), e["posthoc_chiral_far_at_ramp"])
         for c in ["correct_closed", "incorrect_closed-chiral", "nonclosed"]:
             add(mac("Etwo", "chiramp", c.replace("_", "").replace("-", "")), fmt(e[f"median_abs_chi_ramp_{c}"], 2))
             add(mac("Etwo", "chifinal", c.replace("_", "").replace("-", "")), fmt(e[f"median_abs_chi_final_{c}"], 2))
@@ -243,6 +258,17 @@ def main():
         add(mac("Inv", hh, gg, "hi"), fmt(SA[k]["signflip_inverted_ci"][1], 4))
         add(mac("Inv", hh, gg, "median"), fmt(SA[k]["median_diff"], 4))
         add(mac("Inv", hh, gg, "skew"), fmt(SA[k]["skew"], 2))
+    # statistical audit table (appendix): t vs. sign-flip-inverted vs. bootstrap intervals
+    tab = []
+    lab = {"H1": "H1 closure", "H2": "H2 GT distance", "H3": "H3 cross-seed"}
+    for k in ["H1_T2", "H2_T2", "H3_T2", "H1_SO3", "H2_SO3", "H3_SO3"]:
+        h, g = k.split("_")
+        v = SA[k]
+        ci = lambda c: f"[{c[0]:+.4f}, {c[1]:+.4f}]"
+        tab.append(f"{lab[h]} & {'$T^2$' if g == 'T2' else 'SO(3)'} & {v['n']} & {v['median_diff']:+.4f} & {v['skew']:.2f} & "
+                   f"{ci(v['t_ci'])} & {ci(v['signflip_inverted_ci'])} & {ci(v['bootstrap_ci'])} \\\\")
+    (RV / "tables").mkdir(exist_ok=True)
+    (RV / "tables/stats_audit.tex").write_text("\n".join(tab) + "\n")
     names = [l.split("}{")[0] for l in L]
     assert len(names) == len(set(names)), "duplicate macro"
     (RV / "summary_review.json").write_text(json.dumps(S, indent=1, default=str))

@@ -1,0 +1,83 @@
+\section{Theory: what closure guarantees, and why it can prefer the wrong algebra}\label{sec:theory}
+Notation: $\mathfrak a=\spn(A)$, $G=B^\top B$, $P_0$ the orthogonal projector onto $\mathfrak a$, $N=I-P_0$.
+Proofs are in Appendix~\ref{app:proofs}. Standard Lie-theoretic facts are cited as such; our contributions are
+their consequences for this learning objective.
+
+\paragraph{Invariances.}
+With $\varepsilon{=}0$ and $M\in GL(K)$, $\Lc(BM)=K^{-2}\|R(M\otimes M)\|_F^2$, where $R$ is the residual matrix,
+so $\sigma_{\min}(M)^4\Lc\le\Lc(BM)\le\sigma_{\max}(M)^4\Lc$. The loss is invariant only under orthogonal
+reparameterizations; its zero set (``$\mathfrak a$ is a subalgebra'') is $GL(K)$-invariant. For $\varepsilon>0$,
+$P_\varepsilon(BM)=B(G+\varepsilon M^{-\top}M^{-1})^{-1}B^\top$. Because $\operatorname{diag}G=2$, the Gram target
+affects no gradient.
+
+\begin{proposition}[Closure, escape and integration]\label{prop:basic}
+(a)~If $A_1,\dots,A_K$ are independent and $[A_i,A_j]\in\mathfrak a$, then $\mathfrak a$ is a Lie subalgebra and
+integrates to a connected immersed subgroup of $SO(d)$ (standard).
+(b)~The uniform escape constant
+$\delta=\sup_{X,Y\in\mathfrak a}\|N[X,Y]\|_F/(\|X\|_F\|Y\|_F)$ satisfies
+$\delta\le K\sqrt{\Lc(A;0)}/\lambda_{\min}(G)$.
+(c)~For $X,Y\in\mathfrak a$ with $\|X\|_F,\|Y\|_F\le r<\frac{\ln2}{4}$,
+$\dist(\log(e^Xe^Y),\mathfrak a)\le\frac{\delta}{4}[-\ln(2-e^{4r})-4r]=\tfrac12\delta r^2+O(\delta r^3)$.
+(d)~Chained orthogonal transport accumulates per-step errors at most additively.
+\end{proposition}
+
+Part (c) is local: it covers rotations of up to $\approx0.12$\,rad, smaller than typical inferred actions.
+
+\paragraph{Closed subalgebras in the benchmarks.}
+Write $\so(4)=\su(2)_L\oplus\su(2)_R$ (two commuting ideals).
+
+\begin{proposition}[Classification; standard facts applied to our benchmarks]\label{prop:classify}
+(a)~Every 2-dimensional subalgebra of $\so(5)$ is abelian and $SO(5)$-conjugate to the true $\mathfrak t^2$.
+(b)~Every 3-dimensional subalgebra of $\so(4)$ is isomorphic to $\su(2)$. It is $SO(4)$-conjugate to exactly one
+of three: the diagonal $\so(3)$ acting on $\mathbb R^3\oplus\mathbb R$ (the truth), $\su(2)_L$ or $\su(2)_R$.
+Under $O(4)$ the two chiral factors merge into one class.
+(c)~No closed 4-dimensional span in $\so(4)$ contains the diagonal $\so(3)$.
+\end{proposition}
+
+The three SO(3) classes are separated by the Pfaffian of unit elements ($0$, $+\frac12$, $-\frac12$) and by the
+participation ratio ($2$ vs.\ $4$). Diagonal and chiral spans are at subspace distance exactly $\frac12$ (principal
+angles of $45^\circ$). An optimization that does not use the classification confirms it: minimizing a span-only
+closure residual from \RFlowN{} random 3-dimensional subspaces of $\so(4)$ converged to \RFlowDiag{} diagonal and
+\RFlowChiral{} chiral spans, and to nothing else.
+
+\paragraph{Endpoint ambiguity: why the objective can prefer a wrong closed algebra.}
+BracketNet infers each action from the two endpoint codes, $a=q(z,z')$. For the true SO(3) action this is
+ill-posed. A rotation about the axis through $z$ fixes $z$, so $g$ and $g\exp(t\hat z)$ have the same endpoints. A
+chiral $\su(2)$ has no such ambiguity: left multiplication by unit quaternions acts simply transitively on every
+sphere of $\mathbb R^4\cong\mathbb H$.
+
+\begin{proposition}[Endpoint ambiguity]\label{prop:endpoint}
+On the SO(3) benchmark, use the ground-truth state as the latent code.
+(a)~With chiral generators, the endpoint rule $q(z,z')=\log(z'z^{-1})$ makes transport and composition exact on
+every triple whose coefficients lie in the coefficient domain. The closure, Gram and covariance terms vanish as well.
+(b)~With the true diagonal generators, no continuous endpoint rule can make transport and composition exact on all
+triples with pairwise distance $<\epsilon$ on a sphere, for any $\epsilon>0$.
+(c)~For any action-inference rule based on endpoints, $\mathbb E\|\rho(q(z,gz))-g\|^2>0$ under the true action:
+the stabilizer component of $g$ is not identifiable from $(z,gz)$.
+\end{proposition}
+
+Part (b) follows from the hairy-ball theorem: exact composition on small triangles would define a continuous section
+of $SO(3)\to S^2$. On the actual data, the minimal-rotation rule for the true algebra transports exactly but leaves
+a composition residual of $3.2\times10^{-3}$; the chiral rule leaves ${\sim}10^{-31}$.
+
+\begin{corollary}[Agreement without correctness]\label{cor:agree}
+Two models with identical, ground-truth embeddings and $\su(2)_L$ generators have all of the following:
+\begin{itemize}
+\item linear CKA $1$ with each other and with the true state;
+\item zero closure, transport and composition loss (up to coefficient clipping);
+\item cross-model algebra distance $0$, but distance $\frac12$ to the true algebra;
+\item inferred actions that are not the true rotations.
+\end{itemize}
+\end{corollary}
+
+\paragraph{The implication chain, made precise.}
+Write (i) closure, (ii) correct conjugacy class, (iii) recovery after latent alignment, (iv) correct action
+inference.
+\begin{itemize}
+\item (i)$\Rightarrow$(ii) holds for $T^2$ (Prop.~\ref{prop:classify}a) and fails for SO(3) (Prop.~\ref{prop:classify}b).
+\item (ii)$\Rightarrow$(iii) additionally needs an encoder close to an isometry of the state space.
+\item (iii)$\Rightarrow$(iv) fails for SO(3) for \emph{every} endpoint method (Prop.~\ref{prop:endpoint}c).
+\item Agreement between models implies none of (ii)--(iv) (Cor.~\ref{cor:agree}).
+\end{itemize}
+Proposition~\ref{prop:endpoint} describes the loss landscape at one embedding. It does not say which solution
+gradient descent reaches; Sec.~\ref{sec:mechanism} tests that empirically.
