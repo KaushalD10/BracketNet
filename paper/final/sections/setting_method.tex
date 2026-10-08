@@ -1,0 +1,33 @@
+\section{Problem setting and method}\label{sec:method}
+\paragraph{Setting.}
+Observations $x=h(u)\in\mathbb R^p$ arise from states $u$ through an unknown injective map $h$. We observe
+unlabeled triples $(x_0,x_1,x_2)=(h(u),h(g_1u),h(g_2g_1u))$, where $g_1,g_2$ are near-identity elements of an
+unknown connected compact group. The generator count $K$ is given.
+
+We learn an encoder $E:\mathbb R^p\to\mathbb R^d$, a decoder $D$, an action-inference network
+$a=q(z,z')\in\mathbb R^K$ (bounded as $0.65\tanh(\cdot)$), and generators $A_1,\dots,A_K\in\so(d)$. A
+coefficient vector acts as $\rho(a)=\exp(\sum_ka_kA_k)\in SO(d)$. Each $A_k$ is antisymmetrized and rescaled
+to $\|A_k\|_F=\sqrt2$ at every forward pass.
+
+\paragraph{Objectives.}
+With $z_t=E(x_t)$ and $a_{st}=q(z_s,z_t)$:
+\begin{itemize}
+\item reconstruction $\mathcal L_{\mathrm{rec}}=\sum_t\|D(z_t)-x_t\|^2$;
+\item one-step transport in latent and observation space,
+  $\mathcal L_{\mathrm{loc,lat}}=\sum_{t<2}\|\rho(a_{t,t+1})z_t-z_{t+1}\|^2$ and
+  $\mathcal L_{\mathrm{loc,obs}}=\sum_{t<2}\|D(\rho(a_{t,t+1})z_t)-x_{t+1}\|^2$;
+\item composition $\mathcal L_{\mathrm{comp}}=\|\rho(a_{02})-\rho(a_{12})\rho(a_{01})\|_F^2$;
+\item the Lie-closure residual
+\begin{equation}\label{eq:close}
+\Lc=\frac1{K^2}\sum_{i,j=1}^K\big\|(I-P_\varepsilon)\operatorname{vec}[A_i,A_j]\big\|_2^2,\qquad
+P_\varepsilon=B(B^\top B+\varepsilon I)^{-1}B^\top ,
+\end{equation}
+where $B$ stacks the vectorized generators and $\varepsilon=10^{-6}$;
+\item the Gram penalty $\|B^\top B-2I\|_F^2$ and the anti-collapse term $\|\mathrm{Cov}(z)-I\|_F^2$.
+\end{itemize}
+
+The \textsc{Local} baseline minimizes $4\mathcal L_{\mathrm{rec}}+32\mathcal L_{\mathrm{loc,lat}}+2\mathcal L_{\mathrm{loc,obs}}$
+plus the two regularizers. \textsc{+Comp.} adds $1.2\,\mathcal L_{\mathrm{comp}}$. \textsc{BracketNet} adds
+$\lambda(t)\Lc$ with a \emph{fit--close--refit} schedule: $\lambda(t)=0$ for the first 35\% of updates, a
+linear ramp to $\lambda$ by 70\%, and frozen generators for the last 30\% while $E,D,q$ adapt. All three use
+identical networks, data and optimizer.

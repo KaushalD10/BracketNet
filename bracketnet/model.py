@@ -29,9 +29,23 @@ def commutators(A: torch.Tensor) -> torch.Tensor:
     return AB - AB.transpose(0, 1)
 
 
-def closure_residual(A: torch.Tensor, eps: float = 1e-6) -> torch.Tensor:
-    """Eq. (7): (1/K^2) sum_ij ||(I - P_B) vec[A_i, A_j]||^2, P_B = B (B^T B + eps I)^-1 B^T."""
+def closure_residual(A: torch.Tensor, eps: float = 1e-6, mode: str = "reg") -> torch.Tensor:
+    """Eq. (7): (1/K^2) sum_ij ||(I - P_B) vec[A_i, A_j]||^2, P_B = B (B^T B + eps I)^-1 B^T.
+
+    mode='reg' is the evaluated objective (invariant only under orthogonal coordinate changes).
+    mode='whitened' replaces A by the sqrt(2)-scaled orthonormal basis U = sqrt(2) B G^{-1/2},
+    G = B^T B, and projects exactly; it depends only on span(A) (GL(K)-invariant)."""
     K = A.shape[0]
+    if mode == "whitened":
+        B = A.flatten(1).T
+        evals, evecs = torch.linalg.eigh(B.T @ B)
+        Ginv_half = evecs @ torch.diag(evals.clamp_min(1e-12).rsqrt()) @ evecs.T
+        U = (2.0 ** 0.5) * (B @ Ginv_half).T.reshape(A.shape)
+        Ub = U.flatten(1).T                                   # columns have norm sqrt(2)
+        C = commutators(U).reshape(K * K, -1).T
+        return ((C - 0.5 * Ub @ (Ub.T @ C)) ** 2).sum() / K ** 2
+    if mode != "reg":
+        raise ValueError(mode)
     B = A.flatten(1).T                                   # (d^2, K)
     C = commutators(A).reshape(K * K, -1).T              # (d^2, K^2)
     G = B.T @ B + eps * torch.eye(K, dtype=A.dtype)

@@ -26,7 +26,9 @@ class Config:
     closure_weight: float = 0.1          # locked value (Sec. 6.1)
     fit_frac: float = 0.35               # lambda = 0 before this fraction
     close_frac: float = 0.70             # ramp ends; generators frozen afterwards
-    schedule: str = "staged"             # 'staged' | 'constant' (rejected pilot)
+    schedule: str = "staged"             # 'staged' | 'constant' (rejected pilot) | 'staged_nofreeze'
+    closure_mode: str = "reg"            # 'reg' (Eq. 7, evaluated) | 'whitened' (span-only variant)
+    n_gen: int | None = None             # generator count K; None = true K of the group
     w_basis: float = 1.0                 # ASSUMPTION (weight not given)
     gram_target: float = 2.0             # 1.0 reproduces the rejected pilot
     w_cov: float = 1.0                   # ASSUMPTION (form and weight not given)
@@ -76,7 +78,7 @@ def losses(model: BracketNet, x: torch.Tensor, cfg: Config, lam: float) -> dict:
         comp = ((R02 - R12 @ R01) ** 2).sum((-1, -2)).mean()
         out["comp"] = comp
         total = total + cfg.w_comp * comp
-    close = closure_residual(A, cfg.eps) if A.shape[0] > 1 else A.new_zeros(())
+    close = closure_residual(A, cfg.eps, cfg.closure_mode) if A.shape[0] > 1 else A.new_zeros(())
     out["close"] = close
     if lam > 0:
         total = total + lam * close
@@ -93,7 +95,7 @@ def train(ds: Dataset, cfg: Config, seed: int, log_every: int = 20):
     gen = torch.Generator().manual_seed(seed)
     x = torch.as_tensor(ds.x_train, dtype=torch.float32)
     p, d = x.shape[-1], ds.z_train.shape[-1]
-    K = {"SO2": 1, "T2": 2, "SO3": 3, "SO3_d3": 3}[ds.group]
+    K = cfg.n_gen or {"SO2": 1, "T2": 2, "SO3": 3, "SO3_d3": 3}[ds.group]
     model = BracketNet(p, d, K, cfg.width)
     opt = torch.optim.AdamW(model.parameters(), lr=cfg.lr, weight_decay=cfg.weight_decay)
     history, W_freeze = [], None
