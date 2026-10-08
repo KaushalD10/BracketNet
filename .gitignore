@@ -227,6 +227,11 @@ paper/*.aux
 paper/*.log
 paper/*.out
 
-# TEMPORARY while a phase is running (removed and committed in full when the phase completes)
-results/final/runs/dev/
-results/final/dev_log.txt
+
+# Final-phase checkpoints: only the fresh test models are versioned
+results/final/checkpoints/ablation/
+# TEMPORARY while a phase is running
+results/final/runs/test/
+results/final/runs/ablation/
+results/final/checkpoints/test/
+results/final/*_log.txt

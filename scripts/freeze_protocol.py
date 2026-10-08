@@ -41,7 +41,7 @@ lam_star = min(ok, key=lambda l: mean(tags[l], 1))
 
 mode, mode_note = "reg", "dev_mode phase not yet run"
 wtag = f"bracketnet_B{B_star}_lam{lam_star:g}_whitened"
-if len(cell[wtag]) == expected:
+if len(cell.get(wtag, [])) == expected:
     better_closure = meanlog(wtag, 1) < meanlog(tags[lam_star], 1)
     better_mse = mean(wtag, 0) < mean(tags[lam_star], 0)
     mode = "whitened" if (better_closure and better_mse) else "reg"
