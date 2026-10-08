@@ -1,4 +1,26 @@
 {
+ "reruns": [
+  {
+   "run": "SO3_bracketnet_s112.json",
+   "max_abs_diff": 0.0,
+   "same_category": true
+  },
+  {
+   "run": "T2_comp_s105.json",
+   "max_abs_diff": 0.0,
+   "same_category": true
+  },
+  {
+   "run": "SO3_oracle_bn_s400.json",
+   "max_abs_diff": 0.0,
+   "same_category": true
+  },
+  {
+   "run": "SO3img_bracketnet_s300.json",
+   "max_abs_diff": 0.0,
+   "same_category": true
+  }
+ ],
  "recompute": {
   "identical": true,
   "changed": []
