@@ -40,3 +40,12 @@ rules:
     Test: exact paired sign-flip test on per-seed (or per-pair) differences.
     Transport, transfer and all other quantities are secondary and reported two-sided without
     claims of significance unless the 95 % CI excludes zero.
+amendments:
+  A1:
+    date_utc: "2026-10-08 (written after the 4000-update dev cells were visible, before the full dev grid finished, and before ANY fresh-seed or ablation-seed run)"
+    reason: >
+      At budget 4000 no lambda satisfies step_2 (MSE <= +Comp.) nor its stated fallback (MSE <= 1.10 x +Comp.),
+      so the pre-registered rule is undefined. This amendment completes it in the minimal way that preserves its intent.
+    rule: >
+      If no lambda qualifies at tolerance 1.10, increase the tolerance in steps of 0.10 (1.20, 1.30, ...) and, at the first
+      tolerance where at least one lambda qualifies, choose the qualifying lambda with the lowest mean dev closure.

@@ -33,8 +33,10 @@ for t in tags.values():
     assert len(cell[t]) == expected, f"dev grid incomplete for {t}"
 comp_mse = m[B_star]
 ok = [l for l in lams if mean(tags[l], 0) <= comp_mse]
-if not ok:
-    ok = [l for l in lams if mean(tags[l], 0) <= 1.10 * comp_mse]
+tol = 1.0
+while not ok:                       # step_2 fallback (tol 1.10) and amendment A1 (further 0.10 steps)
+    tol = round(tol + 0.10, 2)
+    ok = [l for l in lams if mean(tags[l], 0) <= tol * comp_mse]
 lam_star = min(ok, key=lambda l: mean(tags[l], 1))
 
 mode, mode_note = "reg", "dev_mode phase not yet run"
@@ -78,7 +80,7 @@ P = dict(
                     statistics=sel["rules"]["step_5_primary_hypotheses"],
                     thresholds=sel["rules"]["step_4_thresholds"]),
     provenance=dict(rules="configs/dev_selection.yaml", dev_seeds=seeds, comp_mse10_by_budget={str(k): v for k, v in m.items()},
-                    budget_rule_result=int(B_star), lambda_candidates_meeting_constraint=[float(x) for x in ok],
+                    budget_rule_result=int(B_star), lambda_candidates_meeting_constraint=[float(x) for x in ok], lambda_tolerance_used=tol,
                     closure_objective_decision=mode_note, dev_table=table),
 )
 (ROOT / "configs/final_protocol.yaml").write_text(
