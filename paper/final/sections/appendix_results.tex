@@ -1,0 +1,64 @@
+\section{Additional results}\label{app:results}
+\begin{table}[h]
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Structural breakdown of fresh-seed runs (counts out of 20). Incorrect-closed runs are shown with the
+number of chiral ones in parentheses. ``Bad action'' counts correct-closed runs whose normalized action
+disagreement with the truth exceeds 0.5. PR is the participation ratio (diagonal $\so(3)$: 2, chiral: 4; $T^2$
+spans lie in $[2,4]$).}
+\label{tab:structure}
+\begin{tabular}{llccccccc}
+\toprule
+Group & Method & Correct & Incorrect (chiral) & Non-closed & Collapsed & Bad action & Action disagr. & PR\\
+\midrule
+\tabinput{../../results/final/tables/structure.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering\scriptsize
+\caption{Development grid (seeds 5--9, used for selection only; means over 5 seeds). Each group of three columns
+gives 10-step MSE, closure residual and correct-closed count, for Local, +Comp.\ and BracketNet ($\lambda=\NLambda$).}
+\label{tab:devbudget}
+\begin{tabular}{llccccccccc}
+\toprule
+& & \multicolumn{3}{c}{Local} & \multicolumn{3}{c}{+Comp.} & \multicolumn{3}{c}{BracketNet}\\
+Group & Updates & MSE & closure & CC & MSE & closure & CC & MSE & closure & CC\\
+\midrule
+\tabinput{../../results/final/tables/dev_budget.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[h]\centering
+\includegraphics[width=\linewidth]{fig_dev_budget.pdf}
+\caption{Development-seed budget sweep. The vertical line marks the selected budget.}\label{fig:devbudget}
+\end{figure}
+
+\begin{figure}[h]\centering
+\includegraphics[width=\linewidth]{fig_main_structure.pdf}
+\caption{Per-seed closure residual (top) and ground-truth algebra distance (bottom) on fresh seeds; bars mark
+medians and dashed lines the pre-registered thresholds.}\label{fig:perseed}
+\end{figure}
+
+\begin{figure}[h]\centering
+\includegraphics[width=\linewidth]{fig_transfer.pdf}
+\caption{Cross-model transfer gap per disjoint seed pair.}\label{fig:transfer}
+\end{figure}
+
+\begin{figure}[h]\centering
+\includegraphics[width=\linewidth]{fig_transport.pdf}
+\caption{Chained transport error versus path length (mean $\pm$ s.d.\ over 20 fresh seeds).}\label{fig:transport}
+\end{figure}
+
+\section{Reproducibility}\label{app:repro}
+The anonymized supplementary code contains everything needed to reproduce the paper:
+\begin{itemize}
+\item the data generator, the model and training code;
+\item the pre-registered selection rules and the generated frozen protocol;
+\item per-run JSON files for every development, fresh-seed and ablation run, and the fresh-seed checkpoints;
+\item the analysis script that produces every table and every number in the text (as \LaTeX{} macros);
+\item the figure scripts and the mathematical unit tests.
+\end{itemize}
+Repeated runs are bit-identical on the same machine. All runs are CPU-only and take 31--106\,s each for \NSteps{} updates (four runs in parallel).

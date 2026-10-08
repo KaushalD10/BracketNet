@@ -23,7 +23,7 @@ from bracketnet.data import make_dataset  # noqa: E402
 from bracketnet.groups import GROUPS  # noqa: E402
 from bracketnet.model import BracketNet  # noqa: E402
 
-torch.set_num_threads(4)
+torch.set_num_threads(1)
 P = yaml.safe_load((ROOT / "configs/final_protocol.yaml").read_text())
 SEEDS = P["evaluation"]["test_seeds"]
 PAIRS = [(SEEDS[i], SEEDS[i + 1]) for i in range(0, len(SEEDS), 2)]
@@ -87,6 +87,7 @@ def transfer(ma, mb, xa_fit, x_eval):
     return out
 
 
+@torch.no_grad()
 def structural(ma, mb, x_fit):
     """Align a onto b on the fit probe set; compare latents, algebras, actions."""
     d = mb.d

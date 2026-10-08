@@ -203,3 +203,12 @@ def test_T6_three_closed_su2_classes_in_so4():
     assert np.isclose(participation_ratio(S), 2.0) and np.isclose(participation_ratio(Lh), 4.0)
     Q, _ = np.linalg.qr(rng.standard_normal((4, 4)))
     assert np.isclose(participation_ratio(conjugate(Q, Lh)), 4.0)
+
+
+def test_T6_diagonal_vs_chiral_distance_is_one_half():
+    """Diagonal so(3) and a chiral su(2) in so(4) meet at principal angles of 45 degrees (subspace distance 1/2);
+    the two chiral factors are orthogonal (distance 1)."""
+    from bracketnet.alignment import subspace_distance
+    S, Lh, Rh = true_generators("SO3"), chiral(+1), chiral(-1)
+    assert np.isclose(subspace_distance(S, Lh), 0.5) and np.isclose(subspace_distance(S, Rh), 0.5)
+    assert np.isclose(subspace_distance(Lh, Rh), 1.0)

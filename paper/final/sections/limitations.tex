@@ -1,0 +1,36 @@
+\section{Limitations}\label{sec:limits}
+\textbf{Synthetic, small-scale benchmark.} The groups are compact, low-dimensional and observed through a mild
+nonlinear map. We make no claim about images, physical trajectories or large pretrained models.
+
+\textbf{No identifiability.} Closure did not prevent wrong closed algebras. Action inference is only as good as
+the recovered structure. Correct-closed SO(3) runs have moderate action disagreement with the truth
+($0.36$--$0.44$), while chiral and non-closed runs are no better than the identity ($\approx1$; Appendix,
+Table~\ref{tab:structure}).
+
+Our latent alignment is orthogonal Procrustes, so a model whose encoder is far from an isometry of the true state
+space is scored as incorrect even if its algebra is conjugate to the truth (Proposition~\ref{prop:classify}(a)
+guarantees such conjugacy for closed $T^2$ runs). The $T^2$ failures are of this kind. They are \emph{seed-level}
+fitting failures: the same seeds fail under every method (102, 115 and 118 under all four, 109, 116 and 119 under
+all but the final BracketNet), all with high transport error.
+
+\textbf{Protocol choices.} The budget and $\lambda$ were selected on five development seeds. The $\lambda$ rule
+needed an amendment, committed before any fresh run, because no candidate met its transport constraint; the
+selected $\lambda=\NLambda$ trades some development transport for structure. The structural thresholds are
+conventions fixed in advance; different thresholds change the category counts but not the continuous metrics.
+
+\textbf{Scope of comparison.} We compare controlled objective ablations under identical networks. We did not
+reimplement LieGAN, LaLiGAN or Homomorphism Autoencoders: they use different supervision signals (distributional
+invariance, or transitions with known group elements), so a fair comparison would require redesigning the
+benchmark. The theory is local: Proposition~\ref{prop:bch} covers only small group elements, and the generator
+count $K$ is assumed known.
+
+\section{Conclusion}\label{sec:conclusion}
+Explicit Lie-closure regularization makes the transformation structure learned by independent models more
+algebraically consistent and more comparable. For a non-abelian group it closes spans that transition fitting
+leaves open, roughly halves the distance to the true algebra, and reduces cross-seed disagreement, all without a
+detectable transport cost. It does not make that structure identifiable: closed but wrong (chiral) algebras are
+common, and agreement between models partly reflects agreement on a discrete set of classes, including wrong ones.
+Transferring transformations between models works when both recovered the correct structure, and largely
+fails otherwise. For representation alignment, the
+lesson is that comparing models requires comparing \emph{what they do}, the algebra acting on the
+representation, and not only \emph{where they embed}.

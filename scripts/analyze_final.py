@@ -17,6 +17,11 @@ OUT = ROOT / "results/final"
 TAB = OUT / "tables"
 TAB.mkdir(parents=True, exist_ok=True)
 NAMES = {"local": "Local", "comp": "+Comp.", "bracketnet": "BracketNet", "bracketnet_lam0.1": "BracketNet ($\\lambda{=}0.1$)"}
+ABL_NAMES = {"reference": "BracketNet (reference)", "comp_reference": "+Comp.\\ (reference)",
+             "constant_penalty": "constant penalty, no staging", "no_freeze": "staged ramp, no freeze",
+             "no_gram_penalty": "no Gram penalty", "weak_anticollapse": "anti-collapse weight 1",
+             "whitened_closure": "span-only (whitened) closure", "lambda_x0.3": "$0.3\\lambda$", "lambda_x3": "$3\\lambda$",
+             "K_plus1": "$K{+}1$ generators", "comp_K_plus1": "+Comp., $K{+}1$", "K_minus1": "$K{-}1$ generators"}
 CATS = ["correct_closed", "incorrect_closed", "nonclosed", "collapsed"]
 
 
@@ -138,6 +143,39 @@ def main():
         for k in ["closure", "gt_distance", "mse_10step"]:
             abl_cmp[f"{g}/{t}_vs_{ref}/{k}"] = paired(abl, g, t, ref, k)
 
+    # ---------------- pair-type stratification (descriptive): which structural classes do pairs fall into,
+    # and does transfer success depend on structural correctness rather than on the method?
+    strat = {}
+    sub = {}
+    for (g, t), by_seed in test.items():
+        for sd, r in by_seed.items():
+            st = r["metrics"]["structure"]
+            sub[(g, t, sd)] = st["category"] + ("-" + st["incorrect_subtype"] if st["incorrect_subtype"] else "")
+    def ptype(g, t, a, b):
+        ca, cb = sub[(g, t, a)], sub[(g, t, b)]
+        if "nonclosed" in (ca, cb) or "collapsed" in (ca, cb):
+            return "involves_nonclosed_or_collapsed"
+        if ca == cb == "correct_closed":
+            return "both_correct"
+        if ca == cb:
+            return "both_same_incorrect_type"
+        return "closed_different_types"
+    pooled = defaultdict(list)
+    for g in ["T2", "SO3"]:
+        for t in AT[g]:
+            types = Counter()
+            dist_by = defaultdict(list)
+            for p in AT[g][t]["disjoint_pairs"]:
+                k = ptype(g, t, *p["pair"])
+                types[k] += 1
+                dist_by[k].append(p["algebra_distance"])
+                pooled[(g, "both_correct" if k == "both_correct" else "not_both_correct")].append(p["transfer"]["transfer"]["mse1_gap"])
+            strat[f"{g}/{t}"] = dict(pair_types=dict(types), distance_by_type={k: [float(x) for x in v] for k, v in dist_by.items()})
+    transfer_by_correctness = {f"{g}/{k}": dict(n=len(v), median=float(np.median(v)), mean=float(np.mean(v)),
+                                                 q25=float(np.percentile(v, 25)), q75=float(np.percentile(v, 75)))
+                               for (g, k), v in pooled.items()}
+    S.update(pair_strata=strat, transfer_by_correctness=transfer_by_correctness)
+
     S.update(paired_vs_comp=comps, alignment=align, alignment_paired_vs_comp=pair_cmp, primary=prim, ablation_paired=abl_cmp)
     (OUT / "summary_final.json").write_text(json.dumps(S, indent=1))
     write_tables(S)
@@ -213,8 +251,8 @@ def write_tables(S):
                 continue
             r = S["ablation"][key]
             c = r["categories"]
-            rows.append(f"{gl} & {t.replace('_', ' ')} & {f(r['mse_10step'])} & {sci(r['closure'])} & {f(r['gt_distance'], 3)} & "
-                        f"{c['correct_closed']}/{c['incorrect_closed']}/{c['nonclosed']}/{c['collapsed']} \\\\")
+            rows.append(f"{gl} & {ABL_NAMES[t]} & {f(r['mse_10step'])} & {sci(r['closure'])} & {f(r['gt_distance'], 3)} & "
+                        f"{f(r['gt_coverage'], 3)} & {c['correct_closed']}/{c['incorrect_closed']}/{c['nonclosed']}/{c['collapsed']} \\\\")
         rows.append("\\midrule")
     (TAB / "ablations.tex").write_text("\n".join(rows[:-1]) + "\n")
     # dev budget table (convergence analysis)
@@ -253,7 +291,12 @@ def fnum(x, nd=3):
     if ax != 0 and (ax < 1e-3 or ax >= 1e4):
         e = int(np.floor(np.log10(ax)))
         return f"{x / 10 ** e:.{max(nd - 2, 1)}f}\\times10^{{{e}}}"
-    return f"{x:.{nd}f}" if ax < 1 else f"{x:.{max(nd - 1, 1)}f}"
+    return f"{x:.{nd}f}" if ax < 10 else f"{x:.{max(nd - 1, 1)}f}"
+
+
+def fp(x):
+    """p-value formatting: scientific below 0.01, two decimals otherwise."""
+    return fnum(x, 2) if x >= 0.01 else f"{x / 10 ** int(np.floor(np.log10(x))):.1f}\\times10^{{{int(np.floor(np.log10(x)))}}}"
 
 
 def write_numbers(S):
@@ -284,18 +327,18 @@ def write_numbers(S):
         hn = {"H1_closure": "Hone", "H2_gt_distance": "Htwo", "H3_cross_seed_distance": "Hthree"}[h]
         for k, nd in [("mean_diff", 4), ("ci_lo", 4), ("ci_hi", 4), ("cohens_dz", 2), ("sign_flip_p", 2),
                       ("holm_p", 2), ("pct_change_of_means", 1), ("mean_a", 4), ("mean_b", 4)]:
-            add(mname(hn, GN[g], k.replace("_", "")), fnum(v[k], nd))
+            add(mname(hn, GN[g], k.replace("_", "")), fp(v[k]) if k.endswith("_p") else fnum(v[k], nd))
         add(mname(hn, GN[g], "wins"), f"{v['wins_a_lower']}/{v['n']}")
         add(mname(hn, GN[g], "sig"), "yes" if v["significant_at_0.05_holm"] else "no")
     for key, v in S["paired_vs_comp"].items():
         if "mcnemar" in key:
             g = key.split("/")[0]
-            add(mname(GN[g], "mcnemarp"), fnum(v["p"], 2))
+            add(mname(GN[g], "mcnemarp"), fp(v["p"]))
             continue
         g, rest, k = key.split("/")
         t = rest.replace("_vs_comp", "")
         for kk, nd in [("mean_diff", 4), ("ci_lo", 4), ("ci_hi", 4), ("sign_flip_p", 2), ("pct_change_of_means", 1)]:
-            add(mname(GN[g], MN[t], "vs", k.replace("_", ""), kk.replace("_", "")), fnum(v[kk], nd))
+            add(mname(GN[g], MN[t], "vs", k.replace("_", ""), kk.replace("_", "")), fp(v[kk]) if kk.endswith("_p") else fnum(v[kk], nd))
     for key, r in S["alignment"].items():
         g, t = key.split("/")
         for k in ["cka", "algebra_distance", "action_disagreement", "transfer/mse1_gap", "transfer/mse10_gap",
@@ -309,24 +352,32 @@ def write_numbers(S):
         g, rest, k = key.split("/")
         t = rest.replace("_vs_comp", "")
         for kk, nd in [("mean_diff", 3), ("ci_lo", 3), ("ci_hi", 3), ("sign_flip_p", 2), ("cohens_dz", 2)]:
-            add(mname("Ap", GN[g], MN[t], k.replace("_", ""), kk.replace("_", "")), fnum(v[kk], nd))
+            add(mname("Ap", GN[g], MN[t], k.replace("_", ""), kk.replace("_", "")), fp(v[kk]) if kk.endswith("_p") else fnum(v[kk], nd))
         add(mname("Ap", GN[g], MN[t], k.replace("_", ""), "wins"), f"{v['wins_a_lower']}/{v['n']}")
     for key, r in S["ablation"].items():
         g, t = key.split("/")
-        for k, nd in [("closure", 3), ("gt_distance", 3), ("mse_10step", 4)]:
+        for k, nd in [("closure", 3), ("gt_distance", 3), ("mse_10step", 4), ("gt_coverage", 3), ("action_truth", 3)]:
             add(mname("Ab", GN[g], t.replace("_", "").replace(".", "p"), k.replace("_", "")), fnum(r[k][0], nd))
         add(mname("Ab", GN[g], t.replace("_", "").replace(".", "p"), "cc"), f"{r['categories']['correct_closed']}/{r['n']}")
     for key, v in S["ablation_paired"].items():
         g, rest, k = key.split("/")
         a = rest.split("_vs_")[0]
         for kk, nd in [("mean_diff", 4), ("ci_lo", 4), ("ci_hi", 4), ("sign_flip_p", 2)]:
-            add(mname("Abp", GN[g], a.replace("_", "").replace(".", "p"), k.replace("_", ""), kk.replace("_", "")), fnum(v[kk], nd))
+            add(mname("Abp", GN[g], a.replace("_", "").replace(".", "p"), k.replace("_", ""), kk.replace("_", "")), fp(v[kk]) if kk.endswith("_p") else fnum(v[kk], nd))
     for key, r in S["dev"].items():
         g, t = key.split("/")
         tt = t.replace("_", "").replace(".", "p")
         for k, nd in [("closure", 3), ("gt_distance", 3), ("mse_10step", 4)]:
             add(mname("Dev", GN[g], tt, k.replace("_", "")), fnum(r[k][0], nd))
         add(mname("Dev", GN[g], tt, "cc"), f"{r['categories']['correct_closed']}/{r['n']}")
+    for key, v in S["pair_strata"].items():
+        g, t = key.split("/")
+        for k in ["both_correct", "both_same_incorrect_type", "closed_different_types", "involves_nonclosed_or_collapsed"]:
+            add(mname("Pt", GN[g], MN[t], k.replace("_", "")), v["pair_types"].get(k, 0))
+    for key, v in S["transfer_by_correctness"].items():
+        g, k = key.split("/")
+        for kk in ["n", "median", "q25", "q75"]:
+            add(mname("Tc", GN[g], k.replace("_", ""), kk), v[kk] if kk == "n" else fnum(v[kk], 2))
     names = [l.split("}{")[0] for l in L]
     assert len(names) == len(set(names)), "duplicate macro names"
     (TAB / "numbers.tex").write_text("% AUTO-GENERATED by scripts/analyze_final.py from raw run files. Do not edit.\n" + "\n".join(L) + "\n")

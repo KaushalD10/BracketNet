@@ -19,8 +19,12 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage[hidelinks,pdfusetitle=false]{hyperref}
-\hypersetup{pdfauthor={},pdftitle={BracketNet: Lie-Algebraic Consistency Across Independently Learned Transformation Representations},pdfsubject={},pdfkeywords={},pdfcreator={},pdfproducer={}}
+\hypersetup{pdfauthor={},pdftitle={Closing the Algebra Is Not Enough},pdfsubject={},pdfkeywords={},pdfcreator={},pdfproducer={}}
 \usepackage{microtype}
+\renewcommand{\ttdefault}{pcr}
+% Table bodies are generated files; the primitive (expandable) input avoids the tabular/\noalign error that
+% LaTeX's \input causes before \bottomrule.
+\makeatletter\newcommand{\tabinput}[1]{\@@input #1 }\makeatother
 \graphicspath{{../../figures/final/}}
 \input{../../results/final/tables/numbers.tex}
 
@@ -33,7 +37,7 @@
 \newcommand{\dist}{\operatorname{dist}}
 \newcommand{\spn}{\operatorname{span}}
 
-\title{BracketNet: Lie-Algebraic Consistency Across\\ Independently Learned Transformation Representations}
+\title{Closing the Algebra Is Not Enough: Lie-Closure Regularization\\ Makes Learned Transformation Structure Comparable, Not Identifiable}
 \author{Anonymous Author(s)\\Affiliation\\Address\\\texttt{email}}
 
 \begin{document}

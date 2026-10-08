@@ -27,7 +27,7 @@ INK, MUTED, GRID = "#0b0b0b", "#52514e", "#e4e3df"
 plt.rcParams.update({"font.size": 8, "axes.edgecolor": MUTED, "axes.labelcolor": INK, "xtick.color": MUTED, "ytick.color": MUTED,
                      "axes.spines.top": False, "axes.spines.right": False, "axes.grid": True, "grid.color": GRID,
                      "grid.linewidth": 0.6, "axes.axisbelow": True, "legend.frameon": False, "savefig.dpi": 220,
-                     "font.family": "DejaVu Sans"})
+                     "font.family": "DejaVu Sans", "pdf.fonttype": 42, "ps.fonttype": 42})
 
 
 def struct0(g):

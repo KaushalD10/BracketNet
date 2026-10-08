@@ -1,0 +1,73 @@
+\section{Results on fresh seeds}\label{sec:results}
+\begin{table}[t]
+\centering\scriptsize
+\setlength{\tabcolsep}{3.2pt}
+\caption{Fresh-seed results (seeds 100--119, mean$\pm$s.d.; frozen protocol: \NSteps{} updates, $\lambda=\NLambda$).
+GT dist.\ is the ground-truth algebra distance after Procrustes alignment (chance: $0.80$ for $T^2$, $0.50$ for SO(3)).
+CC is the number of correct-closed runs. Closure is identically $0$ for the one-generator SO(2).}
+\label{tab:main}
+\begin{tabular}{llccccc}
+\toprule
+Group & Method & 1-step MSE & 10-step MSE & Closure residual & GT dist. & CC\\
+\midrule
+\tabinput{../../results/final/tables/main.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Pre-registered primary hypotheses, BracketNet vs.\ \textsc{+Comp.} (one-sided). Units are seeds ($n{=}20$)
+for H1--H2 and disjoint seed pairs ($n{=}10$) for H3. The interval is a two-sided 95\% $t$-interval for the
+difference BracketNet$-$\textsc{+Comp.}; $d_z$ is the paired effect size; ``wins'' counts units where BracketNet
+is lower. $p$ is the exact sign-flip $p$-value; Holm-corrected over the six tests.}
+\label{tab:primary}
+\begin{tabular}{llcccccccc}
+\toprule
+Hypothesis & Group & $n$ & +Comp. & BracketNet & 95\% CI of diff. & $d_z$ & wins & $p$ & Holm $p$\\
+\midrule
+\tabinput{../../results/final/tables/primary.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Transition fitting closes the abelian algebra, but not SO(3).}
+At \NSteps{} updates the baselines already recover the true $T^2$ algebra in \NTtwoCompCatCorrectclosed/\NNseeds{}
+(+Comp.) and \NTtwoLocalCatCorrectclosed/\NNseeds{} (Local) runs (Table~\ref{tab:main}). For SO(3), the
+generator span stays \emph{non-closed} in \NSOthreeCompCatNonclosed/\NNseeds{} (+Comp.) and
+\NSOthreeLocalCatNonclosed/\NNseeds{} (Local) runs, even though one-step and ten-step transport errors are low.
+Fitting local transitions well is therefore not sufficient for algebraic consistency of a non-abelian family. The
+same holds for BracketNet at the originally planned weight $\lambda{=}0.1$, which behaves like the baselines
+(\NSOthreeBNrefCatNonclosed/\NNseeds{} non-closed).
+
+\paragraph{Closure regularization improves algebraic fidelity for SO(3) without changing transport.}
+With $\lambda=\NLambda$, SO(3) closure falls from \NHoneSOthreeMeanb{} to \NHoneSOthreeMeana{}, lower on
+\NHoneSOthreeWins{} seeds (Holm $p=\NHoneSOthreeHolmp$, Table~\ref{tab:primary}). The ground-truth algebra distance
+falls from \NHtwoSOthreeMeanb{} to \NHtwoSOthreeMeana{} (\NHtwoSOthreeWins{} seeds, Holm $p=\NHtwoSOthreeHolmp$).
+
+For $T^2$, closure is lower on \NHoneTtwoWins{} seeds (Holm $p=\NHoneTtwoHolmp$), but the $t$-interval of the
+mean difference includes zero (upper end $+\NHoneTtwoCihi$): the baseline's mean is driven by a few non-closed
+runs. The improvement in $T^2$ ground-truth distance is not significant (Holm $p=\NHtwoTtwoHolmp$).
+
+Ten-step transport error does not change detectably in either group: the 95\% intervals are
+$[\NTtwoBNVsMseonezerostepCilo,\NTtwoBNVsMseonezerostepCihi]$ for $T^2$ and
+$[\NSOthreeBNVsMseonezerostepCilo,\NSOthreeBNVsMseonezerostepCihi]$ for SO(3).
+
+\paragraph{But closure is not recovery: frequent chiral solutions.}
+Figure~\ref{fig:cat} classifies every run. For SO(3), BracketNet yields \NSOthreeBNCatCorrectclosed{}
+correct-closed runs, \NSOthreeBNCatIncorrectclosed{} incorrect-closed runs (all \NSOthreeBNChiral{} chiral,
+participation ratio $\approx4$) and \NSOthreeBNCatNonclosed{} non-closed runs. \textsc{+Comp.} yields
+\NSOthreeCompCatCorrectclosed, \NSOthreeCompCatIncorrectclosed{} and \NSOthreeCompCatNonclosed{} respectively.
+
+The regularizer mostly converts non-closed runs into closed ones, and about half of these land in a wrong
+conjugacy class. This is exactly the possibility Proposition~\ref{prop:classify}(b) leaves open. The
+correct-closed rate rises from \NSOthreeCompCatCorrectclosed/20 to \NSOthreeBNCatCorrectclosed/20, which is not
+significant (exact McNemar $p=\NSOthreeMcnemarp$; 95\% Wilson interval for BracketNet
+\NSOthreeBNCcrateLo--\NSOthreeBNCcrateHi\%). No run of any method collapsed.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{fig_categories.pdf}
+\caption{Structural category of each fresh-seed run (thresholds fixed in advance). For SO(3), closure turns
+non-closed runs into closed ones, about half of them chiral (incorrect).}\label{fig:cat}
+\end{figure}

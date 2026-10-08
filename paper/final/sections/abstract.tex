@@ -1,0 +1,24 @@
+\begin{abstract}
+Representations learned by different training runs are usually compared through pointwise similarity of their
+embeddings. We ask a structural question instead: do independently trained models learn the same
+\emph{transformation algebra}? We study BracketNet, a transition-based representation learner that penalizes the
+component of each commutator of its learned skew-symmetric generators that leaves their span, trained with a
+fit--close--refit schedule. Our benchmark embeds SO(2), $T^2$ and SO(3) actions in a larger $\so(d)$ and
+observes them through a nonlinear map. We froze the protocol on development seeds and evaluated on \NNseeds{}
+fresh seeds; three findings follow.
+
+\textbf{(1)} Long training on transition losses alone recovers the abelian $T^2$ algebra in most runs, yet leaves
+the SO(3) generator span non-closed in \NSOthreeCompCatNonclosed/\NNseeds{} runs.
+\textbf{(2)} Closure regularization lowers SO(3) closure on \NHoneSOthreeWins{} seeds and roughly halves the
+distance to the ground-truth algebra (\NHtwoSOthreeMeanb{}$\to$\NHtwoSOthreeMeana). It also makes the algebras
+of independently trained models more similar on disjoint seed pairs (Holm-corrected $p=\NHthreeSOthreeHolmp$),
+with no detectable change in transport error.
+\textbf{(3)} Closure is not recovery. \NSOthreeBNChiral/\NNseeds{} SO(3) runs close onto a chiral $\su(2)$, one
+of the incorrect conjugacy classes we characterize, so cross-model agreement improves largely because
+disagreement becomes \emph{discrete}.
+
+Whether transformations transfer between two models tracks whether both recovered the correct algebra,
+irrespective of training objective. Linear CKA between latent spaces differs by at most $0.005$ across methods, so it is blind to these structural differences. We give corrected invariance statements, a
+rigorous bound on how far products of near-identity elements leave the learned span, and the classification
+underlying our failure analysis.
+\end{abstract}
