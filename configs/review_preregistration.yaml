@@ -1,0 +1,39 @@
+# PRE-REGISTERED predictions for the final-review experiments. Written and committed BEFORE any of these runs.
+# All runs use the frozen protocol (configs/final_protocol.yaml) unchanged. No hyperparameter is tuned.
+# Seeds below have never been used before (dev 5-9, test 100-119, ablation 200-209 were used earlier).
+mechanism_theory: >
+  Proposition 5 (endpoint ambiguity): for the diagonal so(3) action, the rotation about the axis through z is
+  invisible from endpoints, so endpoint-based action inference cannot make the composition loss vanish, while a
+  chiral su(2) admits exact endpoint inference and exact composition. Numerically confirmed on SO(3) data before
+  registration (bracketnet/theory_checks.py): chiral transport/composition residual ~1e-31, diagonal composition 3.2e-3.
+E1_existing_checkpoints:
+  description: composition error by structural class on the 240 existing fresh-seed runs (already computed, descriptive)
+  prediction: chiral runs have lower composition MSE than correct-closed runs
+E2_trace:
+  seeds: [100..119]  (re-run of existing BracketNet SO3 test runs with generator snapshots; computation unchanged,
+                      verified bit-identical to the stored runs)
+  measure: chirality index chi(U) = e_L - e_R of the generator span (fractions of span energy in su(2)_L and su(2)_R),
+           at step 0, at the start of the closure ramp (35 %), at the freeze (70 %) and at the end
+  prediction: |chi| at the ramp start is larger for runs that end chiral than for runs that end correct-closed
+              (exploratory; reported as AUC over the closed runs, no significance claim)
+E3_oracle_intervention:
+  seeds: [400..419]
+  variants: {bn: final BracketNet, comp: +Comp., oracle_bn: final BracketNet with TRUE action coefficients in the
+             transport terms (no composition term), oracle_local: same without closure}
+  primary_prediction: chiral solutions disappear when the true coefficients are supplied:
+                      #chiral(oracle_bn) < #chiral(bn); expected #chiral(oracle_bn) = 0
+  secondary: correct-closed count higher for oracle_bn than bn (exact McNemar, two-sided); no claim if n.s.
+E4_rendered_benchmark:
+  group: SO3img (SO(3) rotating the 3-D position of a rendered blob; 20x20 images; 400-dim observations)
+  seeds: [300..319]
+  methods: [local, comp, bracketnet]  (frozen protocol, unchanged)
+  predictions: (a) BracketNet closure < +Comp. closure (one-sided sign-flip); (b) the same qualitative structure as in
+               the synthetic benchmark (many non-closed baselines; chiral solutions under closure). Reported in full
+               whatever the outcome.
+E5_transfer_prediction:
+  data: existing fresh-seed checkpoints, all 190 pairs per method and group; predictors computed on probe set 998,
+        transfer measured on held-out probe set 997
+  failure_definition: one-step transfer gap > 0.5 (fixed here)
+  predictors: latent linear CKA (higher = predicted success) vs cross-seed algebra distance (lower = predicted success);
+              both label-free
+  prediction: AUC(algebra distance) > AUC(CKA) for predicting transfer failure; 95 % CI by seed-level cluster bootstrap

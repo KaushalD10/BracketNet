@@ -1,0 +1,34 @@
+\section{Introduction}\label{sec:intro}
+When two networks are trained on the same data, do they learn the same thing? Representation-similarity measures
+answer this for \emph{embeddings}: CKA, Procrustes and shape metrics compare point clouds up to a class of
+transformations \citep{kornblith2019similarity,williams2021generalized}. For models that learn how data
+\emph{transform}, a second question matters: does the learned transformation structure agree? Here that structure
+is a set of latent generators whose exponentials act on the representation. Two models can embed data similarly
+yet represent transformations through incompatible algebras, in which case actions inferred by one model are
+meaningless in the other.
+
+Transition-based symmetry learners \citep{park2022learning,keurti2023homomorphism,yang2024latent} fit local
+transformations, but nothing in a transition loss requires the learned generators $A_1,\dots,A_K$ to span a Lie
+algebra, i.e.\ $[A_i,A_j]\in\spn\{A_k\}$. Without closure, the nominal $K$-parameter family is not locally closed
+under composition, and its ``structure constants'' are not defined. Closure is therefore a natural candidate for a
+\emph{structural} inductive bias: it restricts each model to a subalgebra of $\so(d)$. In the low-dimensional settings
+we study, these fall into a few conjugacy classes (Proposition~\ref{prop:classify}), which can be compared across
+models; in general the classification is richer, e.g.\ one-dimensional subalgebras of a torus form a continuum.
+
+We test this idea carefully and report what holds and what does not. We fixed every choice on development seeds,
+with selection rules committed before the runs, and evaluated once on fresh seeds with a pre-registered primary
+hypothesis family. Our contributions:
+\begin{itemize}
+\item \textbf{A precise account of what a closure loss can guarantee} (Sec.~\ref{sec:theory}). We give its exact
+behaviour under changes of generator coordinates (invariant only under orthogonal changes; its zero set is
+$GL(K)$-invariant), and a rigorous bound showing that how far products of near-identity elements leave the learned
+span vanishes with the closure defect. We also classify the closed subalgebras in our benchmarks: for SO(3) inside
+$\so(4)$, closure admits two incorrect, chiral classes.
+\item \textbf{A structural evaluation} that separates closure, ground-truth recovery, cross-model agreement and
+action accuracy, together with \textbf{cross-model transformation transfer}: actions inferred by one model are
+applied in another model's aligned latent space.
+\item \textbf{Evidence on \NNseeds{} fresh seeds} (Secs.~\ref{sec:results}--\ref{sec:ablations}). Closure
+regularization substantially improves algebraic consistency for SO(3) at no detectable transport cost, but turns
+continuous disagreement between models into discrete disagreement among closed classes, including frequent wrong
+ones. Transfer quality tracks structural correctness, not the training objective.
+\end{itemize}

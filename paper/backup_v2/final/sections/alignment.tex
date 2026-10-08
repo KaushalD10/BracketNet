@@ -1,0 +1,75 @@
+\section{Representation alignment: do independent models share an algebra?}\label{sec:align}
+\paragraph{Procedure.}
+All models of a group share the observation map, so we can encode a common probe set (200 fresh sequences) with
+every model. For a seed pair $(a,b)$ we fit the orthogonal Procrustes map $R$ from $E_a(x)$ to $E_b(x)$ on that
+probe set, averaging both directions. We then measure four quantities:
+\begin{itemize}
+\item latent linear CKA;
+\item the \emph{cross-seed algebra distance} between $\spn(RA^{(a)}R^\top)$ and $\spn(A^{(b)})$;
+\item the disagreement of inferred actions, $\|R\rho_aR^\top-\rho_b\|_F^2$, normalized by $\|\rho_b-I\|_F^2$;
+\item \emph{transformation transfer}: on a disjoint held-out probe set, the action inferred by $a$ is applied in
+$b$'s latent space, $\hat x_{t+1}=D_b(R\rho_a(x_t,x_{t+1})R^\top E_b(x_t))$. We report the transfer gap
+$(\mathrm{MSE}_{\text{transfer}}-\mathrm{MSE}_{\text{native}})/(\mathrm{MSE}_{\text{identity}}-\mathrm{MSE}_{\text{native}})$,
+which is 0 when transfer is as good as $b$'s own action and 1 when it is no better than doing nothing.
+\end{itemize}
+Units are the \NNpairs{} disjoint seed pairs, identical for every method.
+
+\begin{table}[t]
+\centering\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\caption{Cross-seed alignment on \NNpairs{} disjoint seed pairs (mean$\pm$s.d.). Algebra distance: chance
+$0.80$ ($T^2$), $0.50$ (SO(3)). Transfer gap: 0 = native quality, 1 = identity guess. ``Projected'' re-expresses
+the transferred action in $b$'s generator basis before exponentiating.}
+\label{tab:align}
+\begin{tabular}{llccccc}
+\toprule
+Group & Method & CKA & Algebra dist. & Action disagr. & Transfer gap & Projected gap\\
+\midrule
+\tabinput{../../results/final/tables/alignment.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Algebras agree more across seeds, and CKA does not see it.}
+For SO(3), the cross-seed algebra distance falls from \NHthreeSOthreeMeanb{} (+Comp.) to \NHthreeSOthreeMeana{}
+(BracketNet), lower in \NHthreeSOthreeWins{} pairs (Holm $p=\NHthreeSOthreeHolmp$; Table~\ref{tab:primary}). For
+$T^2$ the difference is not significant (Holm $p=\NHthreeTtwoHolmp$). Over the same pairs, latent CKA is
+\NAlSOthreeCompCka{} vs.\ \NAlSOthreeBNCka{} for SO(3) and \NAlTtwoCompCka{} vs.\ \NAlTtwoBNCka{} for $T^2$
+(Table~\ref{tab:align}). Pointwise similarity of embeddings carries essentially no information about whether two
+models represent transformations by the same algebra.
+
+\paragraph{Why agreement improves: disagreement becomes discrete.}
+Classifying each BracketNet SO(3) pair by the categories of its two models (Fig.~\ref{fig:align}) gives:
+\begin{itemize}
+\item \NPtSOthreeBNBothcorrect{} pair with both models correct;
+\item \NPtSOthreeBNBothsameincorrecttype{} pair with both models in the \emph{same} incorrect (chiral) class, at
+distance $0$: agreement on a wrong algebra;
+\item \NPtSOthreeBNCloseddifferenttypes{} pairs that pair a correct model with a chiral one;
+\item \NPtSOthreeBNInvolvesnonclosedorcollapsed{} pairs involving a non-closed model.
+\end{itemize}
+The correct/chiral pairs sit at distance $\approx0.5$. This value is fixed by the geometry: the diagonal
+$\so(3)$ and a chiral factor meet at principal angles of $45^\circ$. For \textsc{+Comp.}, all
+\NPtSOthreeCompInvolvesnonclosedorcollapsed{} pairs involve a non-closed model, and their distances spread over
+$[0,1]$. The reduction in mean distance is therefore real, but it reflects convergence onto a small set of closed
+conjugacy classes, as Proposition~\ref{prop:classify} predicts, more than convergence onto the correct algebra.
+This is the sense in which closure makes learned structure \emph{comparable} without making it \emph{identifiable}.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{fig_alignment.pdf}
+\caption{Cross-seed algebra distance on 10 disjoint seed pairs (BN = BracketNet); grey lines connect the same seed pair across methods.
+For SO(3), BracketNet pairs concentrate at $0$ (same class) and $\approx0.5$ (diagonal vs.\ chiral), while baseline
+pairs spread out. Right: latent CKA is nearly identical for all methods.}\label{fig:align}
+\end{figure}
+
+\paragraph{Transfer quality tracks structural correctness.}
+Mean transfer gaps barely differ between methods. For BracketNet minus \textsc{+Comp.}, the 95\% intervals are
+$[\NApTtwoBNTransfermseonegapCilo,\NApTtwoBNTransfermseonegapCihi]$ for $T^2$ and
+$[\NApSOthreeBNTransfermseonegapCilo,\NApSOthreeBNTransfermseonegapCihi]$ for SO(3). What matters is structure.
+Pooling the pairs of all methods (a descriptive analysis: the methods share seeds), $T^2$ pairs in which both models
+are correct-closed transfer almost perfectly: median gap \NTcTtwoBothcorrectMedian{} over \NTcTtwoBothcorrectN{}
+pairs. All other pairs have median gap \NTcTtwoNotbothcorrectMedian{} over \NTcTtwoNotbothcorrectN{} pairs. For
+SO(3) only \NTcSOthreeBothcorrectN{} pair is correct on both sides (gap \NTcSOthreeBothcorrectMedian); the remaining
+\NTcSOthreeNotbothcorrectN{} have median gap \NTcSOthreeNotbothcorrectMedian. Cross-model reuse of transformations is
+thus governed by whether both models recovered the right algebra, which no method here guarantees. The one
+near-exception is instructive: an SO(3) +Comp.\ pair that misses the pre-registered closure threshold, but whose
+algebras are within $0.01$ of the truth, transfers well (gap $0.03$).

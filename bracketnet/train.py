@@ -29,6 +29,8 @@ class Config:
     schedule: str = "staged"             # 'staged' | 'constant' (rejected pilot) | 'staged_nofreeze'
     closure_mode: str = "reg"            # 'reg' (Eq. 7, evaluated) | 'whitened' (span-only variant)
     n_gen: int | None = None             # generator count K; None = true K of the group
+    oracle_actions: bool = False         # intervention: transport uses the TRUE coefficients of each training edge;
+                                         # q is trained only by regression to them (for evaluation), comp term off
     w_basis: float = 1.0                 # ASSUMPTION (weight not given)
     gram_target: float = 2.0             # 1.0 reproduces the rejected pilot
     w_cov: float = 1.0                   # ASSUMPTION (form and weight not given)
@@ -58,12 +60,19 @@ def generators_frozen(cfg: Config, step: int) -> bool:
     return cfg.method == "bracketnet" and cfg.schedule == "staged" and step / cfg.steps >= cfg.close_frac
 
 
-def losses(model: BracketNet, x: torch.Tensor, cfg: Config, lam: float) -> dict:
+def losses(model: BracketNet, x: torch.Tensor, cfg: Config, lam: float, a_true: torch.Tensor | None = None) -> dict:
     """x: (B, 3, p) triples. Returns individual terms and the total of Eq. (9)."""
     A = model.generators()
     z = model.encoder(x)                                      # (B, 3, d)
     a01 = model.infer(z[:, 0], z[:, 1])
     a12 = model.infer(z[:, 1], z[:, 2])
+    q_reg = None
+    if cfg.oracle_actions:
+        # q learns to regress the true coefficients from detached codes; transport uses the true coefficients
+        q01 = model.infer(z[:, 0].detach(), z[:, 1].detach())
+        q12 = model.infer(z[:, 1].detach(), z[:, 2].detach())
+        q_reg = ((q01 - a_true[:, 0]) ** 2).sum(-1).mean() + ((q12 - a_true[:, 1]) ** 2).sum(-1).mean()
+        a01, a12 = a_true[:, 0], a_true[:, 1]
     R01, R12 = model.rho(a01, A), model.rho(a12, A)
     rec = ((model.decoder(z) - x) ** 2).sum(-1).sum(-1).mean()
     loc_lat = loc_obs = 0.0
@@ -73,7 +82,10 @@ def losses(model: BracketNet, x: torch.Tensor, cfg: Config, lam: float) -> dict:
         loc_obs = loc_obs + ((model.decoder(zp) - x[:, t + 1]) ** 2).sum(-1).mean()
     out = dict(rec=rec, loc_lat=loc_lat, loc_obs=loc_obs)
     total = cfg.w_rec * rec + cfg.w_loc_lat * loc_lat + cfg.w_loc_obs * loc_obs
-    if cfg.method in ("comp", "bracketnet"):
+    if q_reg is not None:
+        out["q_reg"] = q_reg
+        total = total + q_reg
+    if cfg.method in ("comp", "bracketnet") and not cfg.oracle_actions:
         R02 = model.rho(model.infer(z[:, 0], z[:, 2]), A)
         comp = ((R02 - R12 @ R01) ** 2).sum((-1, -2)).mean()
         out["comp"] = comp
@@ -90,24 +102,28 @@ def losses(model: BracketNet, x: torch.Tensor, cfg: Config, lam: float) -> dict:
     return out
 
 
-def train(ds: Dataset, cfg: Config, seed: int, log_every: int = 20):
+def train(ds: Dataset, cfg: Config, seed: int, log_every: int = 20, snapshot_steps: tuple = ()):
     torch.manual_seed(seed)
     gen = torch.Generator().manual_seed(seed)
     x = torch.as_tensor(ds.x_train, dtype=torch.float32)
     p, d = x.shape[-1], ds.z_train.shape[-1]
-    K = cfg.n_gen or {"SO2": 1, "T2": 2, "SO3": 3, "SO3_d3": 3}[ds.group]
+    K = cfg.n_gen or {"SO2": 1, "T2": 2, "SO3": 3, "SO3_d3": 3, "SO3img": 3}[ds.group]
+    a_all = torch.as_tensor(ds.a_train, dtype=torch.float32) if cfg.oracle_actions else None
     model = BracketNet(p, d, K, cfg.width)
     opt = torch.optim.AdamW(model.parameters(), lr=cfg.lr, weight_decay=cfg.weight_decay)
-    history, W_freeze = [], None
+    history, W_freeze, snapshots = [], None, {}
     perm, ptr = torch.randperm(len(x), generator=gen), 0
     t0 = time.perf_counter()
     for step in range(cfg.steps):
         if ptr + cfg.batch > len(x):   # epoch-wise reshuffle, drop last partial batch
             perm, ptr = torch.randperm(len(x), generator=gen), 0
-        xb = x[perm[ptr:ptr + cfg.batch]]
+        idx = perm[ptr:ptr + cfg.batch]
+        xb = x[idx]
         ptr += cfg.batch
         lam = closure_lambda(cfg, step)
-        out = losses(model, xb, cfg, lam)
+        if step in snapshot_steps:
+            snapshots[step] = model.generators().detach().double().numpy().tolist()
+        out = losses(model, xb, cfg, lam, a_all[idx] if a_all is not None else None)
         opt.zero_grad(set_to_none=True)
         out["total"].backward()
         if generators_frozen(cfg, step):
@@ -119,4 +135,6 @@ def train(ds: Dataset, cfg: Config, seed: int, log_every: int = 20):
         if step % log_every == 0 or step == cfg.steps - 1:
             history.append(dict(step=step, lam=lam, **{k: float(v.detach()) if torch.is_tensor(v) else float(v) for k, v in out.items()}))
     runtime = time.perf_counter() - t0
-    return model, dict(history=history, runtime_s=runtime, config=asdict(cfg), W_freeze=W_freeze)
+    if snapshot_steps:
+        snapshots[cfg.steps] = model.generators().detach().double().numpy().tolist()
+    return model, dict(history=history, runtime_s=runtime, config=asdict(cfg), W_freeze=W_freeze, snapshots=snapshots)

@@ -1,0 +1,135 @@
+\begin{thebibliography}{20}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Adams(1969)]{adams1969lectures}
+J.~Frank Adams.
+\newblock \emph{Lectures on {L}ie Groups}.
+\newblock W. A. Benjamin, 1969.
+
+\bibitem[Bonfiglioli and Fulci(2012)]{bonfiglioli2012topics}
+Andrea Bonfiglioli and Roberta Fulci.
+\newblock \emph{Topics in Noncommutative Algebra: The Theorem of {C}ampbell,
+  {B}aker, {H}ausdorff and {D}ynkin}, volume 2034 of \emph{Lecture Notes in
+  Mathematics}.
+\newblock Springer, 2012.
+
+\bibitem[Bronstein et~al.(2021)Bronstein, Bruna, Cohen, and
+  Veli{\v{c}}kovi{\'c}]{bronstein2021geometric}
+Michael~M. Bronstein, Joan Bruna, Taco Cohen, and Petar Veli{\v{c}}kovi{\'c}.
+\newblock Geometric deep learning: Grids, groups, graphs, geodesics, and
+  gauges.
+\newblock \emph{arXiv:2104.13478}, 2021.
+
+\bibitem[Cohen and Welling(2014)]{cohen2014learning}
+Taco Cohen and Max Welling.
+\newblock Learning the irreducible representations of commutative {L}ie groups.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2014.
+
+\bibitem[Cohen and Welling(2016)]{cohen2016group}
+Taco~S. Cohen and Max Welling.
+\newblock Group equivariant convolutional networks.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2016.
+
+\bibitem[Dehmamy et~al.(2021)Dehmamy, Walters, Liu, Wang, and
+  Yu]{dehmamy2021automatic}
+Nima Dehmamy, Robin Walters, Yanchen Liu, Dashun Wang, and Rose Yu.
+\newblock Automatic symmetry discovery with {L}ie algebra convolutional
+  network.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2021.
+
+\bibitem[Gabel et~al.(2023)Gabel, Klein, Valperga, Lamb, Webster, Quax, and
+  Gavves]{gabel2023learning}
+Alex Gabel, Victoria Klein, Riccardo Valperga, Jeroen S.~W. Lamb, Kevin
+  Webster, Rick Quax, and Efstratios Gavves.
+\newblock Learning {L}ie group symmetry transformations with neural networks.
+\newblock In \emph{Topological, Algebraic and Geometric Learning Workshops
+  (TAG-ML), PMLR 221}, 2023.
+
+\bibitem[Hall(2015)]{hall2015lie}
+Brian~C. Hall.
+\newblock \emph{Lie Groups, Lie Algebras, and Representations: An Elementary
+  Introduction}.
+\newblock Springer, 2 edition, 2015.
+
+\bibitem[Higgins et~al.(2018)Higgins, Amos, Pfau, Racani{\`e}re, Matthey,
+  Rezende, and Lerchner]{higgins2018towards}
+Irina Higgins, David Amos, David Pfau, S{\'e}bastien Racani{\`e}re, Loic
+  Matthey, Danilo Rezende, and Alexander Lerchner.
+\newblock Towards a definition of disentangled representations.
+\newblock \emph{arXiv:1812.02230}, 2018.
+
+\bibitem[Huh et~al.(2024)Huh, Cheung, Wang, and Isola]{huh2024platonic}
+Minyoung Huh, Brian Cheung, Tongzhou Wang, and Phillip Isola.
+\newblock The platonic representation hypothesis.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2024.
+
+\bibitem[Keurti et~al.(2023)Keurti, Pan, Besserve, Grewe, and
+  Sch{\"o}lkopf]{keurti2023homomorphism}
+Hamza Keurti, Hsiao-Ru Pan, Michel Besserve, Benjamin~F. Grewe, and Bernhard
+  Sch{\"o}lkopf.
+\newblock Homomorphism {AutoEncoder} -- learning group structured
+  representations from observed transitions.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2023.
+
+\bibitem[Kornblith et~al.(2019)Kornblith, Norouzi, Lee, and
+  Hinton]{kornblith2019similarity}
+Simon Kornblith, Mohammad Norouzi, Honglak Lee, and Geoffrey Hinton.
+\newblock Similarity of neural network representations revisited.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2019.
+
+\bibitem[Moschella et~al.(2023)Moschella, Maiorca, Fumero, Norelli, Locatello,
+  and Rodol{\`a}]{moschella2023relative}
+Luca Moschella, Valentino Maiorca, Marco Fumero, Antonio Norelli, Francesco
+  Locatello, and Emanuele Rodol{\`a}.
+\newblock Relative representations enable zero-shot latent space communication.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2023.
+
+\bibitem[Park et~al.(2022)Park, Biza, Zhao, van~de Meent, and
+  Walters]{park2022learning}
+Jung~Yeon Park, Ondrej Biza, Linfeng Zhao, Jan-Willem van~de Meent, and Robin
+  Walters.
+\newblock Learning symmetric embeddings for equivariant world models.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2022.
+
+\bibitem[Rao and Ruderman(1999)]{rao1999learning}
+Rajesh P.~N. Rao and Daniel~L. Ruderman.
+\newblock Learning {L}ie groups for invariant visual perception.
+\newblock In \emph{Advances in Neural Information Processing Systems (NIPS)},
+  1999.
+
+\bibitem[Shaw et~al.(2024)Shaw, Magner, and Moon]{shaw2024symmetry}
+Ben Shaw, Abram Magner, and Kevin~R. Moon.
+\newblock Symmetry discovery beyond affine transformations.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2024.
+
+\bibitem[Sohl-Dickstein et~al.(2010)Sohl-Dickstein, Wang, and
+  Olshausen]{sohl2010unsupervised}
+Jascha Sohl-Dickstein, Ching~Ming Wang, and Bruno~A. Olshausen.
+\newblock An unsupervised algorithm for learning {L}ie group transformations.
+\newblock \emph{arXiv:1001.1027}, 2010.
+
+\bibitem[Williams et~al.(2021)Williams, Kunz, Kornblith, and
+  Linderman]{williams2021generalized}
+Alex~H. Williams, Erin Kunz, Simon Kornblith, and Scott~W. Linderman.
+\newblock Generalized shape metrics on neural representations.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2021.
+
+\bibitem[Yang et~al.(2023)Yang, Walters, Dehmamy, and Yu]{yang2023generative}
+Jianke Yang, Robin Walters, Nima Dehmamy, and Rose Yu.
+\newblock Generative adversarial symmetry discovery.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2023.
+
+\bibitem[Yang et~al.(2024)Yang, Dehmamy, Walters, and Yu]{yang2024latent}
+Jianke Yang, Nima Dehmamy, Robin Walters, and Rose Yu.
+\newblock Latent space symmetry discovery.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2024.
+
+\end{thebibliography}

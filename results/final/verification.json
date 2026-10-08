@@ -1,26 +1,4 @@
 {
- "reruns": [
-  {
-   "run": "SO3_bracketnet_s100",
-   "max_abs_diff": 0.0,
-   "same_category": true
-  },
-  {
-   "run": "T2_comp_s105",
-   "max_abs_diff": 0.0,
-   "same_category": true
-  },
-  {
-   "run": "SO3_bracketnet_s112",
-   "max_abs_diff": 0.0,
-   "same_category": true
-  },
-  {
-   "run": "T2_bracketnet_lam0.1_s118",
-   "max_abs_diff": 0.0,
-   "same_category": true
-  }
- ],
  "recompute": {
   "identical": true,
   "changed": []

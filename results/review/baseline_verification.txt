@@ -1,0 +1,5 @@
+43 passed in 83.52s (0:01:23)
+recompute identical: True []
+undefined macros: [] | macros used: 81
+pdf: {'pages': 15, 'references_start_page': 9, 'main_text_ends_on_page': 9, 'type3_fonts': 0, 'identifying_strings': [], 'pdf_author': '', 'latex_errors': 0, 'undefined_refs': 0, 'overfull_boxes': 0}
+HARD CHECKS: PASS

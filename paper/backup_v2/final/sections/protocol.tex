@@ -1,0 +1,47 @@
+\section{Experimental protocol}\label{sec:protocol}
+\paragraph{Benchmarks.}
+The groups are SO(2), the abelian torus $T^2$ and the non-abelian SO(3). Each acts linearly on a latent state in
+$\mathbb R^d$ that includes an extra invariant coordinate, with $d=3,5,4$. The true algebra is therefore a proper
+subspace of a larger $\so(d)$, and a random span does not close: the mean closure of random normalized spans is
+$0.60$ for $K{=}2$ in $\so(5)$ and $0.66$ for $K{=}3$ in $\so(4)$.
+
+Initial states are drawn as $z_0\sim\mathcal N(0,I_d)$, and transitions apply $\exp(\sum_k a_kT_k)$ with
+$a_k\sim\mathcal N(0,0.24^2)$. Observations are $x=Qz+0.18\tanh(Bz)$ with $Q$ orthogonal and $B$ fixed; there is
+one fixed map per group, shared by all splits and seeds, and it is injective by construction. Each run trains on
+1{,}400 triples and is evaluated on 500 ten-edge sequences generated from its own seed.
+
+\paragraph{Development-only selection, then a frozen protocol.}
+The training budget and closure weight are not fixed in advance; we chose them on five development seeds
+(5--9) with rules committed before any development run (Appendix~\ref{app:protocol}).
+\begin{itemize}
+\item \emph{Budget:} the smallest budget at which the \textsc{+Comp.} baseline's development transport is within
+10\% of its value at 4{,}000 updates. This rule is method-agnostic.
+\item \emph{Closure weight:} the $\lambda$ with the lowest development closure whose development transport is no
+worse than \textsc{+Comp.}'s.
+\item \emph{Closure objective:} a span-only variant would replace Eq.~\eqref{eq:close} only if it were better on
+both criteria.
+\end{itemize}
+The rules selected \NSteps{} updates, $\lambda=\NLambda$ and Eq.~\eqref{eq:close}. All other settings were fixed
+before selection; the full frozen protocol is in the supplement. We also evaluate $\lambda=0.1$ at the same budget
+as a reference: it is the weight originally planned for this method. The final iterate is evaluated, with no early
+stopping.
+
+\paragraph{Fresh evaluation.}
+All methods are trained on \NNseeds{} previously unused seeds (100--119). Ablations use a further \NNabl{}
+seeds (200--209). The structural categories and all thresholds were fixed before these runs:
+\begin{itemize}
+\item \emph{collapsed}: $\sigma_{\min}/\sigma_{\max}(B)<0.1$;
+\item \emph{closed}: closure at most 1\% of the random-span level;
+\item \emph{correct-closed}: closed, with ground-truth algebra distance at most 10\% of chance;
+\item \emph{incorrect-closed}: closed but not correct.
+\end{itemize}
+The ground-truth algebra distance is the mean squared sine of the principal angles between
+$\spn(RA R^\top)$ and the true span, where $R$ is the orthogonal Procrustes map from $E(x)$ to the true state.
+
+\paragraph{Statistics.}
+Seeds are the independent units. For cross-seed quantities we use the \NNpairs{} \emph{disjoint} seed pairs
+$(100,101),\dots,(118,119)$, the same for every method; we never treat the 190 overlapping pairs as independent.
+The pre-registered primary family compares BracketNet with \textsc{+Comp.}, one-sided, on three quantities, each
+for $T^2$ and SO(3): closure (H1), ground-truth algebra distance (H2) and cross-seed algebra distance (H3). Each
+uses an exact paired sign-flip test with Holm correction over the six tests. Everything else is secondary and
+reported with two-sided 95\% $t$-intervals, which we interpret only when they exclude zero.

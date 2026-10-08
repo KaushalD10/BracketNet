@@ -1,0 +1,64 @@
+% BracketNet: final manuscript (anonymous submission).
+% Uses the official NeurIPS 2026 style if neurips_2026.sty is present in this directory (required for
+% submission; it could not be downloaded in the build environment). Otherwise a stand-in that mimics the
+% NeurIPS page geometry (5.5in x 9in text block, 10pt Times) is used so the page count is representative.
+\documentclass{article}
+\IfFileExists{neurips_2026.sty}{%
+  \usepackage{neurips_2026}%
+  \newcommand{\styleNote}{}%
+}{%
+  \usepackage[letterpaper,textwidth=5.5in,textheight=9in,top=1in,headheight=12pt,headsep=25pt,footskip=30pt]{geometry}%
+  \usepackage[numbers,sort&compress]{natbib}%
+  \usepackage{mathptmx}%
+  \newcommand{\styleNote}{}%
+}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,multirow}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[hidelinks,pdfusetitle=false]{hyperref}
+\hypersetup{pdfauthor={},pdftitle={Closing the Algebra Is Not Enough},pdfsubject={},pdfkeywords={},pdfcreator={},pdfproducer={}}
+\usepackage{microtype}
+\renewcommand{\ttdefault}{pcr}
+\emergencystretch=2em
+% Table bodies are generated files; the primitive (expandable) input avoids the tabular/\noalign error that
+% LaTeX's \input causes before \bottomrule.
+\makeatletter\newcommand{\tabinput}[1]{\@@input #1 }\makeatother
+\graphicspath{{../../figures/final/}}
+\input{../../results/final/tables/numbers.tex}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+\newcommand{\so}{\mathfrak{so}}
+\newcommand{\su}{\mathfrak{su}}
+\newcommand{\Lc}{\mathcal{L}_{\mathrm{close}}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\spn}{\operatorname{span}}
+
+\title{Closing the Algebra Is Not Enough: Lie-Closure Regularization\\ Makes Learned Transformation Structure Comparable, Not Identifiable}
+\author{Anonymous Author(s)\\Affiliation\\Address\\\texttt{email}}
+\date{}
+
+\begin{document}
+\maketitle
+\input{sections/abstract}
+\input{sections/intro}
+\input{sections/related}
+\input{sections/setting_method}
+\input{sections/theory}
+\input{sections/protocol}
+\input{sections/results}
+\input{sections/alignment}
+\input{sections/ablations}
+\input{sections/limitations}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\newpage
+\appendix
+\input{sections/appendix}
+\end{document}

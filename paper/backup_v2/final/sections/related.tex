@@ -1,0 +1,23 @@
+\section{Related work}\label{sec:related}
+\paragraph{Learning transformation groups.}
+Lie-group transformation models have a long history in unsupervised learning
+\citep{rao1999learning,sohl2010unsupervised,cohen2014learning}. Recent methods discover symmetries from
+predictors \citep{dehmamy2021automatic}, adversarially from distributional invariance \citep{yang2023generative},
+in learned latent spaces \citep{yang2024latent}, beyond affine families \citep{shaw2024symmetry}, or as
+one-parameter transformation families \citep{gabel2023learning}. Equivariant architectures instead assume the
+group is known \citep{cohen2016group,bronstein2021geometric}.
+
+\paragraph{Group-structured representations from transitions.}
+Symmetric embedding networks \citep{park2022learning} and Homomorphism Autoencoders \citep{keurti2023homomorphism}
+learn latent spaces in which observed transitions act through a group representation. Symmetry-based
+disentanglement \citep{higgins2018towards} defines representations through group actions. We share this setting.
+Our question is different: \emph{whether the learned infinitesimal structure is a Lie algebra at all, and
+whether independently trained models agree on it.}
+
+\paragraph{Comparing and aligning representations.}
+CKA \citep{kornblith2019similarity}, Procrustes-type shape metrics \citep{williams2021generalized} and relative
+representations \citep{moschella2023relative} compare or align latent spaces of different models up to a class of
+transformations. The convergence of learned representations across models is an active hypothesis
+\citep{huh2024platonic}. These tools compare \emph{point clouds} of embeddings. We add a comparison of the
+\emph{transformation structure} acting on them: after aligning two latent spaces, do their generator spans
+coincide, and do actions inferred by one model act correctly in the other?

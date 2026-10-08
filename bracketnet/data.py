@@ -14,7 +14,29 @@ from .groups import GROUPS, true_generators
 
 COEF_STD = 0.24          # std of Gaussian local coefficients (Sec. 6.1)
 NONLIN_SCALE = 0.18      # x = Qz + 0.18 tanh(Bz) (Eq. 12)
-GROUP_MAP_SEED = {"SO2": 101, "T2": 102, "SO3": 103, "SO3_d3": 104}  # ASSUMPTION: fixed per group
+GROUP_MAP_SEED = {"SO2": 101, "T2": 102, "SO3": 103, "SO3_d3": 104, "SO3img": 105}  # ASSUMPTION: fixed per group
+
+
+@dataclass
+class Renderer:
+    """Rendered-image observations of a latent state z in R^4 (rendered benchmark, final review).
+
+    z[:3] is the 3-D position of a Gaussian blob (rotated by SO(3)); z[3] is an invariant appearance coordinate.
+    The image (G x G pixels on [-L, L]^2) shows the blob at (z1, z2) with width 0.45 exp(0.3 z3) (depth cue)
+    and amplitude 1 + 0.5 tanh(z4). Center, width and amplitude determine z, so the map is injective on the
+    support used here (|z1|, |z2| well inside the field of view)."""
+    G: int = 20
+    L: float = 3.2
+
+    def __call__(self, z: np.ndarray) -> np.ndarray:
+        g = np.linspace(-self.L, self.L, self.G)
+        X, Y = np.meshgrid(g, g, indexing="xy")
+        zf = z.reshape(-1, 4)
+        w = 0.45 * np.exp(0.3 * zf[:, 2])
+        amp = 1.0 + 0.5 * np.tanh(zf[:, 3])
+        d2 = (X[None] - zf[:, 0, None, None]) ** 2 + (Y[None] - zf[:, 1, None, None]) ** 2
+        img = amp[:, None, None] * np.exp(-d2 / (2 * w[:, None, None] ** 2))
+        return img.reshape(*z.shape[:-1], self.G * self.G)
 
 
 @dataclass
@@ -51,6 +73,8 @@ def group_map(group: str, split_dependent: bool = False, split: str = "train") -
     split_dependent=True reproduces the rejected pilot (Sec. 6.3, item 2) in
     which the test split used a separately sampled map.
     """
+    if group == "SO3img":
+        return Renderer()
     seed = GROUP_MAP_SEED[group]
     if split_dependent and split == "test":
         seed += 10_000
@@ -66,8 +90,12 @@ def sample_actions(rng: np.random.Generator, group: str, n: int) -> np.ndarray:
 
 
 def sample_states(rng: np.random.Generator, group: str, n: int) -> np.ndarray:
-    """ASSUMPTION: initial latent states u ~ N(0, I_d)."""
-    return rng.standard_normal((n, GROUPS[group]["d"]))
+    """ASSUMPTION: initial latent states u ~ N(0, I_d). For the rendered benchmark the 3-D position is scaled by 0.7
+    so that blobs stay inside the field of view (rotations preserve this distribution)."""
+    z = rng.standard_normal((n, GROUPS[group]["d"]))
+    if group == "SO3img":
+        z[:, :3] *= 0.7
+    return z
 
 
 def make_sequences(rng: np.random.Generator, group: str, n: int, n_edges: int):
@@ -96,6 +124,7 @@ class Dataset:
     z_test: np.ndarray
     a_test: np.ndarray       # true coefficients of each test edge
     g_test: np.ndarray       # true group element of each test edge
+    a_train: np.ndarray | None = None   # true coefficients of the two training edges (oracle-action variant only)
 
 
 def make_dataset(group: str, seed: int, n_train: int = 1400, n_test: int = 500,
@@ -103,8 +132,8 @@ def make_dataset(group: str, seed: int, n_train: int = 1400, n_test: int = 500,
     """ASSUMPTION: run seed drives train and test sampling through independent streams."""
     rng_train = np.random.default_rng([seed, 0])
     rng_test = np.random.default_rng([seed, 1])
-    z_tr, _, _ = make_sequences(rng_train, group, n_train, 2)
+    z_tr, a_tr, _ = make_sequences(rng_train, group, n_train, 2)
     z_te, a_te, g_te = make_sequences(rng_test, group, n_test, n_test_edges)
     f_tr = group_map(group, split_dependent_map, "train")
     f_te = group_map(group, split_dependent_map, "test")
-    return Dataset(group, f_tr(z_tr), z_tr, f_te(z_te), z_te, a_te, g_te)
+    return Dataset(group, f_tr(z_tr), z_tr, f_te(z_te), z_te, a_te, g_te, a_tr)

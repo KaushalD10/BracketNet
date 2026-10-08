@@ -24,6 +24,8 @@ GROUPS = {
     "T2": dict(d=5, K=2, abelian=True),
     # SO(3) acting on R^3 plus one invariant coordinate: standard so(3) inside so(4).
     "SO3": dict(d=4, K=3, abelian=False),
+    # Rendered-image benchmark: the SO(3) latent structure observed through 20x20 renderings (see data.Renderer).
+    "SO3img": dict(d=4, K=3, abelian=False),
     # Rejected pilot (Sec. 6.3, item 1): SO(3) with no invariant coordinate, ambient so(3).
     # Any 3 independent elements of so(3) span so(3), so closure is automatic.
     "SO3_d3": dict(d=3, K=3, abelian=False),
@@ -37,7 +39,7 @@ def true_generators(group: str) -> np.ndarray:
         gens = [elementary_skew(d, 0, 1)]
     elif group == "T2":
         gens = [elementary_skew(d, 0, 1), elementary_skew(d, 2, 3)]
-    elif group in ("SO3", "SO3_d3"):
+    elif group in ("SO3", "SO3_d3", "SO3img"):
         # L_x, L_y, L_z on coordinates (0, 1, 2) with [L_x, L_y] = L_z.
         gens = [elementary_skew(d, 2, 1), elementary_skew(d, 0, 2), elementary_skew(d, 1, 0)]
     else:
