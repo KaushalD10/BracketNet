@@ -226,3 +226,7 @@ results/checkpoints/*
 paper/*.aux
 paper/*.log
 paper/*.out
+
+# TEMPORARY while a phase is running (removed and committed in full when the phase completes)
+results/final/runs/dev/
+results/final/dev_log.txt
