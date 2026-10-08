@@ -1,0 +1,42 @@
+# PRE-REGISTERED development-selection rules for the final protocol.
+# Written and committed to the working tree BEFORE any dev-phase run was executed.
+# Only development seeds are used. Fresh test seeds (100-119) and ablation seeds (200-209)
+# are never consulted for any choice below.
+dev_seeds: [5, 6, 7, 8, 9]          # 5 and 6 were the earlier validation seeds; 7-9 are new
+groups_for_selection: [T2, SO3]      # SO(2) has K=1 (closure identically 0) and is uninformative
+fixed_from_previous_validation:
+  w_cov: 16.0                        # chosen earlier on seeds 5-6 with a method-agnostic criterion
+grid:
+  budgets: [420, 1000, 2000, 4000]   # optimizer updates; schedule fractions (0.35 / 0.70) unchanged
+  baselines: [local, comp]
+  bracketnet_lambdas: [0.1, 3.0, 10.0, 30.0, 100.0]
+rules:
+  step_1_budget: >
+    Method-agnostic convergence rule. Let m(B) be the mean dev 10-step transport MSE of +Comp.
+    pooled over T2 and SO3 and dev seeds. Choose the smallest budget B with m(B) <= 1.10 * m(4000).
+  step_2_lambda: >
+    At the chosen budget, among lambda in the grid excluding 0.1, choose the lambda with the lowest
+    mean dev closure residual (pooled T2/SO3) subject to its mean dev 10-step MSE not exceeding that
+    of +Comp. at the same budget. If none qualifies, choose the lambda with lowest closure among those
+    within 10 % of +Comp.'s MSE. lambda = 0.1 (the original manuscript's value) is carried along
+    as a reference variant only.
+  step_3_closure_objective: >
+    At the chosen (budget, lambda), compare the tested closure objective ('reg', Eq. 7 with
+    eps = 1e-6) against the span-only invariant variant ('whitened'). Keep 'reg' unless 'whitened'
+    has both lower mean dev log-closure AND lower mean dev 10-step MSE. 'whitened' is a new
+    model variant and would be reported as such.
+  step_4_thresholds: >
+    Structural categories (fixed here, before any fresh-seed result):
+    collapsed if sigma_min/sigma_max of the generator matrix B < 0.1;
+    closed if closure residual <= 0.01 * (mean closure of random sqrt(2)-normalized K-spans of so(d));
+    correct-closed if closed and ground-truth algebra distance <= 0.1 * chance distance;
+    incorrect-closed otherwise (for SO3, subtype 'chiral' if participation ratio >= 3);
+    'accurate structure, inaccurate action' if correct-closed and normalized action disagreement
+    with the ground truth > 0.5.
+  step_5_primary_hypotheses: >
+    One-sided, final BracketNet vs +Comp. on fresh seeds, Holm-corrected over the family:
+    H1 closure (T2, SO3); H2 ground-truth algebra distance (T2, SO3);
+    H3 cross-seed algebra distance on disjoint seed pairs (T2, SO3).
+    Test: exact paired sign-flip test on per-seed (or per-pair) differences.
+    Transport, transfer and all other quantities are secondary and reported two-sided without
+    claims of significance unless the 95 % CI excludes zero.
