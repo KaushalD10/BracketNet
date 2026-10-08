@@ -42,7 +42,7 @@ becomes NO-GO until resolved.
 |---|---|
 | Official `neurips_2026.sty` | **blocked**: neurips.cc, Overleaf and OpenReview are unreachable from the build environment. A community copy (self-described "partial rewrite"; SHA-256 in `paper/submission/layout_proxy/PROVENANCE.md`) was used only as a layout proxy. |
 | UniReps 2026 call for papers | **blocked**: unireps.org unreachable. Search results indicate an Oct 10, 2026 (AoE) deadline (extended from Oct 4) and that the 2025 call had a 9-page full-paper track and a 4-page extended-abstract track. NeurIPS 2026 guidance mentions a Sep 29 workshop notification date, which conflicts; ask the organizers. |
-| Pushing to branch `unireps-final-review` | **refused** (HTTP 403; this session can push only to its designated branch). All commits are on `claude/eager-franklin-y9zaho`; the local branch `unireps-final-review` tracks it. The v2 backup is preserved in history (`6cbc3af`) and in `paper/backup_v2/`. |
+| Branch `unireps-final-review` | The first push returned HTTP 403 but had created the remote branch; a later push succeeded. The final work is on **both** `unireps-final-review` and `claude/eager-franklin-y9zaho` (same commit). The v2 backup is preserved in history (`6cbc3af`) and in `paper/backup_v2/`. |
 | External published baselines (LieGAN, LaLiGAN, HAE) | **not run**. Supervision differs; the oracle-coefficient variant is the action-supervised analogue. Stated in the paper. |
 | Natural-image benchmark | **not done**. The rendered benchmark is synthetic. Stated. |
 
