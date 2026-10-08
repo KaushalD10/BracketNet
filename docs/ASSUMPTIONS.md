@@ -52,3 +52,25 @@ manuscript text. Where the text is silent, the choice below was made. Each is vi
 2. **Ablations on test seeds.** The rejected-pilot ablations and a training-budget sensitivity study (2,000 updates)
    were run post hoc on seeds 10–14. They were not used to select any hyperparameter.
 3. **New experiment.** Cross-seed structural alignment (`scripts/run_alignment.py`) is not in the original manuscript.
+
+---
+
+# Final protocol (round 2): additional decisions
+
+Round 2 supersedes the λ = 0.1 and λ = 30 protocols above for the final manuscript. The round-1 results stay in
+`results/runs/` as history.
+
+| Item | Final choice | How it was chosen |
+|---|---|---|
+| Training budget | 4,000 updates | Pre-registered, method-agnostic rule on dev seeds 5–9 (`configs/dev_selection.yaml` step 1). +Comp. dev 10-step MSE by budget: 420 → 0.157, 1000 → 0.076, 2000 → 0.035, 4000 → 0.029; only 4000 is within 10 % of 4000. |
+| Closure weight λ | 3 | Step 2 plus **amendment A1**, committed before any fresh-seed run. No λ met the transport constraint or its 10 % fallback at 4000 updates; relaxing the tolerance in 0.10 steps admitted λ = 3 first, at tolerance 1.20. |
+| Closure objective | Eq. 7 with ε = 1e-6 ("reg") | Step 3. The span-only "whitened" variant was not better on mean dev log-closure, so the switch condition failed. |
+| Structural thresholds | collapse σ-ratio < 0.1; closed ≤ 1 % of random-span closure; correct ≤ 10 % of chance distance; chiral if participation ratio ≥ 3; inaccurate action if disagreement > 0.5 | Step 4, fixed before fresh runs |
+| Test seeds | 100–119 (20 fresh seeds) | never used before |
+| Ablation seeds | 200–209 | never used before |
+| Probe seeds | 998 (alignment fit), 997 (transfer evaluation) | never used for training |
+| Latent alignment for transfer | uncentered orthogonal Procrustes, so the alignment preserves the origin the group action fixes | |
+| Latent alignment for structure | centered orthogonal Procrustes (reflections allowed) | |
+| Random-span reference levels | closure 0.598 (K = 2 in so(5)), 0.661 (K = 3 in so(4)); subspace distance 0.802 / 0.500 | Monte Carlo, 2000 samples, seed 0 |
+
+Unchanged from round 1: A1–A8 and A10–A17 (data, architecture, losses, optimizer), with w_cov = 16 (A9).
