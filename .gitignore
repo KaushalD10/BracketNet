@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Checkpoints: only the held-out test models (used by the alignment experiment) are versioned
+results/checkpoints/*
+!results/checkpoints/test/
+# LaTeX build products
+paper/*.aux
+paper/*.log
+paper/*.out

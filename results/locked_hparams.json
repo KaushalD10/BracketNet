@@ -1,0 +1,67 @@
+{
+ "w_cov": 16.0,
+ "closure_weight": 0.1,
+ "note": "w_cov selected by scripts/lock_hparams.py on validation seeds 5-6 with criterion mean log 1-step MSE of Local/+Comp; closure_weight 0.1 is the manuscript's locked value.",
+ "cov_select_scores": {
+  "1.0": -3.9165415771384295,
+  "4.0": -4.162827656172529,
+  "16.0": -4.58636079109712,
+  "64.0": -4.021112356400374
+ },
+ "n_runs_per_value": {
+  "1.0": 12,
+  "4.0": 12,
+  "16.0": 12,
+  "64.0": 12
+ },
+ "closure_weight_B": 30.0,
+ "protocol_B_rule": "Protocol B closure-weight selection (validation seeds 5-6 only; T2 and SO3 jointly).\n\nRule (fixed before any test-seed run): among the grid, choose the lambda with the lowest mean\nvalidation closure residual subject to its mean validation 10-step transport MSE not exceeding\nthat of +Comp. Writes closure_weight_B into results/locked_hparams.json.\nProtocol A keeps the manuscript's locked lambda = 0.1 regardless of this script.",
+ "protocol_B_table": {
+  "3.0": {
+   "closure": 0.16314855408737386,
+   "mse10": 0.15949895605444908,
+   "n": 4
+  },
+  "1.0": {
+   "closure": 0.36087530733931267,
+   "mse10": 0.18121851235628128,
+   "n": 4
+  },
+  "10.0": {
+   "closure": 0.015646561211059996,
+   "mse10": 0.1575678363442421,
+   "n": 4
+  },
+  "30.0": {
+   "closure": 0.001641921379576262,
+   "mse10": 0.163698211312294,
+   "n": 4
+  },
+  "comp": {
+   "closure": 0.4057108824448187,
+   "mse10": 0.18012306094169617,
+   "n": 4
+  },
+  "0.1": {
+   "closure": 0.4912668148101708,
+   "mse10": 0.18573638796806335,
+   "n": 4
+  },
+  "local": {
+   "closure": 0.46918147779930713,
+   "mse10": 0.17363876104354858,
+   "n": 4
+  },
+  "0.3": {
+   "closure": 0.4601400097360513,
+   "mse10": 0.18071073293685913,
+   "n": 4
+  },
+  "0.05": {
+   "closure": 0.4986270455244686,
+   "mse10": 0.18735719472169876,
+   "n": 4
+  }
+ },
+ "comp_val_mse10": 0.18012306094169617
+}

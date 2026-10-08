@@ -1,0 +1,1595 @@
+{
+ "SO2": {
+  "chance_subspace_distance": 0.662920669607716,
+  "local": {
+   "pairwise": {
+    "cka": [
+     0.993235577511213,
+     0.003182881126414734
+    ],
+    "procrustes_residual": [
+     0.005871790731639745,
+     0.0028152122359067023
+    ],
+    "algebra_subspace_distance": [
+     0.00016624287913896696,
+     0.00012944755926367954
+    ],
+    "action_disagreement": [
+     0.024462632963346498,
+     0.0046471903192320425
+    ]
+   },
+   "vs_truth": {
+    "cka": [
+     0.991703106765202,
+     0.0008885816820508874
+    ],
+    "procrustes_residual": [
+     0.007376918434971238,
+     0.000557459486695259
+    ],
+    "algebra_subspace_distance": [
+     0.00013774967236455105,
+     0.00012314799318142202
+    ],
+    "action_disagreement": [
+     0.24319448672725946,
+     0.013798662967118567
+    ]
+   },
+   "pairwise_raw": [
+    {
+     "cka": 0.9917130839452928,
+     "procrustes_residual": 0.006744001945097449,
+     "algebra_subspace_distance": 0.0004200604802973018,
+     "action_disagreement": 0.03180266243163404
+    },
+    {
+     "cka": 0.9925764775462451,
+     "procrustes_residual": 0.007100335837366479,
+     "algebra_subspace_distance": 3.7473108993713033e-05,
+     "action_disagreement": 0.024507101739271536
+    },
+    {
+     "cka": 0.9857700611032562,
+     "procrustes_residual": 0.01224852423743428,
+     "algebra_subspace_distance": 0.00020072158505268778,
+     "action_disagreement": 0.028294432325673014
+    },
+    {
+     "cka": 0.9927473295529516,
+     "procrustes_residual": 0.0068533519785418705,
+     "algebra_subspace_distance": 0.00014313244364549949,
+     "action_disagreement": 0.029239124936820404
+    },
+    {
+     "cka": 0.9954782702229809,
+     "procrustes_residual": 0.003405638336481539,
+     "algebra_subspace_distance": 0.0003094931499302289,
+     "action_disagreement": 0.026621358261811674
+    },
+    {
+     "cka": 0.9927253652098538,
+     "procrustes_residual": 0.0061471847254309835,
+     "algebra_subspace_distance": 0.00025505707343731476,
+     "action_disagreement": 0.022399032188272168
+    },
+    {
+     "cka": 0.9959859139097754,
+     "procrustes_residual": 0.002979397593858485,
+     "algebra_subspace_distance": 0.00013127372209653654,
+     "action_disagreement": 0.02191617783429651
+    },
+    {
+     "cka": 0.9953856491528944,
+     "procrustes_residual": 0.003935455654871594,
+     "algebra_subspace_distance": 4.726393756204761e-05,
+     "action_disagreement": 0.01915477494467932
+    },
+    {
+     "cka": 0.9970893200206928,
+     "procrustes_residual": 0.0028936438106273495,
+     "algebra_subspace_distance": 8.43006661617185e-05,
+     "action_disagreement": 0.023917904914980862
+    },
+    {
+     "cka": 0.9928843044481851,
+     "procrustes_residual": 0.006410373196687422,
+     "algebra_subspace_distance": 3.365262421262116e-05,
+     "action_disagreement": 0.01677376005602542
+    }
+   ],
+   "vs_truth_raw": [
+    {
+     "cka": 0.9908263576809774,
+     "procrustes_residual": 0.007758943565220907,
+     "algebra_subspace_distance": 0.00033242511073661163,
+     "action_disagreement": 0.24957288337039651
+    },
+    {
+     "cka": 0.9911607227955681,
+     "procrustes_residual": 0.0074336202520460136,
+     "algebra_subspace_distance": 7.38542568432532e-05,
+     "action_disagreement": 0.23677220932627469
+    },
+    {
+     "cka": 0.9925382790239222,
+     "procrustes_residual": 0.007141242679675157,
+     "algebra_subspace_distance": 0.0001845946837168988,
+     "action_disagreement": 0.26320628306128185
+    },
+    {
+     "cka": 0.9912116899172325,
+     "procrustes_residual": 0.0079887399024885,
+     "algebra_subspace_distance": 6.778895878445379e-05,
+     "action_disagreement": 0.2268918269670451
+    },
+    {
+     "cka": 0.9927784844083102,
+     "procrustes_residual": 0.006562045775425617,
+     "algebra_subspace_distance": 3.0085351741537814e-05,
+     "action_disagreement": 0.2395292309112991
+    }
+   ]
+  },
+  "comp": {
+   "pairwise": {
+    "cka": [
+     0.9929690380880203,
+     0.0033380206512531314
+    ],
+    "procrustes_residual": [
+     0.006141243447809347,
+     0.0029902530507383424
+    ],
+    "algebra_subspace_distance": [
+     0.0001913283095964946,
+     0.0001568913533042168
+    ],
+    "action_disagreement": [
+     0.024100960021776783,
+     0.004190523394285272
+    ]
+   },
+   "vs_truth": {
+    "cka": [
+     0.9915696570917831,
+     0.000920526518268231
+    ],
+    "procrustes_residual": [
+     0.007505088211261504,
+     0.0005686775986995625
+    ],
+    "algebra_subspace_distance": [
+     0.00014553180184753156,
+     0.00014522857191303154
+    ],
+    "action_disagreement": [
+     0.244914888898427,
+     0.012440693596228595
+    ]
+   },
+   "pairwise_raw": [
+    {
+     "cka": 0.9913964607007074,
+     "procrustes_residual": 0.006999727506246853,
+     "algebra_subspace_distance": 0.000528200687342717,
+     "action_disagreement": 0.027640265786215368
+    },
+    {
+     "cka": 0.9919283542129994,
+     "procrustes_residual": 0.007748503927407289,
+     "algebra_subspace_distance": 5.55368656355304e-05,
+     "action_disagreement": 0.026223725983395996
+    },
+    {
+     "cka": 0.9853381918203344,
+     "procrustes_residual": 0.012685038507949815,
+     "algebra_subspace_distance": 0.00027290960932413455,
+     "action_disagreement": 0.027125073082726055
+    },
+    {
+     "cka": 0.9920002151709008,
+     "procrustes_residual": 0.007603976568063814,
+     "algebra_subspace_distance": 0.0001710863906251303,
+     "action_disagreement": 0.031154513849086306
+    },
+    {
+     "cka": 0.9954630945056959,
+     "procrustes_residual": 0.0034225276901221242,
+     "algebra_subspace_distance": 0.00032316616943617316,
+     "action_disagreement": 0.026271842385504052
+    },
+    {
+     "cka": 0.9926926269578067,
+     "procrustes_residual": 0.006205587295064093,
+     "algebra_subspace_distance": 0.0002585417298281989,
+     "action_disagreement": 0.02140847597147987
+    },
+    {
+     "cka": 0.9959688930554335,
+     "procrustes_residual": 0.0030111791546062134,
+     "algebra_subspace_distance": 0.00014381427979215378,
+     "action_disagreement": 0.021198105848064374
+    },
+    {
+     "cka": 0.9951755699090352,
+     "procrustes_residual": 0.004138513174311459,
+     "algebra_subspace_distance": 5.276718440794248e-05,
+     "action_disagreement": 0.01943884612452658
+    },
+    {
+     "cka": 0.9971234068714601,
+     "procrustes_residual": 0.0028771398626010344,
+     "algebra_subspace_distance": 7.882213931165172e-05,
+     "action_disagreement": 0.02258782638409425
+    },
+    {
+     "cka": 0.9926035676758316,
+     "procrustes_residual": 0.006720240791720775,
+     "algebra_subspace_distance": 2.84380402613138e-05,
+     "action_disagreement": 0.01796092480267498
+    }
+   ],
+   "vs_truth_raw": [
+    {
+     "cka": 0.9905145273785082,
+     "procrustes_residual": 0.008043989254796739,
+     "algebra_subspace_distance": 0.0003858377110577127,
+     "action_disagreement": 0.24359565585934864
+    },
+    {
+     "cka": 0.9911675308252798,
+     "procrustes_residual": 0.007417966441114073,
+     "algebra_subspace_distance": 7.401990971189765e-05,
+     "action_disagreement": 0.23696704123640436
+    },
+    {
+     "cka": 0.9925038902417265,
+     "procrustes_residual": 0.007177001788441934,
+     "algebra_subspace_distance": 0.00017709121747833123,
+     "action_disagreement": 0.2650490029501343
+    },
+    {
+     "cka": 0.9910878973520822,
+     "procrustes_residual": 0.008106672884892122,
+     "algebra_subspace_distance": 6.014910401719309e-05,
+     "action_disagreement": 0.2327826404482986
+    },
+    {
+     "cka": 0.9925744396613189,
+     "procrustes_residual": 0.006779810687062651,
+     "algebra_subspace_distance": 3.056106697252314e-05,
+     "action_disagreement": 0.24618010399794904
+    }
+   ]
+  },
+  "bracketnet": {
+   "pairwise": {
+    "cka": [
+     0.9929757505597889,
+     0.00335254970702197
+    ],
+    "procrustes_residual": [
+     0.006128960920080639,
+     0.003000693425050956
+    ],
+    "algebra_subspace_distance": [
+     0.0005084611533963113,
+     0.000388733444856909
+    ],
+    "action_disagreement": [
+     0.02456894628023393,
+     0.0043376010738464775
+    ]
+   },
+   "vs_truth": {
+    "cka": [
+     0.9915678097832542,
+     0.0009260409466297585
+    ],
+    "procrustes_residual": [
+     0.007503429126546687,
+     0.0005693645686586724
+    ],
+    "algebra_subspace_distance": [
+     0.0002880995582039469,
+     0.00032710597805247306
+    ],
+    "action_disagreement": [
+     0.24519967217632402,
+     0.012614694805239439
+    ]
+   },
+   "pairwise_raw": [
+    {
+     "cka": 0.9914000094850213,
+     "procrustes_residual": 0.006994068575505766,
+     "algebra_subspace_distance": 0.00105216123769869,
+     "action_disagreement": 0.02817853902435331
+    },
+    {
+     "cka": 0.9919293717530892,
+     "procrustes_residual": 0.0077474103105253855,
+     "algebra_subspace_distance": 0.00014315917153662205,
+     "action_disagreement": 0.026385372688418635
+    },
+    {
+     "cka": 0.9852818250976968,
+     "procrustes_residual": 0.012725579722187182,
+     "algebra_subspace_distance": 0.0012277186389738626,
+     "action_disagreement": 0.028500231888624022
+    },
+    {
+     "cka": 0.9920084587266524,
+     "procrustes_residual": 0.007590407218699047,
+     "algebra_subspace_distance": 0.0005409547085072353,
+     "action_disagreement": 0.031720669924234
+    },
+    {
+     "cka": 0.9954662932280515,
+     "procrustes_residual": 0.0034194737604345267,
+     "algebra_subspace_distance": 0.0007302204314487692,
+     "action_disagreement": 0.026625554205219868
+    },
+    {
+     "cka": 0.992732361845786,
+     "procrustes_residual": 0.006142265632414279,
+     "algebra_subspace_distance": 0.00035191780281795815,
+     "action_disagreement": 0.02194969759097499
+    },
+    {
+     "cka": 0.9959785553610644,
+     "procrustes_residual": 0.002999615915428745,
+     "algebra_subspace_distance": 0.00011742710738560369,
+     "action_disagreement": 0.021203267007232483
+    },
+    {
+     "cka": 0.9952208669837667,
+     "procrustes_residual": 0.004086520252871409,
+     "algebra_subspace_distance": 0.000469398499337359,
+     "action_disagreement": 0.019811900839612002
+    },
+    {
+     "cka": 0.9971005098369163,
+     "procrustes_residual": 0.0029029038990258933,
+     "algebra_subspace_distance": 0.0003369576560380283,
+     "action_disagreement": 0.02297552984122594
+    },
+    {
+     "cka": 0.9926392532798463,
+     "procrustes_residual": 0.006681363913714153,
+     "algebra_subspace_distance": 0.00011469628021898437,
+     "action_disagreement": 0.01833869979244404
+    }
+   ],
+   "vs_truth_raw": [
+    {
+     "cka": 0.990501086748631,
+     "procrustes_residual": 0.008055048732371197,
+     "algebra_subspace_distance": 0.0007926166103977561,
+     "action_disagreement": 0.24411438633570887
+    },
+    {
+     "cka": 0.9911636628465273,
+     "procrustes_residual": 0.007418490960009741,
+     "algebra_subspace_distance": 5.909228181233406e-05,
+     "action_disagreement": 0.2369911621697548
+    },
+    {
+     "cka": 0.9925111849686318,
+     "procrustes_residual": 0.007168239606093824,
+     "algebra_subspace_distance": 0.0004390600463239913,
+     "action_disagreement": 0.2656920262411496
+    },
+    {
+     "cka": 0.9910899735851063,
+     "procrustes_residual": 0.008095029456968272,
+     "algebra_subspace_distance": 0.00013521334063915091,
+     "action_disagreement": 0.23306877037331675
+    },
+    {
+     "cka": 0.9925731407673742,
+     "procrustes_residual": 0.006780336877290405,
+     "algebra_subspace_distance": 1.451551184650235e-05,
+     "action_disagreement": 0.24613201576169003
+    }
+   ]
+  },
+  "bracketnetB": {
+   "pairwise": {
+    "cka": [
+     0.9929757505597889,
+     0.00335254970702197
+    ],
+    "procrustes_residual": [
+     0.006128960920080639,
+     0.003000693425050956
+    ],
+    "algebra_subspace_distance": [
+     0.0005084611533963113,
+     0.000388733444856909
+    ],
+    "action_disagreement": [
+     0.02456894628023393,
+     0.0043376010738464775
+    ]
+   },
+   "vs_truth": {
+    "cka": [
+     0.9915678097832542,
+     0.0009260409466297585
+    ],
+    "procrustes_residual": [
+     0.007503429126546687,
+     0.0005693645686586724
+    ],
+    "algebra_subspace_distance": [
+     0.0002880995582039469,
+     0.00032710597805247306
+    ],
+    "action_disagreement": [
+     0.24519967217632402,
+     0.012614694805239439
+    ]
+   },
+   "pairwise_raw": [
+    {
+     "cka": 0.9914000094850213,
+     "procrustes_residual": 0.006994068575505766,
+     "algebra_subspace_distance": 0.00105216123769869,
+     "action_disagreement": 0.02817853902435331
+    },
+    {
+     "cka": 0.9919293717530892,
+     "procrustes_residual": 0.0077474103105253855,
+     "algebra_subspace_distance": 0.00014315917153662205,
+     "action_disagreement": 0.026385372688418635
+    },
+    {
+     "cka": 0.9852818250976968,
+     "procrustes_residual": 0.012725579722187182,
+     "algebra_subspace_distance": 0.0012277186389738626,
+     "action_disagreement": 0.028500231888624022
+    },
+    {
+     "cka": 0.9920084587266524,
+     "procrustes_residual": 0.007590407218699047,
+     "algebra_subspace_distance": 0.0005409547085072353,
+     "action_disagreement": 0.031720669924234
+    },
+    {
+     "cka": 0.9954662932280515,
+     "procrustes_residual": 0.0034194737604345267,
+     "algebra_subspace_distance": 0.0007302204314487692,
+     "action_disagreement": 0.026625554205219868
+    },
+    {
+     "cka": 0.992732361845786,
+     "procrustes_residual": 0.006142265632414279,
+     "algebra_subspace_distance": 0.00035191780281795815,
+     "action_disagreement": 0.02194969759097499
+    },
+    {
+     "cka": 0.9959785553610644,
+     "procrustes_residual": 0.002999615915428745,
+     "algebra_subspace_distance": 0.00011742710738560369,
+     "action_disagreement": 0.021203267007232483
+    },
+    {
+     "cka": 0.9952208669837667,
+     "procrustes_residual": 0.004086520252871409,
+     "algebra_subspace_distance": 0.000469398499337359,
+     "action_disagreement": 0.019811900839612002
+    },
+    {
+     "cka": 0.9971005098369163,
+     "procrustes_residual": 0.0029029038990258933,
+     "algebra_subspace_distance": 0.0003369576560380283,
+     "action_disagreement": 0.02297552984122594
+    },
+    {
+     "cka": 0.9926392532798463,
+     "procrustes_residual": 0.006681363913714153,
+     "algebra_subspace_distance": 0.00011469628021898437,
+     "action_disagreement": 0.01833869979244404
+    }
+   ],
+   "vs_truth_raw": [
+    {
+     "cka": 0.990501086748631,
+     "procrustes_residual": 0.008055048732371197,
+     "algebra_subspace_distance": 0.0007926166103977561,
+     "action_disagreement": 0.24411438633570887
+    },
+    {
+     "cka": 0.9911636628465273,
+     "procrustes_residual": 0.007418490960009741,
+     "algebra_subspace_distance": 5.909228181233406e-05,
+     "action_disagreement": 0.2369911621697548
+    },
+    {
+     "cka": 0.9925111849686318,
+     "procrustes_residual": 0.007168239606093824,
+     "algebra_subspace_distance": 0.0004390600463239913,
+     "action_disagreement": 0.2656920262411496
+    },
+    {
+     "cka": 0.9910899735851063,
+     "procrustes_residual": 0.008095029456968272,
+     "algebra_subspace_distance": 0.00013521334063915091,
+     "action_disagreement": 0.23306877037331675
+    },
+    {
+     "cka": 0.9925731407673742,
+     "procrustes_residual": 0.006780336877290405,
+     "algebra_subspace_distance": 1.451551184650235e-05,
+     "action_disagreement": 0.24613201576169003
+    }
+   ]
+  }
+ },
+ "T2": {
+  "chance_subspace_distance": 0.8024775069622282,
+  "local": {
+   "pairwise": {
+    "cka": [
+     0.9651069441113362,
+     0.013802778847029394
+    ],
+    "procrustes_residual": [
+     0.03309973862112162,
+     0.014748970297363391
+    ],
+    "algebra_subspace_distance": [
+     0.34954768588138824,
+     0.26737575482247855
+    ],
+    "action_disagreement": [
+     0.7202795305378521,
+     0.4535579053230648
+    ]
+   },
+   "vs_truth": {
+    "cka": [
+     0.9801818242543631,
+     0.0105343124356002
+    ],
+    "procrustes_residual": [
+     0.019106190269335403,
+     0.01077234497330169
+    ],
+    "algebra_subspace_distance": [
+     0.1858270422888517,
+     0.25641744873669353
+    ],
+    "action_disagreement": [
+     0.5792396861429535,
+     0.24015213667204513
+    ]
+   },
+   "pairwise_raw": [
+    {
+     "cka": 0.9463609482663792,
+     "procrustes_residual": 0.05265553996410649,
+     "algebra_subspace_distance": 0.5897206019696293,
+     "action_disagreement": 1.18876489771135
+    },
+    {
+     "cka": 0.9501385674200629,
+     "procrustes_residual": 0.05110792813152438,
+     "algebra_subspace_distance": 0.7499326409916864,
+     "action_disagreement": 1.2781825434133918
+    },
+    {
+     "cka": 0.956404756022808,
+     "procrustes_residual": 0.041173047261665756,
+     "algebra_subspace_distance": 0.5565942210539478,
+     "action_disagreement": 1.1646759026074227
+    },
+    {
+     "cka": 0.9579114193433438,
+     "procrustes_residual": 0.03977160956078699,
+     "algebra_subspace_distance": 0.5760584731898891,
+     "action_disagreement": 1.0799294848577996
+    },
+    {
+     "cka": 0.9641349094511553,
+     "procrustes_residual": 0.03102664914488106,
+     "algebra_subspace_distance": 0.3356612177626881,
+     "action_disagreement": 0.7840563754350636
+    },
+    {
+     "cka": 0.978602188622625,
+     "procrustes_residual": 0.01845264228523917,
+     "algebra_subspace_distance": 0.022388773206795554,
+     "action_disagreement": 0.18057743219615682
+    },
+    {
+     "cka": 0.9845678825667395,
+     "procrustes_residual": 0.012571901655052242,
+     "algebra_subspace_distance": 0.02705177268584924,
+     "action_disagreement": 0.17636104763664281
+    },
+    {
+     "cka": 0.9559993027236389,
+     "procrustes_residual": 0.044733644233555823,
+     "algebra_subspace_distance": 0.3207379031637364,
+     "action_disagreement": 0.6895252014821119
+    },
+    {
+     "cka": 0.9762903903447777,
+     "procrustes_residual": 0.021929914653156926,
+     "algebra_subspace_distance": 0.31083375111905176,
+     "action_disagreement": 0.5513259652388307
+    },
+    {
+     "cka": 0.9806590763518319,
+     "procrustes_residual": 0.017574509321247447,
+     "algebra_subspace_distance": 0.006497503670608751,
+     "action_disagreement": 0.10939645479975074
+    }
+   ],
+   "vs_truth_raw": [
+    {
+     "cka": 0.9644151793877175,
+     "procrustes_residual": 0.03491177959050765,
+     "algebra_subspace_distance": 0.5740551256192659,
+     "action_disagreement": 0.9633890873720212
+    },
+    {
+     "cka": 0.9851607036489356,
+     "procrustes_residual": 0.013722555813654,
+     "algebra_subspace_distance": 0.02288839056973302,
+     "action_disagreement": 0.4574930343014742
+    },
+    {
+     "cka": 0.9747969204959711,
+     "procrustes_residual": 0.025081559951336468,
+     "algebra_subspace_distance": 0.32489582425729857,
+     "action_disagreement": 0.6639507227968022
+    },
+    {
+     "cka": 0.9859512838103202,
+     "procrustes_residual": 0.013667267309261202,
+     "algebra_subspace_distance": 0.0059934776953867175,
+     "action_disagreement": 0.42664985458006366
+    },
+    {
+     "cka": 0.990585033928871,
+     "procrustes_residual": 0.008147788681917695,
+     "algebra_subspace_distance": 0.0013023933025743117,
+     "action_disagreement": 0.3847157316644057
+    }
+   ]
+  },
+  "comp": {
+   "pairwise": {
+    "cka": [
+     0.9657583645391907,
+     0.013989850240357659
+    ],
+    "procrustes_residual": [
+     0.03242799765372554,
+     0.01493639929598953
+    ],
+    "algebra_subspace_distance": [
+     0.3439844828829803,
+     0.2698327341694362
+    ],
+    "action_disagreement": [
+     0.6979678324870041,
+     0.4598127651363347
+    ]
+   },
+   "vs_truth": {
+    "cka": [
+     0.9805140953343173,
+     0.010762978871672688
+    ],
+    "procrustes_residual": [
+     0.018777749443262468,
+     0.011011616707624535
+    ],
+    "algebra_subspace_distance": [
+     0.18214329174961644,
+     0.25812239324685576
+    ],
+    "action_disagreement": [
+     0.5729634538123975,
+     0.24374672740653314
+    ]
+   },
+   "pairwise_raw": [
+    {
+     "cka": 0.9479220786992354,
+     "procrustes_residual": 0.050915008541840806,
+     "algebra_subspace_distance": 0.5790333884618057,
+     "action_disagreement": 1.1662649135754675
+    },
+    {
+     "cka": 0.9496041119459941,
+     "procrustes_residual": 0.05181165898990302,
+     "algebra_subspace_distance": 0.7460921600373491,
+     "action_disagreement": 1.2779052891281835
+    },
+    {
+     "cka": 0.9569706951094817,
+     "procrustes_residual": 0.040677682449784064,
+     "algebra_subspace_distance": 0.5597594958696491,
+     "action_disagreement": 1.1532664599576394
+    },
+    {
+     "cka": 0.957845205663198,
+     "procrustes_residual": 0.039866053759142574,
+     "algebra_subspace_distance": 0.5751589779591892,
+     "action_disagreement": 1.079094502870675
+    },
+    {
+     "cka": 0.9643795143005415,
+     "procrustes_residual": 0.03095437699670959,
+     "algebra_subspace_distance": 0.32447104407418115,
+     "action_disagreement": 0.7163785199264177
+    },
+    {
+     "cka": 0.9801311811247129,
+     "procrustes_residual": 0.016644716993810437,
+     "algebra_subspace_distance": 0.009552840784245786,
+     "action_disagreement": 0.15146505968205193
+    },
+    {
+     "cka": 0.9855808870724436,
+     "procrustes_residual": 0.011632176471984966,
+     "algebra_subspace_distance": 0.01379635716244576,
+     "action_disagreement": 0.13977060784431525
+    },
+    {
+     "cka": 0.957129964027434,
+     "procrustes_residual": 0.04332345077295428,
+     "algebra_subspace_distance": 0.31930379975527545,
+     "action_disagreement": 0.6511362055222033
+    },
+    {
+     "cka": 0.9762318443363895,
+     "procrustes_residual": 0.022057227897745307,
+     "algebra_subspace_distance": 0.30810714450187127,
+     "action_disagreement": 0.5452220220339927
+    },
+    {
+     "cka": 0.9817881631124781,
+     "procrustes_residual": 0.016397623663380403,
+     "algebra_subspace_distance": 0.004569620223790594,
+     "action_disagreement": 0.09917474432909525
+    }
+   ],
+   "vs_truth_raw": [
+    {
+     "cka": 0.9645203143482133,
+     "procrustes_residual": 0.03478932821037863,
+     "algebra_subspace_distance": 0.5731950816409537,
+     "action_disagreement": 0.9621564846033512
+    },
+    {
+     "cka": 0.986005334492565,
+     "procrustes_residual": 0.012908286903008551,
+     "algebra_subspace_distance": 0.010512483224887181,
+     "action_disagreement": 0.43930472548853317
+    },
+    {
+     "cka": 0.9745891378837734,
+     "procrustes_residual": 0.02536736167255456,
+     "algebra_subspace_distance": 0.3220424467448817,
+     "action_disagreement": 0.6626507841104554
+    },
+    {
+     "cka": 0.9868074762612522,
+     "procrustes_residual": 0.012736020219639198,
+     "algebra_subspace_distance": 0.0036641138938293683,
+     "action_disagreement": 0.41880788778938793
+    },
+    {
+     "cka": 0.9906482136857819,
+     "procrustes_residual": 0.008087750210731395,
+     "algebra_subspace_distance": 0.0013023332435302404,
+     "action_disagreement": 0.3818973870702602
+    }
+   ]
+  },
+  "bracketnet": {
+   "pairwise": {
+    "cka": [
+     0.9650980775175493,
+     0.01386540917973248
+    ],
+    "procrustes_residual": [
+     0.033245365223410386,
+     0.015056255840182614
+    ],
+    "algebra_subspace_distance": [
+     0.42436181157926967,
+     0.2264838020327335
+    ],
+    "action_disagreement": [
+     0.7981918639790674,
+     0.42577755488829033
+    ]
+   },
+   "vs_truth": {
+    "cka": [
+     0.980088808824096,
+     0.010827623393256375
+    ],
+    "procrustes_residual": [
+     0.01928830210229777,
+     0.011149630515866394
+    ],
+    "algebra_subspace_distance": [
+     0.24235425660984822,
+     0.2466981064465177
+    ],
+    "action_disagreement": [
+     0.6064751519228757,
+     0.23517091715884983
+    ]
+   },
+   "pairwise_raw": [
+    {
+     "cka": 0.9469255706981785,
+     "procrustes_residual": 0.052070229589662384,
+     "algebra_subspace_distance": 0.6868357354353738,
+     "action_disagreement": 1.2782118428513454
+    },
+    {
+     "cka": 0.9473207355392268,
+     "procrustes_residual": 0.05467005656733544,
+     "algebra_subspace_distance": 0.742061621077698,
+     "action_disagreement": 1.2846084893532943
+    },
+    {
+     "cka": 0.9579224028225989,
+     "procrustes_residual": 0.039699951377120596,
+     "algebra_subspace_distance": 0.5047701422318785,
+     "action_disagreement": 1.1241995251858037
+    },
+    {
+     "cka": 0.9578015697335873,
+     "procrustes_residual": 0.039924286530183775,
+     "algebra_subspace_distance": 0.5564647429322395,
+     "action_disagreement": 1.071271845527042
+    },
+    {
+     "cka": 0.9634921195462715,
+     "procrustes_residual": 0.032153738807763246,
+     "algebra_subspace_distance": 0.4551881870204958,
+     "action_disagreement": 0.996342462372889
+    },
+    {
+     "cka": 0.9786433193049592,
+     "procrustes_residual": 0.017844268463708117,
+     "algebra_subspace_distance": 0.19544248985019352,
+     "action_disagreement": 0.31009785406275625
+    },
+    {
+     "cka": 0.9840856636290376,
+     "procrustes_residual": 0.012863063575723985,
+     "algebra_subspace_distance": 0.16544989635890472,
+     "action_disagreement": 0.2984277398326636
+    },
+    {
+     "cka": 0.9576410081234662,
+     "procrustes_residual": 0.04363928144699491,
+     "algebra_subspace_distance": 0.4519470820812247,
+     "action_disagreement": 0.8185008068792063
+    },
+    {
+     "cka": 0.9759433600341516,
+     "procrustes_residual": 0.022696132677474133,
+     "algebra_subspace_distance": 0.4437020854501287,
+     "action_disagreement": 0.663871967958675
+    },
+    {
+     "cka": 0.9812050257440146,
+     "procrustes_residual": 0.01689264319813727,
+     "algebra_subspace_distance": 0.04175613335455952,
+     "action_disagreement": 0.13638610576699806
+    }
+   ],
+   "vs_truth_raw": [
+    {
+     "cka": 0.9643663039779029,
+     "procrustes_residual": 0.034953044374560156,
+     "algebra_subspace_distance": 0.5791803997971008,
+     "action_disagreement": 0.9642670544372783
+    },
+    {
+     "cka": 0.984957586644556,
+     "procrustes_residual": 0.01381179767819158,
+     "algebra_subspace_distance": 0.14214022011980898,
+     "action_disagreement": 0.5154844792155046
+    },
+    {
+     "cka": 0.97365258870807,
+     "procrustes_residual": 0.02674331048614226,
+     "algebra_subspace_distance": 0.4216566209140499,
+     "action_disagreement": 0.7159224768597668
+    },
+    {
+     "cka": 0.9868428181149234,
+     "procrustes_residual": 0.012775528547551155,
+     "algebra_subspace_distance": 0.05992502155857693,
+     "action_disagreement": 0.45126659021559284
+    },
+    {
+     "cka": 0.9906247466750271,
+     "procrustes_residual": 0.008157829425043716,
+     "algebra_subspace_distance": 0.008869020659704296,
+     "action_disagreement": 0.38543515888623575
+    }
+   ]
+  },
+  "bracketnetB": {
+   "pairwise": {
+    "cka": [
+     0.9670647062502009,
+     0.011624561789213061
+    ],
+    "procrustes_residual": [
+     0.031497808221646724,
+     0.01250549474643553
+    ],
+    "algebra_subspace_distance": [
+     0.23154130762265696,
+     0.2101345539932305
+    ],
+    "action_disagreement": [
+     0.4858188573327299,
+     0.2882821416212609
+    ]
+   },
+   "vs_truth": {
+    "cka": [
+     0.9808088749303494,
+     0.009745704647926644
+    ],
+    "procrustes_residual": [
+     0.018638785338518614,
+     0.010199796208393752
+    ],
+    "algebra_subspace_distance": [
+     0.12243185201593224,
+     0.2028006698318201
+    ],
+    "action_disagreement": [
+     0.5176308653403382,
+     0.16531276186105243
+    ]
+   },
+   "pairwise_raw": [
+    {
+     "cka": 0.9546487156354291,
+     "procrustes_residual": 0.0434111743269602,
+     "algebra_subspace_distance": 0.4579840420254955,
+     "action_disagreement": 0.7715467808126345
+    },
+    {
+     "cka": 0.9594424239018374,
+     "procrustes_residual": 0.042624904320048125,
+     "algebra_subspace_distance": 0.451342325998343,
+     "action_disagreement": 0.6568832090424274
+    },
+    {
+     "cka": 0.9614854185250687,
+     "procrustes_residual": 0.03492952107104912,
+     "algebra_subspace_distance": 0.4807490240419746,
+     "action_disagreement": 0.8636727084038472
+    },
+    {
+     "cka": 0.9661217351912542,
+     "procrustes_residual": 0.031816058145650083,
+     "algebra_subspace_distance": 0.4811022142024691,
+     "action_disagreement": 0.7806192693416655
+    },
+    {
+     "cka": 0.9624256027747539,
+     "procrustes_residual": 0.03536589846065081,
+     "algebra_subspace_distance": 0.15554629674904152,
+     "action_disagreement": 0.5535293574798141
+    },
+    {
+     "cka": 0.9776782386154934,
+     "procrustes_residual": 0.01903481264719875,
+     "algebra_subspace_distance": 0.012187487025436483,
+     "action_disagreement": 0.13571358505361958
+    },
+    {
+     "cka": 0.985219739867924,
+     "procrustes_residual": 0.012437924542793955,
+     "algebra_subspace_distance": 0.01298435121663366,
+     "action_disagreement": 0.12600262756247807
+    },
+    {
+     "cka": 0.9503839757744094,
+     "procrustes_residual": 0.05065306694081067,
+     "algebra_subspace_distance": 0.13178239492332744,
+     "action_disagreement": 0.4715154865965456
+    },
+    {
+     "cka": 0.971760078118813,
+     "procrustes_residual": 0.02792453265976576,
+     "algebra_subspace_distance": 0.12472696502192382,
+     "action_disagreement": 0.3884784882712021
+    },
+    {
+     "cka": 0.9814811340970279,
+     "procrustes_residual": 0.016780189101539767,
+     "algebra_subspace_distance": 0.007007975021924517,
+     "action_disagreement": 0.1102270607630645
+    }
+   ],
+   "vs_truth_raw": [
+    {
+     "cka": 0.9712505501446095,
+     "procrustes_residual": 0.028161918149747875,
+     "algebra_subspace_distance": 0.4732538372533037,
+     "action_disagreement": 0.775627339042672
+    },
+    {
+     "cka": 0.9859050825127591,
+     "procrustes_residual": 0.013174710313170366,
+     "algebra_subspace_distance": 0.0074062901750272525,
+     "action_disagreement": 0.4158426290920739
+    },
+    {
+     "cka": 0.9693881343383974,
+     "procrustes_residual": 0.030978074356800382,
+     "algebra_subspace_distance": 0.12412759631827808,
+     "action_disagreement": 0.5908915988736139
+    },
+    {
+     "cka": 0.9870159119512004,
+     "procrustes_residual": 0.01254748455078347,
+     "algebra_subspace_distance": 0.004510730697164234,
+     "action_disagreement": 0.42153869802756205
+    },
+    {
+     "cka": 0.9904846957047799,
+     "procrustes_residual": 0.008331739322090984,
+     "algebra_subspace_distance": 0.002860805635887864,
+     "action_disagreement": 0.3842540616657694
+    }
+   ]
+  }
+ },
+ "SO3": {
+  "chance_subspace_distance": 0.49963862506357726,
+  "local": {
+   "pairwise": {
+    "cka": [
+     0.8924921089382021,
+     0.061808521279289916
+    ],
+    "procrustes_residual": [
+     0.12309796337317713,
+     0.07532779518692989
+    ],
+    "algebra_subspace_distance": [
+     0.42300609242359705,
+     0.14907526309765604
+    ],
+    "action_disagreement": [
+     1.6009222300280217,
+     1.3382424055289583
+    ]
+   },
+   "vs_truth": {
+    "cka": [
+     0.9366631234720646,
+     0.06767015150517144
+    ],
+    "procrustes_residual": [
+     0.07220526513434725,
+     0.0811025903406992
+    ],
+    "algebra_subspace_distance": [
+     0.2578848060126897,
+     0.19357646081563487
+    ],
+    "action_disagreement": [
+     0.7898398438410025,
+     0.28687945540441906
+    ]
+   },
+   "pairwise_raw": [
+    {
+     "cka": 0.8447899460831891,
+     "procrustes_residual": 0.20029473809915851,
+     "algebra_subspace_distance": 0.5873793107203098,
+     "action_disagreement": 1.2380433838450238
+    },
+    {
+     "cka": 0.8443993153395503,
+     "procrustes_residual": 0.19329844291987724,
+     "algebra_subspace_distance": 0.4400970933071636,
+     "action_disagreement": 1.128504756818289
+    },
+    {
+     "cka": 0.8466005316949446,
+     "procrustes_residual": 0.18013234787409174,
+     "algebra_subspace_distance": 0.4762913741716194,
+     "action_disagreement": 1.1683487230869756
+    },
+    {
+     "cka": 0.8818893455501898,
+     "procrustes_residual": 0.1281074402348126,
+     "algebra_subspace_distance": 0.3379677854254626,
+     "action_disagreement": 0.6512607294502452
+    },
+    {
+     "cka": 0.9840097490266917,
+     "procrustes_residual": 0.014422325098342874,
+     "algebra_subspace_distance": 0.37310332072772423,
+     "action_disagreement": 0.6090461895251573
+    },
+    {
+     "cka": 0.9768216905037127,
+     "procrustes_residual": 0.022714342001509104,
+     "algebra_subspace_distance": 0.33453024377133,
+     "action_disagreement": 0.4869524894371572
+    },
+    {
+     "cka": 0.8521115531342726,
+     "procrustes_residual": 0.16178933651713803,
+     "algebra_subspace_distance": 0.5385505330989844,
+     "action_disagreement": 3.4225286107330573
+    },
+    {
+     "cka": 0.9810352367575139,
+     "procrustes_residual": 0.017220838943150296,
+     "algebra_subspace_distance": 0.08540864497974032,
+     "action_disagreement": 0.27090430209811295
+    },
+    {
+     "cka": 0.8518139371572925,
+     "procrustes_residual": 0.16272050094934115,
+     "algebra_subspace_distance": 0.5656962387369266,
+     "action_disagreement": 3.6191693454025593
+    },
+    {
+     "cka": 0.8614497841346651,
+     "procrustes_residual": 0.15027932109434974,
+     "algebra_subspace_distance": 0.49103637929670974,
+     "action_disagreement": 3.414463769883641
+    }
+   ],
+   "vs_truth_raw": [
+    {
+     "cka": 0.8553424658865353,
+     "procrustes_residual": 0.17690107308920613,
+     "algebra_subspace_distance": 0.40729084746882527,
+     "action_disagreement": 1.0616288202638509
+    },
+    {
+     "cka": 0.9865359976609565,
+     "procrustes_residual": 0.013420991160128726,
+     "algebra_subspace_distance": 0.33618201072795495,
+     "action_disagreement": 0.7162865669803321
+    },
+    {
+     "cka": 0.9874707152724417,
+     "procrustes_residual": 0.012065980499569178,
+     "algebra_subspace_distance": 0.0765601227321503,
+     "action_disagreement": 0.5187226129322622
+    },
+    {
+     "cka": 0.9837627587789779,
+     "procrustes_residual": 0.0153825720159349,
+     "algebra_subspace_distance": 0.025553657736257507,
+     "action_disagreement": 0.5315268616252288
+    },
+    {
+     "cka": 0.8702036797614112,
+     "procrustes_residual": 0.14325570890689732,
+     "algebra_subspace_distance": 0.4438373913982604,
+     "action_disagreement": 1.1210343574033386
+    }
+   ]
+  },
+  "comp": {
+   "pairwise": {
+    "cka": [
+     0.896544000610108,
+     0.05955684976858886
+    ],
+    "procrustes_residual": [
+     0.11751732639735772,
+     0.07324727232508317
+    ],
+    "algebra_subspace_distance": [
+     0.440520562527531,
+     0.16731515076863307
+    ],
+    "action_disagreement": [
+     1.54997130611272,
+     1.2721232103960671
+    ]
+   },
+   "vs_truth": {
+    "cka": [
+     0.9395137668416238,
+     0.06483644775406854
+    ],
+    "procrustes_residual": [
+     0.06858632397002377,
+     0.07807333623829268
+    ],
+    "algebra_subspace_distance": [
+     0.27306751149596875,
+     0.2147900967858125
+    ],
+    "action_disagreement": [
+     0.7910401356363359,
+     0.2909978087421073
+    ]
+   },
+   "pairwise_raw": [
+    {
+     "cka": 0.8448414499043922,
+     "procrustes_residual": 0.20059298479106283,
+     "algebra_subspace_distance": 0.5845020061558317,
+     "action_disagreement": 1.2337262084840797
+    },
+    {
+     "cka": 0.8442983503904761,
+     "procrustes_residual": 0.19354485896685333,
+     "algebra_subspace_distance": 0.433783938032687,
+     "action_disagreement": 1.1247316217076164
+    },
+    {
+     "cka": 0.8452346129858257,
+     "procrustes_residual": 0.1826251698823633,
+     "algebra_subspace_distance": 0.4794621409108609,
+     "action_disagreement": 1.1661787070189662
+    },
+    {
+     "cka": 0.875731845189402,
+     "procrustes_residual": 0.1352926993039616,
+     "algebra_subspace_distance": 0.33472905586288404,
+     "action_disagreement": 0.6113811175980343
+    },
+    {
+     "cka": 0.9844017211688777,
+     "procrustes_residual": 0.014016776876139754,
+     "algebra_subspace_distance": 0.37333625700008755,
+     "action_disagreement": 0.6063052456901654
+    },
+    {
+     "cka": 0.9773865573375472,
+     "procrustes_residual": 0.02213544993835359,
+     "algebra_subspace_distance": 0.334878191396658,
+     "action_disagreement": 0.48204963171622034
+    },
+    {
+     "cka": 0.8666169448940225,
+     "procrustes_residual": 0.1405340676269589,
+     "algebra_subspace_distance": 0.5565065225150403,
+     "action_disagreement": 3.3092714976953213
+    },
+    {
+     "cka": 0.9811079484014678,
+     "procrustes_residual": 0.017172096443590423,
+     "algebra_subspace_distance": 0.08258388168611164,
+     "action_disagreement": 0.26939878462319433
+    },
+    {
+     "cka": 0.8686493209009786,
+     "procrustes_residual": 0.1398764898861994,
+     "algebra_subspace_distance": 0.6436940859667999,
+     "action_disagreement": 3.4517730001689344
+    },
+    {
+     "cka": 0.87717125492809,
+     "procrustes_residual": 0.12938267025809394,
+     "algebra_subspace_distance": 0.5817295457483491,
+     "action_disagreement": 3.2448972464246686
+    }
+   ],
+   "vs_truth_raw": [
+    {
+     "cka": 0.8541522604101014,
+     "procrustes_residual": 0.17887894423488793,
+     "algebra_subspace_distance": 0.40214412828330326,
+     "action_disagreement": 1.0607551323072673
+    },
+    {
+     "cka": 0.9870068233272414,
+     "procrustes_residual": 0.012932004585964274,
+     "algebra_subspace_distance": 0.33596194628398,
+     "action_disagreement": 0.7143297992437934
+    },
+    {
+     "cka": 0.9875706506009334,
+     "procrustes_residual": 0.011996787812596332,
+     "algebra_subspace_distance": 0.07225447383884998,
+     "action_disagreement": 0.5156868519468918
+    },
+    {
+     "cka": 0.9839751574199398,
+     "procrustes_residual": 0.015176103780586125,
+     "algebra_subspace_distance": 0.028934995882830772,
+     "action_disagreement": 0.531483533645942
+    },
+    {
+     "cka": 0.8848639424499026,
+     "procrustes_residual": 0.1239477794360842,
+     "algebra_subspace_distance": 0.5260420131908798,
+     "action_disagreement": 1.1329453610377846
+    }
+   ]
+  },
+  "bracketnet": {
+   "pairwise": {
+    "cka": [
+     0.8950028698073226,
+     0.0595964591014375
+    ],
+    "procrustes_residual": [
+     0.11929012321017704,
+     0.07316813433528221
+    ],
+    "algebra_subspace_distance": [
+     0.45134813374550387,
+     0.15065747331967375
+    ],
+    "action_disagreement": [
+     1.5162756680703464,
+     1.1692572085043058
+    ]
+   },
+   "vs_truth": {
+    "cka": [
+     0.9383804979825999,
+     0.06552093738900296
+    ],
+    "procrustes_residual": [
+     0.06963819787092829,
+     0.0785138024366938
+    ],
+    "algebra_subspace_distance": [
+     0.2843712142354917,
+     0.16094139736706586
+    ],
+    "action_disagreement": [
+     0.8053379979887673,
+     0.2759726653034289
+    ]
+   },
+   "pairwise_raw": [
+    {
+     "cka": 0.8452428801506328,
+     "procrustes_residual": 0.1996049455107556,
+     "algebra_subspace_distance": 0.5991356849724045,
+     "action_disagreement": 1.2286219322934326
+    },
+    {
+     "cka": 0.8441581312975165,
+     "procrustes_residual": 0.1931653191452178,
+     "algebra_subspace_distance": 0.4398746759892793,
+     "action_disagreement": 1.1224173633831713
+    },
+    {
+     "cka": 0.84546163386821,
+     "procrustes_residual": 0.18334617899317632,
+     "algebra_subspace_distance": 0.596090169137584,
+     "action_disagreement": 1.178636338811028
+    },
+    {
+     "cka": 0.87829880379133,
+     "procrustes_residual": 0.13280389711417975,
+     "algebra_subspace_distance": 0.34256843033192896,
+     "action_disagreement": 0.624718255036191
+    },
+    {
+     "cka": 0.9843461274507866,
+     "procrustes_residual": 0.01410838907912475,
+     "algebra_subspace_distance": 0.3510392035551523,
+     "action_disagreement": 0.5973506465642768
+    },
+    {
+     "cka": 0.9756082352076294,
+     "procrustes_residual": 0.023731142156594436,
+     "algebra_subspace_distance": 0.3032466459762625,
+     "action_disagreement": 0.5539964733032269
+    },
+    {
+     "cka": 0.8624710720146194,
+     "procrustes_residual": 0.1456882680941142,
+     "algebra_subspace_distance": 0.5673773961092663,
+     "action_disagreement": 3.175498801483615
+    },
+    {
+     "cka": 0.979312508285092,
+     "procrustes_residual": 0.018647986986787934,
+     "algebra_subspace_distance": 0.17621130624170778,
+     "action_disagreement": 0.38517547443116995
+    },
+    {
+     "cka": 0.8644461241845058,
+     "procrustes_residual": 0.14501080173914035,
+     "algebra_subspace_distance": 0.550331634911867,
+     "action_disagreement": 3.2680488226631867
+    },
+    {
+     "cka": 0.870683181822903,
+     "procrustes_residual": 0.13679430328267936,
+     "algebra_subspace_distance": 0.5876061902295859,
+     "action_disagreement": 3.0282925727341667
+    }
+   ],
+   "vs_truth_raw": [
+    {
+     "cka": 0.8541350914263306,
+     "procrustes_residual": 0.17852788698966832,
+     "algebra_subspace_distance": 0.39910670178722185,
+     "action_disagreement": 1.0595594449256809
+    },
+    {
+     "cka": 0.9869723850235067,
+     "procrustes_residual": 0.01294091253588996,
+     "algebra_subspace_distance": 0.3369312513470517,
+     "action_disagreement": 0.7132692351119387
+    },
+    {
+     "cka": 0.9876516186615784,
+     "procrustes_residual": 0.011943949153804284,
+     "algebra_subspace_distance": 0.07780871421110724,
+     "action_disagreement": 0.5185869243311759
+    },
+    {
+     "cka": 0.9825282969224395,
+     "procrustes_residual": 0.016521595568481005,
+     "algebra_subspace_distance": 0.1552721737864714,
+     "action_disagreement": 0.601601585011589
+    },
+    {
+     "cka": 0.8806150978791446,
+     "procrustes_residual": 0.12825664510679782,
+     "algebra_subspace_distance": 0.4527372300456064,
+     "action_disagreement": 1.133672800563452
+    }
+   ]
+  },
+  "bracketnetB": {
+   "pairwise": {
+    "cka": [
+     0.8950887188465853,
+     0.06416499979525972
+    ],
+    "procrustes_residual": [
+     0.12605720458144948,
+     0.08299592117315456
+    ],
+    "algebra_subspace_distance": [
+     0.034262099033023366,
+     0.021268213848240056
+    ],
+    "action_disagreement": [
+     1.3620575455734183,
+     1.122605353987748
+    ]
+   },
+   "vs_truth": {
+    "cka": [
+     0.9383634306004721,
+     0.06903895460021116
+    ],
+    "procrustes_residual": [
+     0.07417896580772862,
+     0.0886692476947571
+    ],
+    "algebra_subspace_distance": [
+     0.01947263331835365,
+     0.0198300586200774
+    ],
+    "action_disagreement": [
+     0.7186606377613195,
+     0.2782015632047197
+    ]
+   },
+   "pairwise_raw": [
+    {
+     "cka": 0.8412692219690324,
+     "procrustes_residual": 0.21106460213550954,
+     "algebra_subspace_distance": 0.029063914301291516,
+     "action_disagreement": 1.0743740964356765
+    },
+    {
+     "cka": 0.8355350338815001,
+     "procrustes_residual": 0.21537883138187058,
+     "algebra_subspace_distance": 0.04820747832003136,
+     "action_disagreement": 1.059715325188409
+    },
+    {
+     "cka": 0.8372256237959244,
+     "procrustes_residual": 0.20766461507246253,
+     "algebra_subspace_distance": 0.06487003320317541,
+     "action_disagreement": 1.0764771958312693
+    },
+    {
+     "cka": 0.8741072809443209,
+     "procrustes_residual": 0.13892621150112067,
+     "algebra_subspace_distance": 0.06637655598689973,
+     "action_disagreement": 0.9088711060866291
+    },
+    {
+     "cka": 0.9881873322882956,
+     "procrustes_residual": 0.01032308958933799,
+     "algebra_subspace_distance": 0.0414052104014172,
+     "action_disagreement": 0.23958357848868028
+    },
+    {
+     "cka": 0.9849717586672438,
+     "procrustes_residual": 0.014574228354066287,
+     "algebra_subspace_distance": 0.03471219073762499,
+     "action_disagreement": 0.2468868856520682
+    },
+    {
+     "cka": 0.8682063409626092,
+     "procrustes_residual": 0.14969090231899096,
+     "algebra_subspace_distance": 0.013266022478606643,
+     "action_disagreement": 2.666660976014325
+    },
+    {
+     "cka": 0.983968055073447,
+     "procrustes_residual": 0.014382193644358441,
+     "algebra_subspace_distance": 0.002126502495659266,
+     "action_disagreement": 0.2963584893958693
+    },
+    {
+     "cka": 0.8631217147455927,
+     "procrustes_residual": 0.15336271614587343,
+     "algebra_subspace_distance": 0.024489014955604405,
+     "action_disagreement": 2.983495498516167
+    },
+    {
+     "cka": 0.8742948261378883,
+     "procrustes_residual": 0.14520465567090413,
+     "algebra_subspace_distance": 0.0181040674499231,
+     "action_disagreement": 3.06815230412509
+    }
+   ],
+   "vs_truth_raw": [
+    {
+     "cka": 0.8461811074395961,
+     "procrustes_residual": 0.20085822460505284,
+     "algebra_subspace_distance": 0.04735966034195316,
+     "action_disagreement": 1.030455434955937
+    },
+    {
+     "cka": 0.9906610636752481,
+     "procrustes_residual": 0.009490334689126826,
+     "algebra_subspace_distance": 0.030368285594718603,
+     "action_disagreement": 0.5357463412016271
+    },
+    {
+     "cka": 0.9872521183208439,
+     "procrustes_residual": 0.012291767878779647,
+     "algebra_subspace_distance": 0.0015751662273273404,
+     "action_disagreement": 0.48714900178949033
+    },
+    {
+     "cka": 0.9858337614736676,
+     "procrustes_residual": 0.013354486781351762,
+     "algebra_subspace_distance": 0.0007201532082260487,
+     "action_disagreement": 0.5249796839503684
+    },
+    {
+     "cka": 0.8818891020930052,
+     "procrustes_residual": 0.13490001508433208,
+     "algebra_subspace_distance": 0.017339901219543097,
+     "action_disagreement": 1.0149727269091746
+    }
+   ]
+  }
+ }
+}
