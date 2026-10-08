@@ -30,7 +30,7 @@ ALLOWED = {
     "0.80": "chance distance T2 (random-span MC)", "0.50": "chance distance SO3 (random-span MC)",
     "0.60": "random-span closure T2 (MC 0.598)", "0.66": "random-span closure SO3 (MC 0.661)",
     "0.12": "rotation radius from ln2/4 / sqrt2", "45": "principal angle (test_T6)", "0.005": "max CKA spread (checked below)",
-    "0.36": "SO3 correct-closed action range (checked below)", "0.44": "SO3 correct-closed action range (checked below)",
+    "0.36": "SO3 correct-closed action range (checked below)", "0.43": "SO3 correct-closed action range (checked below)",
     "0.01": "near-exception pair gt distance (checked below)", "0.03": "near-exception pair gap (checked below)",
     "31": "runtime range (checked below)", "106": "runtime range (checked below)", "1.20": "amendment tolerance",
     "10^{-6}": "eps", "10^{-3}": "lr exponent", "10^{-5}": "weight decay", "2\\times10^{-3}": "lr",
@@ -107,7 +107,7 @@ def literal_checks():
         r = S["test"][f"SO3/{t}"]["per_seed"]
         act += [a for a, c in zip(r["action_truth"], r["category"]) if c == "correct_closed"]
     res["so3_correct_action_range"] = [round(min(act), 2), round(max(act), 2)]
-    res["so3_correct_action_range_matches_0.36_0.44"] = res["so3_correct_action_range"] == [0.36, 0.44]
+    res["so3_correct_action_range_matches_0.36_0.43"] = res["so3_correct_action_range"] == [0.36, 0.43]
     pair = [p for p in AT["SO3"]["comp"]["disjoint_pairs"] if p["categories"] == ["nonclosed", "nonclosed"]
             and p["transfer"]["transfer"]["mse1_gap"] < 0.1]
     gts = S["test"]["SO3/comp"]["per_seed"]["gt_distance"]
@@ -144,9 +144,9 @@ def pdf_checks():
             break
     banned = ["kaushal", "duddugunta", "kduddugunta", "github.com", "bracketnet.git", "claude", "anthropic", "neurreps"]
     hits = [b for b in banned if b in text.lower() or b in info.lower()]
-    author = re.search(r"Author:\s*(.*)", info)
+    author = re.search(r"^Author:[ \t]*(.*)$", info, re.M)
     log = (PAPER / "main.log").read_text(errors="ignore")
-    return dict(pages=pages, references_start_page=ref_page, main_text_pages=(ref_page - 1) if ref_page else None,
+    return dict(pages=pages, references_start_page=ref_page, main_text_ends_on_page=ref_page,
                 type3_fonts=fonts.count("Type 3"), identifying_strings=hits,
                 pdf_author=(author.group(1).strip() if author else ""),
                 latex_errors=len(re.findall(r"^! ", log, re.M)),
@@ -177,7 +177,7 @@ if __name__ == "__main__":
     hard = [
         all(r["max_abs_diff"] == 0 and r["same_category"] for r in V.get("reruns", [])),
         V["recompute"]["identical"], not V["macros"]["undefined"],
-        all(v for k, v in V["literal_checks"].items() if k.endswith(("matches_text", "_matches_31_106", "<=0.005", "matches_0.36_0.44"))),
+        all(v for k, v in V["literal_checks"].items() if k.endswith(("matches_text", "_matches_31_106", "<=0.005", "matches_0.36_0.43"))),
         V["pdf"]["latex_errors"] == 0, V["pdf"]["undefined_refs"] == 0, V["pdf"]["type3_fonts"] == 0,
         not V["pdf"]["identifying_strings"], V["pdf"]["pdf_author"] == "",
     ]

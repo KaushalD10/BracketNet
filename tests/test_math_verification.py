@@ -212,3 +212,17 @@ def test_T6_diagonal_vs_chiral_distance_is_one_half():
     S, Lh, Rh = true_generators("SO3"), chiral(+1), chiral(-1)
     assert np.isclose(subspace_distance(S, Lh), 0.5) and np.isclose(subspace_distance(S, Rh), 0.5)
     assert np.isclose(subspace_distance(Lh, Rh), 1.0)
+
+
+def test_T6_no_closed_4dim_span_contains_diagonal_so3():
+    """The centralizer of the diagonal so(3) in so(4) is trivial; hence a 4-dim subalgebra (su(2)+u(1) type) can
+    never contain the true so(3), and spans of the true so(3) plus any extra generator are never closed."""
+    T = true_generators("SO3")
+    basis = np.stack([elementary_skew(4, i, j) for i in range(4) for j in range(i + 1, 4)])   # so(4), dim 6
+    M = np.stack([np.stack([(t @ b - b @ t).ravel() for b in basis], 1) for t in T]).reshape(-1, 6)
+    assert np.linalg.matrix_rank(M, tol=1e-10) == 6          # [T_k, X] = 0 for all k  =>  X = 0
+    for _ in range(20):
+        W = rand_skew(1, 4)
+        assert closure_residual_np(np.concatenate([T, W])) > 1e-6
+    # su(2)_L + u(1)_R is a closed 4-dim subalgebra
+    assert closure_residual_np(np.concatenate([chiral(+1), chiral(-1)[:1]])) < 1e-20

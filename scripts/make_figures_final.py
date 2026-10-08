@@ -152,7 +152,6 @@ for ax, t in zip(axs, ["dev 10-step MSE", "dev closure (log)", "dev ground-truth
     ax.set_xlabel("updates")
 axs[1].set_yscale("log")
 fig.legend(*axs[0].get_legend_handles_labels(), loc="lower center", ncol=4, bbox_to_anchor=(0.5, -0.14), fontsize=7)
-axs[2].text(0.98, 0.95, "solid T², dotted SO(3)", transform=axs[2].transAxes, ha="right", va="top", fontsize=6.5, color=MUTED)
 fig.tight_layout()
 save(fig, "fig_dev_budget")
 

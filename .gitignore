@@ -230,8 +230,8 @@ paper/*.out
 
 # Final-phase checkpoints: only the fresh test models are versioned
 results/final/checkpoints/ablation/
-# TEMPORARY while a phase is running
-results/final/runs/test/
-results/final/runs/ablation/
-results/final/checkpoints/test/
-results/final/*_log.txt
+# LaTeX build products of the final manuscript
+paper/final/*.aux
+paper/final/*.log
+paper/final/*.out
+paper/final/*.blg

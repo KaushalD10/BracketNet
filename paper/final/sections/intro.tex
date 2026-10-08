@@ -11,8 +11,9 @@ Transition-based symmetry learners \citep{park2022learning,keurti2023homomorphis
 transformations, but nothing in a transition loss requires the learned generators $A_1,\dots,A_K$ to span a Lie
 algebra, i.e.\ $[A_i,A_j]\in\spn\{A_k\}$. Without closure, the nominal $K$-parameter family is not locally closed
 under composition, and its ``structure constants'' are not defined. Closure is therefore a natural candidate for a
-\emph{structural} inductive bias: it restricts each model to a finite-dimensional subalgebra of $\so(d)$, and such
-subalgebras fall into a small number of conjugacy classes that can be compared across models.
+\emph{structural} inductive bias: it restricts each model to a subalgebra of $\so(d)$. In the low-dimensional settings
+we study, these fall into a few conjugacy classes (Proposition~\ref{prop:classify}), which can be compared across
+models; in general the classification is richer, e.g.\ one-dimensional subalgebras of a torus form a continuum.
 
 We test this idea carefully and report what holds and what does not. We fixed every choice on development seeds,
 with selection rules committed before the runs, and evaluated once on fresh seeds with a pre-registered primary

@@ -1,0 +1,49 @@
+\section{Ablations and failure modes}\label{sec:ablations}
+Ablations use \NNabl{} further seeds (200--209), with the final configuration as reference on the same seeds
+(Appendix Table~\ref{tab:ablations}). The intervals below are 95\% paired $t$-intervals of the difference from the
+reference; with $n=10$, the smallest attainable exact $p$ is $0.002$.
+
+\paragraph{Replication.}
+On these seeds, \textsc{+Comp.} again has higher SO(3) closure ($+\NAbpSOthreeCompreferenceClosureMeandiff$,
+$[\NAbpSOthreeCompreferenceClosureCilo,\NAbpSOthreeCompreferenceClosureCihi]$) and higher ground-truth distance
+($+\NAbpSOthreeCompreferenceGtdistanceMeandiff$,
+$[\NAbpSOthreeCompreferenceGtdistanceCilo,\NAbpSOthreeCompreferenceGtdistanceCihi]$) than BracketNet. Correct-closed
+counts are \NAbSOthreeCompreferenceCc{} vs.\ \NAbSOthreeReferenceCc.
+
+\paragraph{The anti-collapse term is essential; the schedule is not demonstrably needed.}
+Lowering the covariance weight from 16 to 1 destroys recovery: the $T^2$ ground-truth distance rises by
+$\NAbpTtwoWeakanticollapseGtdistanceMeandiff$, and correct-closed runs fall to \NAbTtwoWeakanticollapseCc{}. The
+latent distorts (CKA with the true state \NAbTtwoWeakanticollapseCkatruth{} vs.\ \NAbTtwoReferenceCkatruth), while the
+generators remain closed.
+
+Replacing fit--close--refit by a constant penalty, or removing the generator freeze, changes neither SO(3)
+ground-truth distance nor transport detectably:
+\begin{itemize}
+\item constant penalty: $[\NAbpSOthreeConstantpenaltyGtdistanceCilo,\NAbpSOthreeConstantpenaltyGtdistanceCihi]$ and
+$[\NAbpSOthreeConstantpenaltyMseonezerostepCilo,\NAbpSOthreeConstantpenaltyMseonezerostepCihi]$;
+\item no freeze: $[\NAbpSOthreeNofreezeGtdistanceCilo,\NAbpSOthreeNofreezeGtdistanceCihi]$ for ground-truth distance.
+\end{itemize}
+We therefore do not claim that staging is necessary.
+
+Neither the Gram penalty nor the span-only closure objective makes a detectable difference. A three-times larger
+$\lambda$ lowers closure slightly but leaves ground-truth distance and transport unchanged. A weaker $\lambda$
+($0.3\times$) leaves more SO(3) runs non-closed.
+
+\paragraph{Misspecified generator count.}
+With $K{+}1$ generators no run recovers the true algebra in either group. For SO(3), closure regularization drives
+incorrect closed spans in most runs (\NAbSOthreeKplusoneCc{} correct). This is forced. A closed 4-dimensional
+subalgebra of $\so(4)$ is of type $\su(2)\oplus\mathfrak u(1)$, and the centralizer of the diagonal $\so(3)$ in
+$\so(4)$ is trivial, so \emph{no} closed 4-dimensional span contains the true algebra. The learned spans capture on
+average \NAbSOthreeKplusoneGtcoverage{} of it. With $K{-}1$, the learned algebra cannot contain the truth, and transport degrades sharply. Closure therefore
+presupposes the right $K$; it cannot discover it.
+
+\paragraph{Failure modes, summarized.}
+\begin{enumerate}
+\item \emph{Wrong closed class}: chiral $\su(2)$ for SO(3) (\NSOthreeBNChiral/20 fresh runs). Transport cannot
+detect it: chiral runs fit transitions as well as correct ones.
+\item \emph{Seed-level fitting failures} shared by all methods (Sec.~\ref{sec:limits}).
+\item \emph{Latent distortion} without the anti-collapse term.
+\item \emph{Misspecified $K$}.
+\end{enumerate}
+Only (1) is introduced by the closure objective itself. Proposition~\ref{prop:classify} predicts it, and the
+participation-ratio diagnostic detects it without labels.

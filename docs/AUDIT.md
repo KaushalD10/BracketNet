@@ -1,5 +1,9 @@
 # Audit of the original manuscript
 
+> **Status:** this is the round-1 audit of the original manuscript. The final study, which supersedes the λ = 0.1 / λ = 30
+> protocols below, is documented in `docs/MATHEMATICAL_VERIFICATION.md`, `docs/REPRODUCIBILITY_FINAL.md` and
+> `docs/ADVERSARIAL_REVIEW.md`, with the manuscript in `paper/final/`.
+
 Scope: the submitted PDF (`paper/original_submission.pdf`). Numerical checks are in `tests/test_math.py`
 (19 tests, all passing). Empirical checks come from `results/summary.json`, produced by `scripts/analyze.py`.
 

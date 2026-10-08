@@ -1,5 +1,5 @@
 \section{Additional results}\label{app:results}
-\begin{table}[h]
+\begin{table}[ht]
 \centering\scriptsize
 \setlength{\tabcolsep}{3pt}
 \caption{Structural breakdown of fresh-seed runs (counts out of 20). Incorrect-closed runs are shown with the
@@ -16,7 +16,7 @@ Group & Method & Correct & Incorrect (chiral) & Non-closed & Collapsed & Bad act
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering\scriptsize
 \caption{Development grid (seeds 5--9, used for selection only; means over 5 seeds). Each group of three columns
 gives 10-step MSE, closure residual and correct-closed count, for Local, +Comp.\ and BracketNet ($\lambda=\NLambda$).}
@@ -31,23 +31,39 @@ Group & Updates & MSE & closure & CC & MSE & closure & CC & MSE & closure & CC\\
 \end{tabular}
 \end{table}
 
-\begin{figure}[h]\centering
+\begin{table}[ht]
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Ablations on seeds 200--209 (mean$\pm$s.d.\ over 10 seeds). Coverage is the fraction of the true span
+contained in the learned span after alignment. The last column gives correct / incorrect / non-closed / collapsed
+counts. With a misspecified $K$, ``correct'' is impossible by definition.}
+\label{tab:ablations}
+\begin{tabular}{llccccc}
+\toprule
+Group & Variant & 10-step MSE & Closure & GT dist. & Coverage & Categories\\
+\midrule
+\tabinput{../../results/final/tables/ablations.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[ht]\centering
 \includegraphics[width=\linewidth]{fig_dev_budget.pdf}
-\caption{Development-seed budget sweep. The vertical line marks the selected budget.}\label{fig:devbudget}
+\caption{Development-seed budget sweep (solid: $T^2$; dotted: SO(3)). The vertical line marks the selected budget.}\label{fig:devbudget}
 \end{figure}
 
-\begin{figure}[h]\centering
+\begin{figure}[ht]\centering
 \includegraphics[width=\linewidth]{fig_main_structure.pdf}
 \caption{Per-seed closure residual (top) and ground-truth algebra distance (bottom) on fresh seeds; bars mark
 medians and dashed lines the pre-registered thresholds.}\label{fig:perseed}
 \end{figure}
 
-\begin{figure}[h]\centering
+\begin{figure}[ht]\centering
 \includegraphics[width=\linewidth]{fig_transfer.pdf}
 \caption{Cross-model transfer gap per disjoint seed pair.}\label{fig:transfer}
 \end{figure}
 
-\begin{figure}[h]\centering
+\begin{figure}[ht]\centering
 \includegraphics[width=\linewidth]{fig_transport.pdf}
 \caption{Chained transport error versus path length (mean $\pm$ s.d.\ over 20 fresh seeds).}\label{fig:transport}
 \end{figure}

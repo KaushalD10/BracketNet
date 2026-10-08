@@ -1,0 +1,267 @@
+{
+ "reruns": [
+  {
+   "run": "SO3_bracketnet_s100",
+   "max_abs_diff": 0.0,
+   "same_category": true
+  },
+  {
+   "run": "T2_comp_s105",
+   "max_abs_diff": 0.0,
+   "same_category": true
+  },
+  {
+   "run": "SO3_bracketnet_s112",
+   "max_abs_diff": 0.0,
+   "same_category": true
+  },
+  {
+   "run": "T2_bracketnet_lam0.1_s118",
+   "max_abs_diff": 0.0,
+   "same_category": true
+  }
+ ],
+ "recompute": {
+  "identical": true,
+  "changed": []
+ },
+ "macros": {
+  "undefined": [],
+  "n_used": 81,
+  "unlisted_literals": [
+   {
+    "file": "ablations.tex",
+    "literal": "95",
+    "context": "pendix Table~). The intervals below are 95\\ reference; with $n"
+   },
+   {
+    "file": "ablations.tex",
+    "literal": "0.002",
+    "context": ", the smallest attainable exact $p$ is $0.002$.  \\paragraph{Repli"
+   },
+   {
+    "file": "ablations.tex",
+    "literal": "0.3",
+    "context": "ansport unchanged. A weaker $\\lambda$ ($0.3\\times$) leaves more"
+   },
+   {
+    "file": "ablations.tex",
+    "literal": "20",
+    "context": "l $\\su(2)$ for SO(3) (\\NSOthreeBNChiral/20 fresh runs). Transp"
+   },
+   {
+    "file": "alignment.tex",
+    "literal": "3.5",
+    "context": "ering\\scriptsize \\setlength{\\tabcolsep}{3.5pt} \\caption{Cross-s"
+   },
+   {
+    "file": "alignment.tex",
+    "literal": "95",
+    "context": "r BracketNet minus \\textsc{+Comp.}, the 95\\ $[\\NApTtwoBNTransf"
+   },
+   {
+    "file": "appendix.tex",
+    "literal": "6",
+    "context": "t-norm clipping at 5, $\\varepsilon=10^{-6}$, Gram weight 1 an"
+   },
+   {
+    "file": "appendix.tex",
+    "literal": "4000",
+    "context": " grid was run: budgets $\\{420,1000,2000,4000\\}\\times$ \\{\\textsc{"
+   },
+   {
+    "file": "appendix_results.tex",
+    "literal": "20",
+    "context": "kdown of fresh-seed runs (counts out of 20). Incorrect-closed "
+   },
+   {
+    "file": "appendix_results.tex",
+    "literal": "20",
+    "context": "rsus path length (mean $\\pm$ s.d.\\ over 20 fresh seeds).}   \\s"
+   },
+   {
+    "file": "appendix_results.tex",
+    "literal": "31--106",
+    "context": "machine. All runs are CPU-only and take 31--106\\,s each for \\NSteps"
+   },
+   {
+    "file": "limitations.tex",
+    "literal": "102",
+    "context": "the same seeds fail under every method (102, 115 and 118 under "
+   },
+   {
+    "file": "limitations.tex",
+    "literal": "115",
+    "context": "ame seeds fail under every method (102, 115 and 118 under all f"
+   },
+   {
+    "file": "limitations.tex",
+    "literal": "118",
+    "context": "s fail under every method (102, 115 and 118 under all four, 109"
+   },
+   {
+    "file": "limitations.tex",
+    "literal": "109",
+    "context": "ethod (102, 115 and 118 under all four, 109, 116 and 119 under "
+   },
+   {
+    "file": "limitations.tex",
+    "literal": "116",
+    "context": " (102, 115 and 118 under all four, 109, 116 and 119 under all b"
+   },
+   {
+    "file": "protocol.tex",
+    "literal": "101",
+    "context": "airs{} \\emph{disjoint} seed pairs $(100,101),\\dots,(118,119)$, "
+   },
+   {
+    "file": "protocol.tex",
+    "literal": "118",
+    "context": "{disjoint} seed pairs $(100,101),\\dots,(118,119)$, the same for"
+   },
+   {
+    "file": "protocol.tex",
+    "literal": "95",
+    "context": "s secondary and reported with two-sided 95\\ "
+   },
+   {
+    "file": "results.tex",
+    "literal": "3.2",
+    "context": "ering\\scriptsize \\setlength{\\tabcolsep}{3.2pt} \\caption{Fresh-s"
+   },
+   {
+    "file": "results.tex",
+    "literal": "20",
+    "context": "mp.} (one-sided). Units are seeds ($n{=}20$) for H1--H2 and di"
+   },
+   {
+    "file": "results.tex",
+    "literal": "95",
+    "context": "0$) for H3. The interval is a two-sided 95\\ difference Bracket"
+   },
+   {
+    "file": "results.tex",
+    "literal": "95",
+    "context": "s & Group & $n$ & +Comp. & BracketNet & 95\\ \\midrule  \\bottomr"
+   },
+   {
+    "file": "results.tex",
+    "literal": "95",
+    "context": " change detectably in either group: the 95\\ $[\\NTtwoBNVsMseone"
+   },
+   {
+    "file": "results.tex",
+    "literal": "20",
+    "context": "ises from \\NSOthreeCompCatCorrectclosed/20 to \\NSOthreeBNCatCo"
+   },
+   {
+    "file": "results.tex",
+    "literal": "20",
+    "context": "losed/20 to \\NSOthreeBNCatCorrectclosed/20, which is not signi"
+   },
+   {
+    "file": "results.tex",
+    "literal": "95",
+    "context": "t (exact McNemar $p=\\NSOthreeMcnemarp$; 95\\ \\NSOthreeBNCcrateL"
+   },
+   {
+    "file": "setting_method.tex",
+    "literal": "02",
+    "context": "n $\\mathcal L_{\\mathrm{comp}}=\\|\\rho(a_{02})-\\rho(a_{12})\\rho("
+   },
+   {
+    "file": "setting_method.tex",
+    "literal": "12",
+    "context": "_{\\mathrm{comp}}=\\|\\rho(a_{02})-\\rho(a_{12})\\rho(a_{01})\\|_F^2"
+   },
+   {
+    "file": "setting_method.tex",
+    "literal": "01",
+    "context": "mp}}=\\|\\rho(a_{02})-\\rho(a_{12})\\rho(a_{01})\\|_F^2$; \\item the"
+   },
+   {
+    "file": "setting_method.tex",
+    "literal": "6",
+    "context": "orized generators and $\\varepsilon=10^{-6}$; \\item the Gram p"
+   },
+   {
+    "file": "setting_method.tex",
+    "literal": "32",
+    "context": "e minimizes $4\\mathcal L_{\\mathrm{rec}}+32\\mathcal L_{\\mathrm{"
+   },
+   {
+    "file": "setting_method.tex",
+    "literal": "1.2",
+    "context": "two regularizers. \\textsc{+Comp.} adds $1.2\\,\\mathcal L_{\\mathr"
+   }
+  ]
+ },
+ "literal_checks": {
+  "cka_spread_max<=0.005": true,
+  "so3_correct_action_range": [
+   0.36,
+   0.43
+  ],
+  "so3_correct_action_range_matches_0.36_0.43": true,
+  "near_exception_pair": {
+   "pair": [
+    106,
+    107
+   ],
+   "gap": 0.03,
+   "gt": [
+    0.01,
+    0.01
+   ]
+  },
+  "near_exception_matches_text": true,
+  "runtime_range": [
+   31,
+   107
+  ],
+  "runtime_matches_31_106": true,
+  "t2_nonclosed_seeds": {
+   "local": [
+    102,
+    109,
+    115,
+    116,
+    118,
+    119
+   ],
+   "comp": [
+    102,
+    109,
+    115,
+    116,
+    118,
+    119
+   ],
+   "bracketnet": [
+    102,
+    115,
+    118
+   ],
+   "bracketnet_lam0.1": [
+    102,
+    109,
+    115,
+    116,
+    118,
+    119
+   ]
+  },
+  "t2_failure_text_matches": true
+ },
+ "pdf": {
+  "pages": 15,
+  "references_start_page": 9,
+  "main_text_ends_on_page": 9,
+  "type3_fonts": 0,
+  "identifying_strings": [],
+  "pdf_author": "",
+  "latex_errors": 0,
+  "undefined_refs": 0,
+  "overfull_boxes": 0
+ }
+}

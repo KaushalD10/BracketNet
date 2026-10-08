@@ -181,7 +181,14 @@ Four distinct properties, each implied by the next but not conversely:
 
   The two classes are told apart by the conjugation-invariant participation ratio of unit elements (2 for diagonal,
   4 for chiral) and by κ (√2 vs 2). So for SO(3), 1 ⇏ 2: **a closed but incorrect algebra is possible**, and it was
-  observed experimentally.
+  observed experimentally (8/20 fresh-seed BracketNet runs, all chiral). The diagonal and a chiral factor meet at
+  principal angles of 45° (subspace distance exactly 1/2); the two chiral factors are orthogonal (distance 1).
+  Test: `test_T6_diagonal_vs_chiral_distance_is_one_half`.
+* **SO(3) with K = 4 (misspecified count).** Every 4-dimensional subalgebra of so(4) is su(2) ⊕ u(1), with the
+  su(2) a chiral factor and the u(1) in the other factor. The centralizer of the diagonal so(3) in so(4) is
+  trivial, so **no closed 4-dimensional span contains the true algebra**. Test:
+  `test_T6_no_closed_4dim_span_contains_diagonal_so3` (centralizer rank, random fourth generators, and an explicit
+  closed su(2)_L ⊕ u(1)_R). This explains the 0/10 correct K+1 runs in the ablations.
 * **Counterexample to the "commutator norm identifies the algebra" reading.** Diagonal and chiral su(2) both close
   exactly, yet their mean commutator norms are √2 and 2. Test: `test_commutator_norm_does_not_identify_representation`.
 * **No identifiability theorem is claimed.** With unlabeled transitions, the objectives are unchanged by

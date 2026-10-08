@@ -1,47 +1,63 @@
-# BracketNet
+# BracketNet: Lie-closure regularization for learned transformation representations
 
-BracketNet learns Lie-algebraic structure from unlabeled transformation triples, using symmetry-aware
-representation learning and commutator-closure regularization.
+This is the research code, raw results and manuscript for
 
-This repository holds an **independent, fully reproducible PyTorch re-implementation** of the BracketNet manuscript
-(`paper/original_submission.pdf`). It also contains the SO(2) / T² / SO(3) benchmark, the Local / +Comp. / BracketNet
-baselines, an audit of the manuscript, a new cross-seed structural-alignment experiment, and a revised manuscript
-(`paper/bracketnet_revised.tex|pdf`) whose numbers all come from the result files here.
+> **Closing the Algebra Is Not Enough: Lie-Closure Regularization Makes Learned Transformation Structure Comparable, Not Identifiable**
+> (anonymous submission prepared for the NeurIPS 2026 UniReps workshop; manuscript: `paper/final/main.pdf`)
 
-> The original code, results and pilot archive that the manuscript describes were **not** in this repository.
-> Underspecified details were filled in as documented in [`docs/ASSUMPTIONS.md`](docs/ASSUMPTIONS.md).
+BracketNet learns an encoder, decoder, action-inference network and K skew-symmetric latent generators from
+unlabeled transition triples. It penalizes the component of each generator commutator that leaves the generator
+span (Lie closure). We ask whether this makes **independently trained models learn the same transformation
+algebra**, and whether that algebra is the correct one.
 
-## Headline findings (held-out seeds 10–14; see [`docs/AUDIT.md`](docs/AUDIT.md))
+## Main findings
+Fresh seeds 100–119, frozen protocol (4000 updates, λ = 3), pre-registered tests. Numbers come from
+`results/final/summary_final.json`.
+
 | | T² | SO(3) |
 |---|---|---|
-| Manuscript: closure reduction vs +Comp. at λ = 0.1 | 74.4 % | 75.2 % |
-| **This reproduction, Protocol A (λ = 0.1, as specified)** | **+48.8 % (worse; 0/5 seeds better)** | **+17.5 % (worse; 2/5)** |
-| This reproduction, Protocol B (λ = 30, selected on validation) | −98.9 % (5/5 seeds better) | −98.6 % (5/5) |
-| Paired 95 % t-CI of closure difference, Protocol B | −0.209 ± 0.403 | −0.577 ± 0.560 |
-| 10-step transport change vs +Comp., Protocol B | +5.1 % (n.s.) | −16.9 % (n.s.) |
-| Abelian/non-abelian classification (validation threshold 0.918) | Protocol B 10/10; others 9/10 | |
-| Cross-seed algebra distance after Procrustes (chance 0.80 / 0.50) | B 0.23 vs 0.34–0.42 | **B 0.034 vs 0.42–0.45** |
+| Correct-closed runs, +Comp. → BracketNet | 14 → 16 / 20 | 5 → 8 / 20 |
+| Non-closed runs, +Comp. → BracketNet | 6 → 3 | **15 → 4** |
+| Incorrect-closed (chiral su(2)) runs, BracketNet | 1 (0 chiral) | **8 (8 chiral)** |
+| H1 closure, +Comp. → BracketNet (Holm p) | 0.291 → 0.022 (2.1e-4; t-CI includes 0) | 0.616 → 0.025 (5.7e-6) |
+| H2 ground-truth algebra distance (Holm p) | 0.151 → 0.129 (0.31, n.s.) | 0.475 → 0.243 (4.9e-4) |
+| H3 cross-seed algebra distance, 10 disjoint pairs (Holm p) | 0.214 → 0.198 (0.38, n.s.) | 0.685 → 0.392 (8.8e-3) |
+| 10-step transport, BracketNet − +Comp. | no detectable difference | no detectable difference |
+| Latent CKA across seeds, +Comp. / BracketNet | 0.920 / 0.925 | 0.949 / 0.952 |
 
-* **The 74.4 % / 75.2 % figures do not reproduce at the specified λ = 0.1.** A validation-selected λ gives much
-  larger reductions. With n = 5, the exact sign-flip p is 0.0625, the smallest value attainable.
-* **Corrected claims:** Eq. 7 is invariant only to *orthogonal* changes of generator coordinates. The
-  "Gram target I" pilot has no effect under √2 normalization. The BCH bound tightens to O(δr²), with δ ≤ (K/2)√L_close.
-* **Identifiability:** exact closure does not fix the representation. One run converged to a chiral su(2) ⊂ so(4).
-  Linear CKA cannot tell methods apart, while algebra distance after Procrustes can.
+* Fitting transitions alone recovers the abelian T² algebra in most runs but leaves SO(3) **non-closed**.
+* Closure regularization improves SO(3) algebraic fidelity and cross-model agreement at no detectable transport cost.
+* **Closure is not recovery.** Many SO(3) runs close onto a *chiral* su(2), a provably possible wrong class.
+  Cross-model agreement improves largely because disagreement becomes discrete.
+* Transferring transformations between models works when both recovered the correct algebra (T² median gap 0.006,
+  22 pairs) and mostly fails otherwise (0.855, 18 pairs), whatever the objective.
+* Ablations (seeds 200–209): the anti-collapse term is essential. The fit–close–refit schedule, Gram penalty and
+  span-only closure variant make no detectable difference. With K+1 generators, no closed span can contain the true
+  SO(3) algebra (proved).
 
-## Quick start
+## Reproduce
 ```bash
 pip install -r requirements.txt
-python -m pytest -q tests          # 19 checks of the manuscript's mathematical claims + pipeline
-./run_all.sh                       # every experiment, table and figure (~25 min, 4 CPU cores)
+python -m pytest -q tests                 # 43 tests: mathematical claims + pipeline
+# full pipeline and exact order: docs/REPRODUCIBILITY_FINAL.md
+python scripts/verify_final.py            # determinism re-runs, recomputation, manuscript number audit, PDF checks
 ```
 
 ## Layout
 | Path | Contents |
 |---|---|
-| `bracketnet/` | `groups.py` true algebras · `data.py` benchmark · `model.py` networks and losses · `train.py` objectives and schedule · `metrics.py` evaluation and invariant diagnostics · `alignment.py` cross-model alignment · `stats.py` paired CIs and sign-flip tests |
-| `scripts/` | experiment runner, hyperparameter locks, alignment, analysis, figures, reproducibility check |
-| `results/` | per-run JSON (255 training runs), `summary.json`, `alignment.json`, `locked_hparams.json`, tables, test checkpoints |
-| `figures/` | all figures, generated by `scripts/make_figures.py` |
-| `docs/` | `AUDIT.md`, `ASSUMPTIONS.md`, `REPRODUCIBILITY.md` |
-| `paper/` | original submission PDF; revised LaTeX source and compiled PDF |
+| `bracketnet/` | data generation, model, losses, training, metrics, structural evaluation, alignment, statistics |
+| `configs/dev_selection.yaml` | pre-registered selection rules (+ amendment A1, committed before fresh runs) |
+| `configs/final_protocol.yaml` | frozen protocol generated from development seeds only |
+| `scripts/run_final.py`, `freeze_protocol.py`, `run_alignment_final.py`, `analyze_final.py`, `make_figures_final.py`, `verify_final.py` | final pipeline |
+| `results/final/` | raw per-run JSON (dev 290, test 240, ablation 240), fresh-seed checkpoints, summaries, tables, LaTeX number macros |
+| `figures/final/` | final figures |
+| `paper/final/` | final LaTeX source (`main.tex`, `sections/`, `refs.bib`) and compiled `main.pdf` |
+| `docs/MATHEMATICAL_VERIFICATION.md` | verification of every mathematical statement |
+| `docs/ASSUMPTIONS.md`, `docs/REPRODUCIBILITY_FINAL.md`, `docs/SUBMISSION_CHECKLIST.md` | assumptions, reproducibility, submission status |
+| `docs/AUDIT.md`, `results/runs/`, `paper/bracketnet_revised.*`, `paper/original_submission.pdf` | round-1 audit of the original manuscript (historical) |
+
+## History
+The original manuscript reported 74.4 % / 75.2 % closure reductions at λ = 0.1. An independent re-implementation
+could not reproduce them (`docs/AUDIT.md`): λ = 0.1 has no effect at the loss scales used here. The final paper
+is a revised study with a protocol selected on development seeds only, and does not report those numbers.
