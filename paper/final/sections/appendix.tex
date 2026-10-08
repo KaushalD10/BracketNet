@@ -1,0 +1,25 @@
+\input{sections/appendix_proofs}
+
+\section{Protocol details and provenance}\label{app:protocol}
+\paragraph{Architecture and optimization.}
+$E$, $D$ and $q$ are two-hidden-layer MLPs of width 64 with SiLU activations, with latent dimension $d$.
+Generators are initialized as $W\sim\mathcal N(0,1/d)$. We use AdamW with learning rate $2\times10^{-3}$, weight
+decay $10^{-5}$, batch size 160, global gradient-norm clipping at 5, $\varepsilon=10^{-6}$, Gram weight 1 and
+anti-collapse weight 16. The anti-collapse weight was chosen in a preliminary round on seeds 5--6 by a
+method-agnostic criterion: with weight 1, four of five latent covariance eigenvalues fell below $0.1$.
+
+Frozen generators receive no gradient, so they receive no weight decay either. All runs use one CPU thread. Repeated
+runs are bit-identical on the same machine.
+
+\paragraph{Order of operations.}
+\begin{enumerate}
+\item The selection rules were committed.
+\item The development grid was run: budgets $\{420,1000,2000,4000\}\times$ \{\textsc{Local}, \textsc{+Comp.},
+BracketNet with $\lambda\in\{0.1,3,10,30,100\}$\} $\times\{T^2,\mathrm{SO(3)}\}\times$ seeds 5--9.
+\item The rules were applied by a script, which wrote the frozen protocol file.
+\item The closure-objective comparison was run on development seeds.
+\item Seeds 100--119 and 200--209 were run once.
+\end{enumerate}
+No hyperparameter was changed after any fresh-seed result was seen.
+
+\input{sections/appendix_results}
