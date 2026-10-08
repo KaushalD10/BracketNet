@@ -38,6 +38,33 @@ def auc(score_pos_high, y):
     return float(np.mean(pos[:, None] > neg[None, :]) + 0.5 * np.mean(pos[:, None] == neg[None, :]))
 
 
+def threshold_sensitivity():
+    """Robustness (not pre-registered): SO(3) fresh-seed category counts under alternative thresholds."""
+    from bracketnet.structure import random_closure_level, chance_distance
+    tc0, td0 = random_closure_level(4, 3), chance_distance(4, 3)
+    out = []
+    for cf in (0.001, 0.01, 0.05):
+        for df in (0.05, 0.1, 0.2):
+            row = dict(closed_frac=cf, correct_frac=df)
+            for tag in ("comp", "bracketnet"):
+                c = Counter()
+                for p in sorted(FINAL.glob(f"SO3_{tag}_s*.json")):
+                    r = json.loads(p.read_text())
+                    st = r["metrics"]["structure"]
+                    closed = r["metrics"]["closure_residual"] <= cf * tc0
+                    if not closed:
+                        c["nonclosed"] += 1
+                    elif st["gt_algebra_distance"] <= df * td0:
+                        c["correct"] += 1
+                    elif st["participation_ratio"] >= 3:
+                        c["chiral"] += 1
+                    else:
+                        c["other"] += 1
+                row[tag] = dict(c)
+            out.append(row)
+    return out
+
+
 def e1():
     """Composition error by structural class, all fresh-seed SO(3) runs (descriptive)."""
     by = defaultdict(list)
@@ -162,7 +189,7 @@ def mathsafe(v):
 
 
 def main():
-    S = dict(E1=e1())
+    S = dict(E1=e1(), threshold_sensitivity=threshold_sensitivity())
     L = []
     add = lambda n, v: L.append(f"\\newcommand{{{n}}}{{{mathsafe(v)}}}")
     for k, v in S["E1"].items():
@@ -269,6 +296,14 @@ def main():
                    f"{ci(v['t_ci'])} & {ci(v['signflip_inverted_ci'])} & {ci(v['bootstrap_ci'])} \\\\")
     (RV / "tables").mkdir(exist_ok=True)
     (RV / "tables/stats_audit.tex").write_text("\n".join(tab) + "\n")
+    rows = []
+    for r in S["threshold_sensitivity"]:
+        f = lambda d: f"{d.get('correct', 0)}/{d.get('chiral', 0)}/{d.get('other', 0)}/{d.get('nonclosed', 0)}"
+        rows.append(f"{100 * r['closed_frac']:g}\\% & {100 * r['correct_frac']:g}\\% & {f(r['comp'])} & {f(r['bracketnet'])} \\\\")
+    (RV / "tables/threshold_sensitivity.tex").write_text("\n".join(rows) + "\n")
+    # main-text table without the trivial SO(2) block (full table stays in the appendix)
+    main_rows = (ROOT / "results/final/tables/main.tex").read_text().split("\\midrule\n")
+    (RV / "tables/main_t2so3.tex").write_text("\\midrule\n".join(b for b in main_rows if not b.startswith("SO(2)")))
     names = [l.split("}{")[0] for l in L]
     assert len(names) == len(set(names)), "duplicate macro"
     (RV / "summary_review.json").write_text(json.dumps(S, indent=1, default=str))

@@ -19,6 +19,126 @@
    "median_action": 1.0940385651566602
   }
  },
+ "threshold_sensitivity": [
+  {
+   "closed_frac": 0.001,
+   "correct_frac": 0.05,
+   "comp": {
+    "nonclosed": 17,
+    "correct": 3
+   },
+   "bracketnet": {
+    "correct": 8,
+    "nonclosed": 7,
+    "chiral": 5
+   }
+  },
+  {
+   "closed_frac": 0.001,
+   "correct_frac": 0.1,
+   "comp": {
+    "nonclosed": 17,
+    "correct": 3
+   },
+   "bracketnet": {
+    "correct": 8,
+    "nonclosed": 7,
+    "chiral": 5
+   }
+  },
+  {
+   "closed_frac": 0.001,
+   "correct_frac": 0.2,
+   "comp": {
+    "nonclosed": 17,
+    "correct": 3
+   },
+   "bracketnet": {
+    "correct": 8,
+    "nonclosed": 7,
+    "chiral": 5
+   }
+  },
+  {
+   "closed_frac": 0.01,
+   "correct_frac": 0.05,
+   "comp": {
+    "nonclosed": 15,
+    "correct": 5
+   },
+   "bracketnet": {
+    "correct": 8,
+    "chiral": 8,
+    "nonclosed": 4
+   }
+  },
+  {
+   "closed_frac": 0.01,
+   "correct_frac": 0.1,
+   "comp": {
+    "nonclosed": 15,
+    "correct": 5
+   },
+   "bracketnet": {
+    "correct": 8,
+    "chiral": 8,
+    "nonclosed": 4
+   }
+  },
+  {
+   "closed_frac": 0.01,
+   "correct_frac": 0.2,
+   "comp": {
+    "nonclosed": 15,
+    "correct": 5
+   },
+   "bracketnet": {
+    "correct": 8,
+    "chiral": 8,
+    "nonclosed": 4
+   }
+  },
+  {
+   "closed_frac": 0.05,
+   "correct_frac": 0.05,
+   "comp": {
+    "nonclosed": 13,
+    "correct": 7
+   },
+   "bracketnet": {
+    "correct": 8,
+    "chiral": 9,
+    "nonclosed": 2,
+    "other": 1
+   }
+  },
+  {
+   "closed_frac": 0.05,
+   "correct_frac": 0.1,
+   "comp": {
+    "nonclosed": 13,
+    "correct": 7
+   },
+   "bracketnet": {
+    "correct": 9,
+    "chiral": 9,
+    "nonclosed": 2
+   }
+  },
+  {
+   "closed_frac": 0.05,
+   "correct_frac": 0.2,
+   "comp": {
+    "nonclosed": 13,
+    "correct": 7
+   },
+   "bracketnet": {
+    "correct": 9,
+    "chiral": 9,
+    "nonclosed": 2
+   }
+  }
+ ],
  "E2": {
   "rows": [
    {
@@ -284,6 +404,103 @@
   "median_abs_chi_final_incorrect_closed-chiral": 0.9995722323121099,
   "median_abs_chi_ramp_nonclosed": 0.29320375904655577,
   "median_abs_chi_final_nonclosed": 0.22895217004530963
+ },
+ "E3": {
+  "bracketnet": {
+   "n": 20,
+   "counts": {
+    "correct_closed": 11,
+    "incorrect_closed-chiral": 6,
+    "nonclosed": 3
+   },
+   "chiral": 6,
+   "correct": 11,
+   "nonclosed": 3,
+   "correct_wilson": [
+    0.3420853410191274,
+    0.7418021429623598
+   ],
+   "mean_gt": 0.21483296576105682,
+   "mean_closure": 0.06741433383288652,
+   "mean_action": 0.6819924071181711
+  },
+  "comp": {
+   "n": 20,
+   "counts": {
+    "correct_closed": 8,
+    "nonclosed": 12
+   },
+   "chiral": 0,
+   "correct": 8,
+   "nonclosed": 12,
+   "correct_wilson": [
+    0.21880653127178018,
+    0.6134185007652458
+   ],
+   "mean_gt": 0.38350522429553624,
+   "mean_closure": 0.5032936458227946,
+   "mean_action": 0.737947226093751
+  },
+  "oracle_bn": {
+   "n": 20,
+   "counts": {
+    "correct_closed": 20
+   },
+   "chiral": 0,
+   "correct": 20,
+   "nonclosed": 0,
+   "correct_wilson": [
+    0.8388748398148705,
+    1.0000000000000002
+   ],
+   "mean_gt": 9.085941405978515e-06,
+   "mean_closure": 1.19495248955922e-05,
+   "mean_action": 0.4130581391386697
+  },
+  "oracle_local": {
+   "n": 20,
+   "counts": {
+    "correct_closed": 20
+   },
+   "chiral": 0,
+   "correct": 20,
+   "nonclosed": 0,
+   "correct_wilson": [
+    0.8388748398148705,
+    1.0000000000000002
+   ],
+   "mean_gt": 1.4076515301941761e-05,
+   "mean_closure": 2.064163468927722e-05,
+   "mean_action": 0.413075729349479
+  },
+  "chiral_oracle_bn_vs_bn": {
+   "only_first": 0,
+   "only_second": 6,
+   "p": 0.03125
+  },
+  "correct_oracle_bn_vs_bn": {
+   "only_first": 9,
+   "only_second": 0,
+   "p": 0.00390625
+  },
+  "gt_oracle_bn_vs_bn": {
+   "n": 20,
+   "mean_a": 9.085941405978515e-06,
+   "mean_b": 0.21483296576105682,
+   "mean_diff": -0.21482387981965081,
+   "sd_diff": 0.24937144649095605,
+   "ci_lo": -0.3315333093271924,
+   "ci_hi": -0.09811445031210927,
+   "ci_excludes_zero": true,
+   "sign_flip_p": 1.9073486328125e-06,
+   "wilcoxon_p": 1.9073486328125e-06,
+   "alternative": "two-sided",
+   "cohens_dz": -0.8614614176665243,
+   "median_diff": -0.0020384644888382653,
+   "wins_a_lower": 20,
+   "ties": 0,
+   "pct_change_of_means": -99.9957706949798
+  }
  },
  "E5": {
   "T2": {

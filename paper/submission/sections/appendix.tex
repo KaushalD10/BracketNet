@@ -48,6 +48,21 @@ Test & Group & $n$ & median diff. & skew & $t$ 95\% & inverted sign-flip 95\% & 
 \end{tabular}
 \end{table}
 
+\paragraph{Threshold sensitivity (robustness check, not pre-registered).}
+SO(3) fresh-seed counts (correct / chiral / other closed / non-closed) under alternative thresholds, as a fraction of
+the random-span closure level and of the chance distance:
+\begin{center}\scriptsize
+\begin{tabular}{cccc}
+\toprule
+closed & correct & +Comp. & BracketNet\\
+\midrule
+\tabinput{../../results/review/tables/threshold_sensitivity.tex}
+\bottomrule
+\end{tabular}
+\end{center}
+The qualitative conclusions (no chiral solutions without closure; several with it; more correct-closed runs with
+closure) hold at every setting.
+
 \section{Comparison of settings}\label{app:novelty}
 \begin{table}[ht]
 \centering\scriptsize

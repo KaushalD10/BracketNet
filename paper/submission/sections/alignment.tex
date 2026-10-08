@@ -9,23 +9,8 @@ group representation, inferred action, and ground truth. We compare each pair of
 $\hat x_{t+1}=D_b(R\rho_aR^\top E_b(x_t))$. The \emph{transfer gap} is $0$ when this is as good as $b$'s own action
 and $1$ when it is no better than the identity.
 \end{itemize}
-Independent units are \NNpairs{} disjoint seed pairs, the same for every method.
+Independent units are \NNpairs{} disjoint seed pairs, the same for every method (Appendix Table~\ref{tab:align}).
 
-\begin{table}[t]
-\centering\scriptsize
-\setlength{\tabcolsep}{3.5pt}
-\caption{Cross-seed alignment on \NNpairs{} disjoint pairs (mean$\pm$s.d.). Algebra distance chance: $0.80$
-($T^2$), $0.50$ (SO(3)). Transfer gap: 0 = native, 1 = identity. Projected: transferred actions re-expressed in
-$b$'s generators.}
-\label{tab:align}
-\begin{tabular}{llccccc}
-\toprule
-Group & Method & CKA & Algebra dist. & Action disagr. & Transfer gap & Projected gap\\
-\midrule
-\tabinput{../../results/final/tables/alignment.tex}
-\bottomrule
-\end{tabular}
-\end{table}
 
 \paragraph{Algebras agree more, through a few discrete classes.}
 For SO(3), the cross-seed algebra distance falls from \NHthreeSOthreeMeanb{} to \NHthreeSOthreeMeana{} (lower in

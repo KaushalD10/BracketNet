@@ -1,6 +1,36 @@
 \section{Additional results}\label{app:results}
 \begin{table}[ht]
 \centering\scriptsize
+\setlength{\tabcolsep}{3.2pt}
+\caption{Fresh-seed results for all groups, including SO(2) (closure identically $0$ for one generator).}
+\label{tab:mainfull}
+\begin{tabular}{llccccc}
+\toprule
+Group & Method & 1-step MSE & 10-step MSE & Closure residual & GT dist. & CC\\
+\midrule
+\tabinput{../../results/final/tables/main.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\caption{Cross-seed alignment on \NNpairs{} disjoint pairs (mean$\pm$s.d.). Algebra distance chance: $0.80$
+($T^2$), $0.50$ (SO(3)). Transfer gap: 0 = native, 1 = identity. Projected: transferred actions re-expressed in
+$b$'s generators.}
+\label{tab:align}
+\begin{tabular}{llccccc}
+\toprule
+Group & Method & CKA & Algebra dist. & Action disagr. & Transfer gap & Projected gap\\
+\midrule
+\tabinput{../../results/final/tables/alignment.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering\scriptsize
 \setlength{\tabcolsep}{3pt}
 \caption{Structural breakdown of fresh-seed runs (counts out of 20). Incorrect-closed runs are shown with the chiral
 count in parentheses. ``Bad action'' counts correct-closed runs whose action disagreement with the truth exceeds 0.5.

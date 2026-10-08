@@ -3,14 +3,14 @@
 \centering\scriptsize
 \setlength{\tabcolsep}{3.2pt}
 \caption{Fresh-seed results (seeds 100--119, mean$\pm$s.d.; frozen protocol). GT dist.: ground-truth algebra
-distance after Procrustes alignment (chance $0.80$ for $T^2$, $0.50$ for SO(3)). CC: correct-closed runs. Closure is
-identically $0$ for one-generator SO(2).}
+distance after Procrustes alignment (chance $0.80$ for $T^2$, $0.50$ for SO(3)). CC: correct-closed runs. SO(2), where
+all methods coincide, is in Appendix Table~\ref{tab:mainfull}.}
 \label{tab:main}
 \begin{tabular}{llccccc}
 \toprule
 Group & Method & 1-step MSE & 10-step MSE & Closure residual & GT dist. & CC\\
 \midrule
-\tabinput{../../results/final/tables/main.tex}
+\tabinput{../../results/review/tables/main_t2so3.tex}
 \bottomrule
 \end{tabular}
 \end{table}
@@ -78,31 +78,45 @@ Pure closure flow from random subspaces reaches the diagonal class in \RFlowDiag
 
 \paragraph{Trace of the generator span.}
 We re-ran the 20 BracketNet SO(3) runs with generator snapshots; \REtwoIdentical{} reproduced the stored runs
-bit-for-bit. We measured the chirality $\chi=e_L-e_R$ of each span (the share of its energy in $\su(2)_L$ minus that
-in $\su(2)_R$).
+bit-for-bit. We measured each span's chirality $\chi=e_L-e_R$, the share of its energy in $\su(2)_L$ minus that
+in $\su(2)_R$.
 \begin{itemize}
-\item At the start of the closure ramp, median $|\chi|$ is \REtwoChirampIncorrectclosedchiral{} for runs that end
-chiral and \REtwoChirampCorrectclosed{} for runs that end correct.
-\item Over the \REtwoNclosed{} closed runs, $|\chi|$ at the ramp predicts a chiral outcome with AUC \REtwoAucramp{}
-(at initialization: \REtwoAucinit).
+\item \emph{Pre-registered.} At the start of the closure ramp, $|\chi|$ predicts a chiral outcome among the
+\REtwoNclosed{} closed runs with AUC \REtwoAucramp{} (at initialization: \REtwoAucinit). Medians are
+\REtwoChirampIncorrectclosedchiral{} (ending chiral) vs.\ \REtwoChirampCorrectclosed{} (ending correct).
+\item \emph{Post hoc.} The closure residual at the ramp start separates outcomes more sharply (AUC
+\REtwoAucclosure). \REtwoCorrectnear{} of the \REtwoNcorrect{} runs that end correct had already nearly closed onto
+the diagonal during the transition-fitting phase. \REtwoChiralfar{} of the \REtwoNchiral{} chiral runs were still
+far from closed when the penalty switched on (Fig.~\ref{fig:mech}b).
 \end{itemize}
-This is exploratory. Its interpretation is that the transition losses have already pulled the span toward a chiral
-class before closure acts, and closure then completes it.
+Together with the closure flow, this suggests the following picture. Transition fitting sometimes finds the
+diagonal algebra by itself, and closure then keeps it. When the span is still far from closed, closing it under the
+transport and composition losses, which favour chiral solutions at the ground-truth embedding
+(Prop.~\ref{prop:endpoint}), usually yields a
+chiral algebra.
 
-\paragraph{Intervention: supplying the true action coefficients.}
-Prop.~\ref{prop:endpoint} predicts that chiral solutions lose their advantage if the action no longer has to be
-inferred from endpoints. On 20 new seeds (400--419) we trained BracketNet with the true coefficients in the transport
-terms. This is the action-supervised setting of homomorphism autoencoders \citep{keurti2023homomorphism}; $q$ is fit
-only for evaluation. Chiral outcomes fell from \REthreeBracketnetChiral/20 (standard BracketNet, same seeds) to
-\REthreeOraclebnChiral/20 (exact McNemar $p=\REthreeChiralp$). Correct-closed runs went from \REthreeBracketnetCorrect{}
-to \REthreeOraclebnCorrect{} ($p=\REthreeCorrectp$). Without closure, the oracle model reaches \REthreeOraclelocalCorrect/20.
-The intervention changes the supervision, not only the ambiguity, so it supports but does not isolate the mechanism.
+\paragraph{Intervention: supplying the true action coefficients (pre-registered).}
+Prop.~\ref{prop:endpoint} predicts that chiral solutions lose their advantage if actions need not be inferred from
+endpoints. On 20 new seeds (400--419) we trained BracketNet with the true coefficients in the transport terms. This
+is the action-supervised setting of homomorphism autoencoders \citep{keurti2023homomorphism}; $q$ is fit only for
+evaluation. Results, relative to standard BracketNet on the same seeds:
+\begin{itemize}
+\item chiral outcomes fell from \REthreeBracketnetChiral/20 to \REthreeOraclebnChiral/20 (exact McNemar $p=\REthreeChiralp$);
+\item correct-closed runs rose from \REthreeBracketnetCorrect/20 to \REthreeOraclebnCorrect/20 ($p=\REthreeCorrectp$);
+\item the ground-truth distance changed by $\REthreeGtdiff$ ($[\REthreeGtlo,\REthreeGthi]$);
+\item without any closure term, the oracle model also reaches \REthreeOraclelocalCorrect/20 correct-closed runs.
+\end{itemize}
+Once actions are given, closure regularization is unnecessary: the difficulty lies in inferring actions from
+endpoints. The oracle models' own $q$, which must infer actions from endpoints at test time, still has action
+disagreement \REthreeOraclebnAction, the floor of Prop.~\ref{prop:endpoint}(c). The intervention adds
+information as well as removing the ambiguity, so it supports the mechanism but does not isolate it.
 
 \begin{figure}[t]\centering
 \includegraphics[width=\linewidth]{fig_mechanism.pdf}
-\caption{(a) Final SO(3) span chirality $\chi$ against closure residual for every fresh-seed run: closed runs sit
-exactly at $\chi\in\{-1,0,1\}$, the three classes of Prop.~\ref{prop:classify}. (b) Composition error by outcome
-class. (c) Outcomes with endpoint-inferred vs.\ true (oracle) action coefficients, seeds 400--419.}\label{fig:mech}
+\caption{(a) Final SO(3) span chirality $\chi$ vs.\ closure residual for every fresh-seed run: closed runs sit at
+$\chi\in\{-1,0,1\}$, the classes of Prop.~\ref{prop:classify}. (b) Closure of the BracketNet span when the closure
+penalty switches on, by final outcome (post hoc). (c) Composition error by outcome class, all SO(3) runs.
+(d) Outcomes with endpoint-inferred vs.\ true (oracle) action coefficients, seeds 400--419.}\label{fig:mech}
 \end{figure}
 
 \subsection{A rendered-image benchmark}\label{sec:render}
