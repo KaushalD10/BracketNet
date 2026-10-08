@@ -226,3 +226,75 @@ def test_T6_no_closed_4dim_span_contains_diagonal_so3():
         assert closure_residual_np(np.concatenate([T, W])) > 1e-6
     # su(2)_L + u(1)_R is a closed 4-dim subalgebra
     assert closure_residual_np(np.concatenate([chiral(+1), chiral(-1)[:1]])) < 1e-20
+
+
+# ---------------------------------------------------------------- T7: Proposition 5 (endpoint ambiguity)
+def test_T7_chiral_exact_transport_and_composition_on_data():
+    """With the true state as latent code, su(2)_L and su(2)_R generators with endpoint-only inference transport
+    and compose exactly (left multiplication by unit quaternions acts simply transitively on each sphere)."""
+    from bracketnet.data import make_dataset
+    from bracketnet.theory_checks import chiral_basis, chiral_infer, evaluate_solution
+    ds = make_dataset("SO3", 7, n_train=200, n_test=5)
+    z0, z1, z2 = ds.z_train[:, 0], ds.z_train[:, 1], ds.z_train[:, 2]
+    for s in (+1, -1):
+        r = evaluate_solution(z0, z1, z2, chiral_basis(s), lambda u, v: chiral_infer(u, v, s))
+        assert r["transport"] < 1e-20 and r["composition"] < 1e-20
+
+
+def test_T7_diagonal_endpoint_inference_cannot_compose():
+    """The minimal-rotation rule for the true diagonal so(3) transports exactly but does not compose: the defect of a
+    small triangle is a rotation about the start point (holonomy), so the composition residual is strictly positive."""
+    from bracketnet.data import make_dataset
+    from bracketnet.groups import true_generators
+    from bracketnet.theory_checks import diagonal_infer_minimal, evaluate_solution, rho
+    ds = make_dataset("SO3", 7, n_train=200, n_test=5)
+    z0, z1, z2 = ds.z_train[:, 0], ds.z_train[:, 1], ds.z_train[:, 2]
+    r = evaluate_solution(z0, z1, z2, true_generators("SO3"), diagonal_infer_minimal)
+    assert r["transport"] < 1e-20 and r["composition"] > 1e-4
+    T = true_generators("SO3")
+    D = rho(diagonal_infer_minimal(z0, z2), T)
+    P = rho(diagonal_infer_minimal(z1, z2), T) @ rho(diagonal_infer_minimal(z0, z1), T)
+    defect = np.transpose(D, (0, 2, 1)) @ P
+    # D and P both map z0 to z2, so the defect D^T P fixes z0: it is a rotation about the start point
+    assert np.max(np.abs(np.einsum("nij,nj->ni", defect, z0) - z0)) < 1e-10
+    assert np.mean(np.sum((defect - np.eye(4)) ** 2, (1, 2))) > 1e-4
+
+
+def test_T7_stabilizer_component_is_invisible():
+    """g and g * exp(t * (rotation about z)) produce the same endpoints (z, g z): the stabilizer component of an
+    action cannot be inferred from endpoints."""
+    from bracketnet.groups import true_generators
+    T = true_generators("SO3")
+    z = np.array([0.3, -1.1, 0.7, 0.4])
+    axis = z[:3] / np.linalg.norm(z[:3])
+    stab = expm(-0.9 * np.einsum("k,kij->ij", axis, T))       # sign convention of groups.py: rotation about +axis
+    assert np.allclose(stab @ z, z)
+    g = expm(np.einsum("k,kij->ij", np.array([0.2, -0.1, 0.3]), T))
+    assert np.allclose((g @ stab) @ z, g @ z) and not np.allclose(g @ stab, g)
+
+
+# ---------------------------------------------------------------- T8: independent classification checks
+def test_T8_pfaffian_handedness_and_conjugation_groups():
+    from bracketnet.so4 import chirality, pfaffian
+    from bracketnet.theory_checks import chiral_basis
+    from bracketnet.alignment import conjugate
+    L, R, S = chiral_basis(+1), chiral_basis(-1), true_generators("SO3")
+    assert np.allclose(pfaffian(S), 0) and np.allclose(pfaffian(L), 0.5) and np.allclose(pfaffian(R), -0.5)
+    for _ in range(5):
+        Q, _ = np.linalg.qr(rng.standard_normal((4, 4)))
+        if np.linalg.det(Q) < 0:
+            Q[:, 0] *= -1
+        Pm = Q.copy()
+        Pm[:, 0] *= -1
+        assert np.isclose(chirality(conjugate(Q, L)), 1) and np.isclose(chirality(conjugate(Pm, L)), -1)
+        assert np.isclose(chirality(conjugate(Q, S)), 0)
+
+
+def test_T8_closure_flow_reaches_only_three_classes():
+    """Optimization-based check that does not use the classification: minimizing the span-only closure from random
+    3-dim subspaces of so(4) converges only to spans with chirality exactly -1, 0 or +1."""
+    from bracketnet.so4 import closure_flow
+    res = closure_flow(n_starts=12, steps=3000, seed=1)
+    for r in res:
+        assert r["closure"] < 1e-9
+        assert min(abs(r["chirality"] - c) for c in (-1.0, 0.0, 1.0)) < 1e-4

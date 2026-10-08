@@ -235,3 +235,8 @@ paper/final/*.aux
 paper/final/*.log
 paper/final/*.out
 paper/final/*.blg
+
+# review phases in progress (committed in full on completion)
+results/review/runs/
+results/review/checkpoints/
+results/review/*_log.txt

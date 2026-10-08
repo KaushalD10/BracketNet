@@ -1,0 +1,95 @@
+{
+ "T2": {
+  "auc_algebra_distance": 0.9816351852279996,
+  "auc_cka": 0.9977188480182492,
+  "n_pairs": 760,
+  "n_fail": 259,
+  "ci_auc_algebra_distance": [
+   0.9159259970315571,
+   1.0
+  ],
+  "ci_auc_cka": [
+   0.9759445371333473,
+   1.0
+  ],
+  "auc_difference": -0.01608366279024953,
+  "ci_auc_difference": [
+   -0.06503036852483701,
+   0.0
+  ],
+  "n_boot": 990,
+  "by_pair_type": {
+   "both_correct": {
+    "n": 393,
+    "median_gap": 0.0067809756883051,
+    "median_oracle_gap": 0.006787129248749453,
+    "frac_fail": 0.0,
+    "median_cka": 0.9930084964808545
+   },
+   "involves_nonclosed": {
+    "n": 351,
+    "median_gap": 3.590522087809262,
+    "median_oracle_gap": 7.819353293066331,
+    "frac_fail": 0.6923076923076923,
+    "median_cka": 0.6907343204792873
+   },
+   "correct_vs_incorrect": {
+    "n": 16,
+    "median_gap": 15.36779347397491,
+    "median_oracle_gap": 17.288639373757945,
+    "frac_fail": 1.0,
+    "median_cka": 0.6266849025129896
+   }
+  }
+ },
+ "SO3": {
+  "auc_algebra_distance": 0.6246537396121884,
+  "auc_cka": 0.7508675534991325,
+  "n_pairs": 760,
+  "n_fail": 266,
+  "ci_auc_algebra_distance": [
+   0.4821164762452511,
+   0.7843707330714859
+  ],
+  "ci_auc_cka": [
+   0.45885600642889973,
+   0.9154368787791151
+  ],
+  "auc_difference": -0.12621381388694408,
+  "ci_auc_difference": [
+   -0.4023527856699789,
+   0.2996764000835498
+  ],
+  "n_boot": 1000,
+  "by_pair_type": {
+   "involves_nonclosed": {
+    "n": 605,
+    "median_gap": 0.45288823773303793,
+    "median_oracle_gap": 0.7468631247204824,
+    "frac_fail": 0.41983471074380163,
+    "median_cka": 0.98515795304468
+   },
+   "both_correct": {
+    "n": 63,
+    "median_gap": 0.013471510089185425,
+    "median_oracle_gap": 0.013302573932353401,
+    "frac_fail": 0.0,
+    "median_cka": 0.991211829581516
+   },
+   "correct_vs_incorrect": {
+    "n": 64,
+    "median_gap": 0.3651096258122305,
+    "median_oracle_gap": 0.5119871995602219,
+    "frac_fail": 0.1875,
+    "median_cka": 0.9888167056022331
+   },
+   "both_same_incorrect": {
+    "n": 28,
+    "median_gap": 0.17707582195982224,
+    "median_oracle_gap": 4.150659368353576,
+    "frac_fail": 0.0,
+    "median_cka": 0.98767915301355
+   }
+  }
+ }
+}
