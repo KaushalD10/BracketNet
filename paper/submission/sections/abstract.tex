@@ -10,10 +10,10 @@ span non-closed in \NSOthreeCompCatNonclosed/20 runs. Closure regularization clo
 the true algebra, and makes the algebras of independently trained models agree more (Holm-corrected
 $p\le\NHthreeSOthreeHolmp$), with no detectable change in transport error.
 \textbf{(2)} Closed is not correct. \NSOthreeBNChiral/20 SO(3) runs close onto a \emph{chiral} $\su(2)$, and on
-rendered images every closed run (\REfourBracketnetChiral/20) is chiral. We prove why
-the objective favours it: a rotation about the axis through a point leaves that point fixed, so the true action cannot
-be inferred from endpoints, whereas a chiral algebra acts simply transitively and makes transport and composition
-exact. Composition errors, a pre-registered intervention with true action coefficients, and a generator-span trace
+rendered images every closed run (\REfourBracketnetChiral/20) is chiral. We prove a partial
+explanation: a rotation about the axis through a point leaves that point fixed, so the true action cannot be inferred
+from endpoints and no continuous endpoint rule makes the true algebra exact, whereas a chiral algebra acts simply
+transitively and admits an exact rule. Composition errors, a pre-registered intervention with true action coefficients, and a generator-span trace
 agree with this account.
 \textbf{(3)} Transfer of transformations between models tracks whether they learned the \emph{same} algebra, even a
 wrong one. Linear CKA catches encoder failures but not these class mismatches.

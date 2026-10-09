@@ -1,7 +1,8 @@
 # Submission readiness report: UniReps 2026 (final review)
 
-**Manuscript:** `paper/final_submission.pdf`, built from `paper/submission/` with `build.sh proxy`. 18 pages: main
-text ends on page 9, references start on page 10, then the appendix.
+**Manuscript:** `paper/final_submission.pdf`, built from `paper/submission/` with `build.sh proxy`. 19 pages: main
+text ends on page 9, references start on page 10, then the appendix. Rebuilt after the final readiness re-audit
+(Sec. F).
 
 ## Recommendation: CONDITIONAL GO
 Scientifically the paper is ready: claims, proofs, statistics and numbers are verified against raw artifacts as far as
@@ -16,7 +17,7 @@ becomes NO-GO until resolved.
 ## A. Completed and verified (automated)
 | Item | Evidence |
 |---|---|
-| All 49 tests pass | `results/review/test_results.txt` (pytest) |
+| All 49 tests pass (re-run after the final re-audit) | `results/review/test_results.txt` (pytest) |
 | Bit-identical re-runs: main-evaluation SO(3) and T² runs, an oracle run and a rendered run, all from scratch | `results/review/verification_submission.json` → `reruns` |
 | Every table and number macro regenerates identically from raw run files | same file → `recompute.identical = true` |
 | Every manuscript macro defined (102 used); every literal number justified or recomputed | `macros`, `theory_literals` |
@@ -26,14 +27,14 @@ becomes NO-GO until resolved.
 | Anonymous supplement: 1,231 files; no git metadata; no identifiers or absolute paths | `archive` block; `supplement/bracketnet_supplement_anonymous.zip` |
 | Development/test separation; review predictions committed before review runs (`2236a4b`) | `docs/EXPERIMENTAL_VERIFICATION.md` |
 | Main text ≤ 9 pages in the NeurIPS 2026 layout (proxy) | references start on page 10 |
-| Visual inspection of all 18 pages | done; one float-order issue fixed |
+| Visual inspection | all pages in round 3; the changed theory and proof pages (4, 13–14) re-inspected |
 
 ## B. Completed but not independently verified
 * **Proofs** (Props. 1–3, Cor. 1). They were re-derived line by line and checked numerically (49 unit tests in total,
   closure-flow search, theory checks on data), but only by the AI system that wrote them. No human mathematician has
   reviewed them.
-* **Novelty comparison** (`docs/NOVELTY_COMPARISON.md`, appendix table). Written from prior knowledge; the papers
-  could not be fetched (network policy).
+* **Novelty comparison** (`docs/NOVELTY_COMPARISON.md`, appendix table). Checked by web search against listings and
+  abstracts; full texts could not be fetched (arxiv.org/openreview blocked). Nine related works were added.
 * **Bibliography.** Entries are standard and were checked for internal consistency, not against publisher records.
 * **Simulated reviews** (`docs/REVIEWER_RISK_AUDIT.md`). Not independent peer review.
 
@@ -68,3 +69,53 @@ becomes NO-GO until resolved.
 4. Upload `supplement/bracketnet_supplement_anonymous.zip` only if the venue allows code supplements. Do not link the
    private repository.
 5. Fill in OpenReview metadata yourselves. Nothing was submitted from this environment.
+
+## F. Final readiness re-audit (no new experiments, protocol unchanged)
+**AI self-review is not independent human verification.** Everything below was checked by the AI system that drafted
+the paper.
+
+**Corrected in the manuscript:**
+1. **Prop. 3(b).** It was overstated as "the objective favours the chiral algebra". It now states its hypotheses
+   (continuity, a full orbit sphere, all ε-small triangles) and says it rules out only an *exact* zero. A
+   discontinuous rule can be exact off a null set. A new Remark proves a positive gap for each fixed Lipschitz
+   class and states that no quantitative gap is known. Abstract, introduction, Sec. 6.2 and the conclusion were
+   softened to match.
+2. **Prop. 2.** Two proof gaps closed (the graph-conjugacy step, the 4-dim case). Its scope is now limited to exactly
+   closed spans.
+3. **Novelty.** Closure losses are prior work (Forestano et al. 2023). Unsupervised action estimation is prior work
+   (Painter et al. 2020). Prop. 3(b) is now framed as a known type of topological obstruction. Nine citations
+   were added.
+4. **AI-use statement.** The false sentence "the authors … have checked the claims, proofs and results" was replaced
+   with the true one: AI self-check plus automated tests, which are not independent verification. **Authors:** once
+   you have verified the proofs yourselves, you may say so there.
+
+**Verification after the changes:**
+* `pytest` 49/49.
+* `verify_submission.py`: all hard checks pass.
+  * 4/4 bit-identical from-scratch re-runs.
+  * Recomputation identical.
+  * 102 macros defined.
+  * 0 LaTeX errors, warnings or overfull boxes.
+  * No Type-3 fonts.
+  * Empty author metadata; no identifiers.
+  * Archive: 1,231 files, no hits, no git.
+
+**Official resources (still blocked).** Re-tried media.neurips.cc, neurips.cc, unireps.org, overleaf.com and ctan:
+all are refused by the egress proxy. Web search reports these, **all unconfirmed**:
+* a UniReps 2026 deadline of **Oct 10, 2026 AoE**, extended from Oct 4 (organizers' X account);
+* the workshop on Dec 12, 2026;
+* 2025 rules: 9-page full papers, 4-page extended abstracts, NeurIPS template, anonymized;
+* the workshop options `\usepackage[dblblindworkshop]{neurips_2026}` and `\workshoptitle{...}`, which `main.tex`
+  already uses.
+
+## G. GO / NO-GO
+**CONDITIONAL GO.** Every remaining blocker needs a human and none can be resolved from this environment:
+1. **Official style.** Download the NeurIPS 2026 author kit, put `neurips_2026.sty` into `paper/submission/`, run
+   `sh paper/submission/build.sh official`, then copy `paper/submission/main_official.pdf` to the upload. Check that
+   references start on page 10 or earlier and that the log has no errors. If the main text then exceeds 9 pages,
+   trim it, for example by moving the Sec. 6.3 rendered-benchmark paragraph to the appendix.
+2. **UniReps 2026 call.** Confirm the deadline (reported as Oct 10 AoE, which is **tomorrow**), the track, the page
+   limit, supplement rules and the AI policy.
+3. **Proofs.** Verify Props. 1–3 and Cor. 1 yourselves.
+4. **Novelty.** Read the full texts of Painter et al. 2020, Forestano et al. 2023 and Keurti et al. 2023 to confirm
+   the related-work sentences.

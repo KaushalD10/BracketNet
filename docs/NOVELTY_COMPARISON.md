@@ -26,7 +26,7 @@ before submission, especially the "closure" and "cross-model" columns.
   we do not claim it as the main novelty.
 * **Closest prior work.** Homomorphism Autoencoders learn group-structured representations from transitions, but they
   use the agent's *action labels*. Our oracle-action intervention is the HAE-like setting: supplying the true action
-  coefficients removes the endpoint ambiguity and, by Proposition 5, the composition advantage of chiral solutions.
+  coefficients removes the endpoint ambiguity and, by Proposition 3 of the paper, the composition advantage of chiral solutions.
   The comparison is therefore mechanistically informative, but it is not a reimplementation of HAE and is not
   presented as one.
 * **Not compared.** LieGAN and LaLiGAN use distributional, not transition, signals, so no fair head-to-head
@@ -35,8 +35,33 @@ before submission, especially the "closure" and "cross-model" columns.
   1. comparing *transformation algebras* across independently trained models, alongside embedding similarity;
   2. showing that closure turns continuous disagreement into disagreement among a few closed conjugacy classes, with
      the classes classified for the benchmarks;
-  3. the endpoint-ambiguity mechanism (Prop. 5), which explains *why* the objective favours a wrong closed algebra,
+  3. the endpoint-ambiguity mechanism (Prop. 3), a *qualitative, partial* explanation (exact zero available to the chiral but not, with continuous inference, to the true algebra),
      and its interventional test;
-  4. evidence that transfer between models follows structural correctness, and an AUC comparison with CKA.
+  4. evidence that transfer between models follows structural *agreement* (not correctness); the pre-registered prediction that structure beats CKA at predicting transfer failure was *not* supported.
 * **Not new:** the Lie correspondence, the classification of subalgebras of so(4) and so(5), Dynkin's formula, the
   hairy-ball theorem, quaternion transitivity. The paper labels these as standard.
+
+## Final readiness check (literature search)
+Web search was available in this round. Fetching arxiv.org, openreview.net and unireps.org was still blocked, so
+the checks below rest on abstracts, proceedings listings and search summaries, not on the full texts. Each was added
+to the paper (Related work and App. B) where relevant.
+
+| Work (verified listing) | Relation to this paper | Consequence |
+|---|---|---|
+| Forestano et al., *Deep learning symmetries and their Lie groups, algebras, and subalgebras from first principles*, MLST 4:025027 (2023) | Closure losses on learned generators already exist, including studies of SO(4) subalgebras. | Closure penalty is **not novel**; the paper says ours is an instance. |
+| Quessard, Barrett, Clements, NeurIPS 2020 | Learns SO(n) representations of an agent's actions from interaction sequences. | Cited; differs (action indices known). |
+| Painter, Hare, Prügel-Bennett, NeurIPS 2020 | Estimates actions **without labels** for linear disentangled representations. | **Closest setting**; cited. We do not claim to be the first label-free transition method. |
+| Caselles-Dupré et al., NeurIPS 2019 | SBDRL requires interaction. | Cited. |
+| Dang-Nhu, Annabi, Argentieri, ICLR 2026 | Identifiability of a group **decomposition** from transitions, under assumptions. | Cited; different question (decomposition vs. algebra class / action). |
+| de Haan & Falorsi, arXiv:1812.10783; Zhou et al., CVPR 2019; Bouchacourt et al., arXiv:2102.05623 | Topological obstructions to continuous encoders and rotation representations. | Prop. 3(b) is presented as **an obstruction of the same kind** applied to endpoint action inference, not as a new kind of theorem. |
+| Connor & Rozell, AAAI 2020 | Transport operators in autoencoder latents. | Cited. |
+| Keurti et al. (HAE), ICML 2023 | Uses action labels; group not required in advance. Search results show no identifiability theorem (full text not read). | Unchanged. |
+| Yang et al. (LaLiGAN), ICML 2024 | Latent linear symmetries from distributional signals. | Unchanged. |
+
+**Claim status after the check.** No theorem in the paper is claimed as novel mathematics. The remaining claims are
+these:
+* the cross-model algebra-level comparison and transfer analysis;
+* the finding that closure concentrates solutions on a few classes, including wrong chiral ones;
+* the application of a known type of topological obstruction to explain that failure.
+
+These are claimed "as far as we can tell" and must be confirmed against the full texts by the authors.

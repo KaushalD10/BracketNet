@@ -1,16 +1,22 @@
 \section{Related work}\label{sec:related}
 \paragraph{Learning transformation groups.}
-Lie-group transformation models have a long history \citep{rao1999learning,sohl2010unsupervised,cohen2014learning}.
+Lie-group transformation models have a long history \citep{rao1999learning,sohl2010unsupervised,cohen2014learning},
+including transport operators in autoencoder latents \citep{connor2020representing}.
 Recent methods discover symmetries from predictors \citep{dehmamy2021automatic}, adversarially from distributional
 invariance \citep{yang2023generative}, in learned latent spaces \citep{yang2024latent}, beyond affine families
-\citep{shaw2024symmetry}, or as one-parameter families \citep{gabel2023learning}. Equivariant networks assume a known
+\citep{shaw2024symmetry}, or as one-parameter families \citep{gabel2023learning}. Closure losses that force learned
+generators to span a (sub)algebra already exist \citep{forestano2023deep}, including studies of $\so(4)$ subalgebras;
+our closure term is an instance of this idea. Equivariant networks assume a known
 group \citep{cohen2016group,bronstein2021geometric}.
 
 \paragraph{Group-structured representations from transitions.}
 Symmetric embedding networks \citep{park2022learning} use known actions. Homomorphism autoencoders
 \citep{keurti2023homomorphism} learn a homomorphism from action labels into a matrix group without knowing the group.
-Symmetry-based disentanglement \citep{higgins2018towards} defines representations through group actions. We share
-the transition setting but use \emph{no} action labels. Our oracle-coefficient intervention (Sec.~\ref{sec:mechanism})
+Symmetry-based disentanglement \citep{higgins2018towards} defines representations through group actions and needs
+interaction \citep{casellesdupre2019symmetry}. Rotation representations of an agent's actions have been learned from interaction
+sequences \citep{quessard2020learning}, and actions have been estimated without labels \citep{painter2020linear}, and group decompositions
+have been shown identifiable under assumptions \citep{dangnhu2026disentangled}. We share the transition setting and,
+like \citet{painter2020linear}, use \emph{no} action labels. Our oracle-coefficient intervention (Sec.~\ref{sec:mechanism})
 is the action-supervised counterpart and shows what the missing labels cost. LieGAN and LaLiGAN learn from
 distributional signals rather than transitions, so we do not compare against them directly.
 
@@ -21,6 +27,8 @@ across models is an active hypothesis \citep{huh2024platonic}. These tools compa
 the transformation algebras acting on them, and the transfer of actions between models.
 
 \paragraph{What is not new.}
-Closure of a matrix span, the classification of subalgebras of $\so(4)$ and $\so(5)$, Dynkin's formula, the
-hairy-ball theorem and quaternion transitivity are standard. Our contribution is their consequences for this learning
+Closure penalties, the classification of subalgebras of $\so(4)$ and $\so(5)$, Dynkin's formula, the hairy-ball
+theorem and quaternion transitivity are standard. Topological obstructions to continuous encoders and rotation
+representations are known \citep{dehaan2018topological,zhou2019continuity,bouchacourt2021addressing}; Prop.~\ref{prop:endpoint}b
+is an obstruction of the same kind, applied to endpoint action inference. Our contribution is their consequences for this learning
 problem and the empirical analysis. Appendix~\ref{app:novelty} compares settings in detail.

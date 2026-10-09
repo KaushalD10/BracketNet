@@ -74,16 +74,19 @@ Work & Supervision & Learned structure & Closure & Cross-model structure\\
 Rao \& Ruderman; Sohl-Dickstein et al. & transformed pairs & linear generators & not enforced & no\\
 Cohen \& Welling 2014 & pairs, commutative group & irreps of a torus & abelian by design & no\\
 LieGAN / LaLiGAN & distributional invariance & generators (latent) & not penalized & no\\
+Forestano et al. 2023 & labelled data & generators & closure loss & no\\
+Quessard et al.; Painter et al. & interaction (Painter: unlabelled) & rotation representations & SO($n$) by design & no\\
 Homomorphism AE & transitions + action labels & homomorphism into matrix group & via composition & no\\
 CKA / shape metrics & trained networks & --- & --- & embeddings only\\
 This work & transitions, no labels & generators + endpoint actions & closure penalty & algebras, transfer\\
 \bottomrule
 \end{tabular}
 \end{table}
-These summaries describe each setting at the level needed to judge overlap; see the cited papers for details.
+These summaries describe each setting at the level needed to judge overlap, from abstracts and prior knowledge (the full texts could not be retrieved); see the cited papers for details.
 
 \input{sections/appendix_results}
 
 \section{Use of AI assistance}
 Code, experiments, analyses and drafts of this manuscript were developed with substantial assistance from an AI
-coding assistant. The authors are responsible for all content and have checked the claims, proofs and results.
+coding assistant. The proofs were checked by the same AI system and by automated numerical tests; this self-review is
+not independent human verification. The authors are responsible for all content.

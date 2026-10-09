@@ -40,44 +40,41 @@ angles of $45^\circ$). An optimization that does not use the classification conf
 closure residual from \RFlowN{} random 3-dimensional subspaces of $\so(4)$ converged to \RFlowDiag{} diagonal and
 \RFlowChiral{} chiral spans, and to nothing else.
 
-\paragraph{Endpoint ambiguity: why the objective can prefer a wrong closed algebra.}
+\paragraph{Endpoint ambiguity: why the objective can favour a wrong closed algebra.}
 BracketNet infers each action from the two endpoint codes, $a=q(z,z')$. For the true SO(3) action this is
 ill-posed. A rotation about the axis through $z$ fixes $z$, so $g$ and $g\exp(t\hat z)$ have the same endpoints. A
 chiral $\su(2)$ has no such ambiguity: left multiplication by unit quaternions acts simply transitively on every
-sphere of $\mathbb R^4\cong\mathbb H$.
+sphere of $\mathbb R^4\cong\mathbb H$. Call an endpoint rule $q$ \emph{exact} on a triple $(z_0,z_1,z_2)$ if
+$\rho(q(z_i,z_j))z_i=z_j$ for $ij\in\{01,12,02\}$ and $\rho(q(z_0,z_2))=\rho(q(z_1,z_2))\rho(q(z_0,z_1))$.
 
 \begin{proposition}[Endpoint ambiguity]\label{prop:endpoint}
-On the SO(3) benchmark, use the ground-truth state as the latent code.
-(a)~With chiral generators, the endpoint rule $q(z,z')=\log(z'z^{-1})$ makes transport and composition exact on
-every triple whose coefficients lie in the coefficient domain. The closure, Gram and covariance terms vanish as well.
-(b)~With the true diagonal generators, no continuous endpoint rule can make transport and composition exact on all
-triples with pairwise distance $<\epsilon$ on a sphere, for any $\epsilon>0$.
+On the SO(3) benchmark, use the ground-truth state as the latent code, with an exact decoder.
+(a)~With chiral generators, $q(z,z')=\log(z'z^{-1})$ is exact on every triple on a sphere $\|z\|=\text{const}>0$ (all data triples); it is smooth wherever $z'\neq-z$.
+The closure, Gram and covariance terms vanish too. Exactness fails only where a coefficient exceeds the bound.
+(b)~With the true generators, for every $\epsilon>0$ and every orbit sphere $\{(v,z_4):\|v\|=c\}$, $c>0$, no
+continuous rule is exact on all triples in that sphere with pairwise angles $<\epsilon$.
 (c)~For any action-inference rule based on endpoints, $\mathbb E\|\rho(q(z,gz))-g\|^2>0$ under the true action:
 the stabilizer component of $g$ is not identifiable from $(z,gz)$.
 \end{proposition}
 
-Part (b) follows from the hairy-ball theorem: exact composition on small triangles would define a continuous section
-of $SO(3)\to S^2$. On the actual data, the minimal-rotation rule for the true algebra transports exactly but leaves
-a composition residual of $3.2\times10^{-3}$; the chiral rule leaves ${\sim}10^{-31}$.
+Part (b) follows from the hairy-ball theorem: exactness on small triangles would define a continuous section of
+$SO(3)\to S^2$. It concerns \emph{exact} zero for \emph{continuous} rules only. A discontinuous rule can be exact
+off a null set, and we do not bound how close continuous rules can come (App.~\ref{app:proofs}, Remark). On the data,
+ignoring the coefficient bound, the minimal-rotation rule for the true algebra transports exactly but leaves a
+composition residual of $3.2\times10^{-3}$; the chiral rule leaves ${\sim}10^{-31}$.
 
 \begin{corollary}[Agreement without correctness]\label{cor:agree}
-Two models with identical, ground-truth embeddings and $\su(2)_L$ generators have all of the following:
-\begin{itemize}
-\item linear CKA $1$ with each other and with the true state;
-\item zero closure, transport and composition loss (up to coefficient clipping);
-\item cross-model algebra distance $0$, but distance $\frac12$ to the true algebra;
-\item inferred actions that are not the true rotations.
-\end{itemize}
+Two models with identical ground-truth embeddings and $\su(2)_L$ generators have linear CKA $1$ with each other and
+with the true state, zero closure, transport and composition loss (up to coefficient clipping), and cross-model
+algebra distance $0$, but distance $\frac12$ to the true algebra and inferred actions that are not the true rotations.
 \end{corollary}
 
 \paragraph{The implication chain, made precise.}
 Write (i) closure, (ii) correct conjugacy class, (iii) recovery after latent alignment, (iv) correct action
-inference.
-\begin{itemize}
-\item (i)$\Rightarrow$(ii) holds for $T^2$ (Prop.~\ref{prop:classify}a) and fails for SO(3) (Prop.~\ref{prop:classify}b).
-\item (ii)$\Rightarrow$(iii) additionally needs an encoder close to an isometry of the state space.
-\item (iii)$\Rightarrow$(iv) fails for SO(3) for \emph{every} endpoint method (Prop.~\ref{prop:endpoint}c).
-\item Agreement between models implies none of (ii)--(iv) (Cor.~\ref{cor:agree}).
-\end{itemize}
-Proposition~\ref{prop:endpoint} describes the loss landscape at one embedding. It does not say which solution
-gradient descent reaches; Sec.~\ref{sec:mechanism} tests that empirically.
+inference. (i)$\Rightarrow$(ii) holds for $T^2$ (Prop.~\ref{prop:classify}a) and fails for SO(3)
+(Prop.~\ref{prop:classify}b). (ii)$\Rightarrow$(iii) also needs an encoder close to an isometry. (iv) is unattainable
+for SO(3) by every endpoint method, even with the true algebra (Prop.~\ref{prop:endpoint}c). Agreement between models
+implies none of (ii)--(iv) (Cor.~\ref{cor:agree}).
+Proposition~\ref{prop:endpoint} describes the loss landscape at one embedding, and qualitatively. It does not show
+that the minimum over trainable rules is lower for chiral solutions, nor which solution gradient descent reaches;
+Sec.~\ref{sec:mechanism} tests the latter empirically.

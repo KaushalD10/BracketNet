@@ -21,6 +21,7 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex > /dev/null
 bibtex main > /dev/null
 pdflatex -interaction=nonstopmode -halt-on-error main.tex > /dev/null
 pdflatex -interaction=nonstopmode -halt-on-error main.tex > /dev/null
+for i in 1 2; do grep -q "Rerun to get" main.log && pdflatex -interaction=nonstopmode -halt-on-error main.tex > /dev/null; done
 cp main.pdf "$HERE/main_$MODE.pdf"
 echo "[$MODE] errors: $(grep -c '^!' main.log)  warnings: $(grep -c 'Warning' main.log)  overfull: $(grep -c 'Overfull' main.log)  pages: $(pdfinfo main.pdf | awk '/Pages/{print $2}')"
 grep 'Warning' main.log | sort | uniq -c | head -20 || true

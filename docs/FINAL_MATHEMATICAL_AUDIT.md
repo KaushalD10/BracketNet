@@ -241,3 +241,50 @@ standard. The contributions are:
 
 I am not aware of prior work stating R8 for transition-based symmetry learners, but my literature check was limited
 (see NOVELTY_COMPARISON.md).
+
+## R11. Final readiness re-audit (no new experiments)
+Numbering note: in the manuscript, R3–R6 are Prop. 1(a–d), R7 is Prop. 2 and R8 ("Proposition 5" above) is
+Prop. 3.
+
+**This re-audit was done by the same AI system that wrote the proofs. AI self-review is not independent human
+verification.** The manuscript now says so in its AI-use statement and in the Limitations section.
+
+### Prop. 3 (endpoint ambiguity, hairy-ball / quaternion argument)
+I searched for counterexamples and missing hypotheses. Findings and fixes:
+
+| # | Issue | Severity | Fix |
+|---|---|---|---|
+| 1 | (b) only rules out **exact zero** for **continuous** rules. Without continuity it is false: S² minus a point is contractible, so SO(3)→S² has a section `s` there, and `R(z,z') = s(z')s(z)⁻¹` is exact on every triple avoiding one point per sphere (a null set) if the coefficient bound is ignored. | **material overclaim** | Stated in the theory section; Remark added in App. A. |
+| 2 | The abstract, introduction and mechanism section said the objective *favours* the chiral algebra, implying a strictly lower minimum. That is not proved: no quantitative gap is shown, and the full objective (large steps, clipping) is not compared. | **material overclaim** | Changed to "a partial explanation", "admits an exact rule", "qualitative (no quantitative gap)". |
+| 3 | What *can* be proved: for every L, the infimum of the small-step loss over L-Lipschitz rules with bounded coefficients is > 0 for the true algebra but = 0 for the chiral one. Proof by Arzelà–Ascoli, dominated convergence, full support of N(0,I) states and Gaussian actions, then (b). The gap may vanish as L→∞. | new, weaker but rigorous | Remark in App. A. |
+| 4 | Hypotheses of (b) were implicit: a fixed orbit sphere {(v,z₄): ‖v‖=c>0}, exactness for all triples with pairwise angles < ε, values in the diagonal group, continuity. | missing assumptions | Made explicit in the statement. |
+| 5 | Well-definedness of the chain product was asserted ("homotopic chains differ by small-triangle moves"). | proof gap | Spelled out: insertion and deletion moves, pointwise-close chains, paths, homotopies, simple connectivity, continuity of `s` via `s(z') = R(z,z')s(z)`, and `R(z,z) = I` from the degenerate triangle. |
+| 6 | (a) "exact on every triple" needs a common sphere ‖z‖ = const > 0 (true for all data triples) and holds only within the coefficient bound (\|a_k\| ≤ √2·θ). Cov(z) = I needs N(0,I) states, which holds (`data.py`). | missing assumptions | Stated. |
+| 7 | (c) needs the conditional law of g on the stabilizer circle to have a density. This holds for almost every (z,z') because states have a density and exp pushes Gaussian coefficients to a density on SO(3). | proof gap | Stated. |
+| 8 | Implication chain: "(iii)⇒(iv) fails" was correct but misleading, since (iv) is unattainable by **every** endpoint method, including one with the true algebra. | wording | Rephrased. |
+| 9 | The "3.2e-3 vs ~1e-31" data check ignores the coefficient bound (`theory_checks.py` does not clip). | wording | Stated ("ignoring the coefficient bound"). |
+
+No counterexample to (a), (b) (as now stated) or (c) was found. (b) is now an instance of known topological
+obstructions to continuous encoders and rotation representations (de Haan & Falorsi 2018; Zhou et al. 2019;
+Bouchacourt et al. 2021), and is cited as such.
+
+### Prop. 2 (classification)
+* (b) The step "3-dim reductive ⇒ su(2)" now states that the semisimple part has dimension 0 or 3. The graph step
+  now argues correctly that *any two* graphs of isomorphisms su(2)_L→su(2)_R are conjugate, and that the stabilizer
+  of e₄ is one of them (it is not an ideal). Before, the text said "the graph of an automorphism", which is a type
+  error. Class counts are justified: SO(4) is connected, so it cannot swap the ideals (3 classes); a reflection
+  fixing e₄ swaps them and preserves the diagonal (2 classes under O(4)).
+* (c) Gap closed: "the su(2) is a factor" did not by itself exclude the diagonal from the span. Added: the factor
+  equals [𝔥,𝔥], and a diagonal so(3) ⊂ 𝔥 would lie in [𝔥,𝔥].
+* **Scope (new):** the classification is for exactly closed spans. Learned spans are approximately closed; the
+  classes are assigned by continuous invariants without a stability theorem. This is stated in App. A.
+* (a) re-checked: a 2-dim compact algebra is abelian, it is contained in a maximal abelian subalgebra of dimension
+  rank so(5) = 2, and maximal tori are conjugate. Correct.
+
+### Prop. 1 (re-checked, unchanged)
+* (b) Cauchy–Schwarz step and (c) Dynkin bound re-derived:
+  * e_n ≤ (n−1)2^{n−2}δrⁿ;
+  * the word sum is Σ_m (e^{4r}−1)^m/m = −ln(2−e^{4r});
+  * subtracting 4r gives the length-1 terms;
+  * −ln(2−e^{4r}) = 4r + 16r² + O(r³), so the crude length-2 term is 4δr², replaced by ½δr².
+* Correct.

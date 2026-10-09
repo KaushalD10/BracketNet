@@ -1,4 +1,4 @@
-"""Analytic solutions used to check Proposition 5 (endpoint ambiguity and zero-loss chiral solutions).
+"""Analytic solutions used to check Proposition 3 of the paper (endpoint ambiguity and zero-loss chiral solutions).
 
 With the ground-truth state as the latent code (E = h^{-1}), we compare two closed generator systems in so(4):
   * the true diagonal so(3) (rotations of the first three coordinates), and

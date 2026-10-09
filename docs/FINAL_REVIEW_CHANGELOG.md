@@ -50,3 +50,29 @@ historical result file was modified or deleted.
 * `scripts/verify_submission.py`.
 * Documents: `FINAL_IMPROVEMENT_PLAN.md`, `FINAL_MATHEMATICAL_AUDIT.md`, `FINAL_STATISTICAL_AUDIT.md`,
   `NOVELTY_COMPARISON.md`, `EXPERIMENTAL_VERIFICATION.md`, `REVIEWER_RISK_AUDIT.md`, `SUBMISSION_READINESS.md`.
+
+## Final readiness re-audit
+No experiments were run and the protocol is unchanged.
+
+**Theory**
+* Prop. 3 hypotheses made explicit. Proof of (b) expanded.
+* New Remark: continuity is essential; there is a gap for each Lipschitz class; no quantitative gap is claimed.
+* Prop. 2: proof gaps closed; scope limited to exact closure.
+* Corollary and implication chain condensed. (iv) is now described as unattainable for every endpoint method.
+
+**Claims**
+* Abstract, introduction, Sec. 6.2 title and text, limitations and conclusion softened ("partial explanation",
+  "admits an exact rule").
+
+**Related work**
+* Nine citations added: Forestano 2023, Quessard 2020, Painter 2020, Caselles-Dupré 2019, Dang-Nhu 2026,
+  de Haan & Falorsi 2018, Zhou 2019, Bouchacourt 2021, Connor & Rozell 2020.
+* App. B table extended.
+
+**AI-use statement**
+* Now accurate (AI self-review is not independent verification).
+
+**Build and verification**
+* `build.sh` reruns LaTeX until the labels are stable.
+* `verify_submission.py` allows the year "2023" in the comparison table.
+* `docs/FINAL_MATHEMATICAL_AUDIT.md` R11; `docs/NOVELTY_COMPARISON.md` literature table.

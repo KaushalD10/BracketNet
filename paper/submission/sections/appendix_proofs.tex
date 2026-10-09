@@ -42,23 +42,31 @@ reductive.
 $\operatorname{rank}\so(5)=2$, and maximal abelian subalgebras of a compact Lie algebra are conjugate
 \citep{adams1969lectures}.
 
-\emph{(b)} A 3-dimensional reductive subalgebra $\mathfrak h$ of $\so(4)$ cannot be abelian (the rank is 2), so
-$\mathfrak h\cong\su(2)$. Its projections onto the ideals $\su(2)_{L},\su(2)_{R}$ are zero or injective, because
+\emph{(b)} A 3-dimensional reductive $\mathfrak h$ is its center plus a semisimple part of dimension $0$ or $3$.
+It cannot be abelian (the rank is 2), so $\mathfrak h\cong\su(2)$. Its projections onto the ideals $\su(2)_{L},\su(2)_{R}$ are zero or injective, because
 $\mathfrak h$ is simple.
 \begin{itemize}
 \item If one projection is zero, $\mathfrak h$ is a factor. The factors are ideals, hence invariant under all of
 $SO(4)$, and a reflection exchanges them.
-\item Otherwise $\mathfrak h$ is the graph of an automorphism of $\su(2)$. That automorphism is inner, and
-$SU(2)\times SU(2)\to SO(4)$ is onto, so $\mathfrak h$ is conjugate to the diagonal. The diagonal is the stabilizer
-algebra of a unit vector, i.e.\ $\so(3)$ on $\mathbb R^3\oplus\mathbb R$.
+\item Otherwise $\mathfrak h$ is the graph of an isomorphism $\su(2)_L\to\su(2)_R$. Any two such graphs differ
+by an automorphism of $\su(2)$, which is inner, and $SU(2)\times SU(2)\to SO(4)$ is onto, so all such $\mathfrak h$
+are $SO(4)$-conjugate. The stabilizer of $e_4$, $\so(3)$ on $\mathbb R^3\oplus\mathbb R$, is one of them (it is not
+an ideal).
+\item $SO(4)$ is connected, so it cannot exchange the two ideals; hence three classes under $SO(4)$ and, since a
+reflection fixing $e_4$ exchanges them and preserves the diagonal, two under $O(4)$.
 \end{itemize}
 The Pfaffian is $SO(4)$-invariant and odd under reflections. It vanishes on rank-2 rotations and equals
 $\pm\frac12$ on unit elements of $\su(2)_{L/R}$.
 
 \emph{(c)} A 4-dimensional reductive subalgebra is $\su(2)\oplus\mathfrak u(1)$ with the $\mathfrak u(1)$ central.
 The centralizer of the diagonal $\so(3)$ is trivial, because $\so(4)\cong\Lambda^2\mathbb R^4$ decomposes as
-$\mathbf 3\oplus\mathbf 3$ under it, with no trivial summand. So the $\su(2)$ must be a factor, and the span cannot
-contain the diagonal. $\square$
+$\mathbf 3\oplus\mathbf 3$ under it, with no trivial summand; the same holds for its conjugates. So the $\su(2)$ is
+a factor, which equals the derived algebra $[\mathfrak h,\mathfrak h]$. A diagonal $\so(3)\subset\mathfrak h$ would
+satisfy $\so(3)=[\so(3),\so(3)]\subset[\mathfrak h,\mathfrak h]$, a factor, which is impossible.
+
+\emph{Scope.} The classification is for exactly closed spans. Learned spans are only approximately closed; we assign
+them to classes using continuous invariants (Pfaffian, chirality) and the closure-flow check, without a stability
+theorem relating approximate closure to distance from a closed class. $\square$
 
 \paragraph{Proposition~\ref{prop:endpoint}.}
 Here $g\in SO(3)$ acts on $z_{1:3}$ and fixes $z_4$, so transitions preserve $\|z\|$.
@@ -67,27 +75,51 @@ Here $g\in SO(3)$ acts on $z_{1:3}$ and fixes $z_4$, so transitions preserve $\|
 multiplication by unit quaternions, which acts simply transitively on each sphere $\|z\|=\rho>0$. For
 $\|z\|=\|z'\|$, $u=z'z^{-1}$ is the unique unit quaternion with $L_uz=z'$.
 \begin{itemize}
-\item $q=\log u$ is continuous wherever $u\neq-1$.
+\item $q=\log u$ is smooth wherever $u\neq-1$, and $\exp(\log u)=u$ for every branch.
 \item $u_{02}=z_2z_0^{-1}=(z_2z_1^{-1})(z_1z_0^{-1})=u_{12}u_{01}$, so composition is exact.
-\item Closure is exact, the basis is orthonormal so the Gram penalty is $0$, and $\mathrm{Cov}(z)=I$ in population.
+\item Closure is exact, the basis is orthonormal so the Gram penalty is $0$, and $\mathrm{Cov}(z)=I$ in population
+(states are $\mathcal N(0,I)$ and rotations preserve that law).
 \end{itemize}
-Only coefficients beyond the bound $0.65$ break exactness.
+The coefficient of a rotation by angle $\theta=\angle(z,z')$ has entries up to $\sqrt2\theta$; only pairs beyond the
+bound $0.65$ break exactness.
 
-\emph{(b)} Suppose a continuous rule gives $R(z,z')\in SO(3)$ with $R(z,z')z=z'$ and
-$R(z_0,z_2)=R(z_1,z_2)R(z_0,z_1)$ whenever all pairwise distances are $<\epsilon$ on a sphere $S\cong S^2$.
+\emph{(b)} Fix the sphere $S$ and suppose a continuous rule gives $R(z,z')=\rho(q(z,z'))\in SO(3)$ with
+$R(z,z')z=z'$ and $R(z_0,z_2)=R(z_1,z_2)R(z_0,z_1)$ for all $z_i\in S$ with pairwise angles $<\epsilon$.
 \begin{itemize}
-\item Then $R(z,z)=I$, and products of $R$ along $\epsilon$-chains depend only on the endpoints and on the homotopy
-class of the chain, since homotopic chains differ by small-triangle moves.
-\item $S$ is simply connected, so fixing $e\in S$, $s(z)=R_{\text{chain}}(e\to z)$ is a continuous map
-$S\to SO(3)$ with $s(z)e=z$.
-\item For a unit $f\perp e$, $z\mapsto s(z)f$ is then a nowhere-vanishing tangent field on $S^2$, contradicting the
-hairy-ball theorem.
+\item The triple $(z,z,z)$ gives $R(z,z)=R(z,z)^2$, so $R(z,z)=I$.
+\item For a chain $x_0,\dots,x_n$ with consecutive angles $<\epsilon/3$, let $P=R(x_{n-1},x_n)\cdots R(x_0,x_1)$.
+Inserting or deleting a point inside an $\epsilon$-small triangle leaves $P$ unchanged. Two chains with the same
+endpoints and pointwise angles $<\epsilon/3$ are joined by such moves (replace one point at a time; each move is a
+triangle of diameter $<\epsilon$), so $P$ is unchanged. Fine subdivisions of a continuous path therefore define one
+$P$, and by uniform continuity it is constant along a homotopy of paths with fixed endpoints.
+\item $S\cong S^2$ is simply connected, so fixing $e\in S$, $s(z)=P(e\to z)$ is well defined, with $s(z)e=z$.
+It is continuous, because $s(z')=R(z,z')s(z)$ for nearby $z'$ and $R$ is continuous with $R(z,z)=I$.
+\item For a unit $f\perp e$ (in the $\mathbb R^3$ part), $z\mapsto s(z)f$ is orthogonal to $s(z)e=z$: a
+nowhere-vanishing tangent field on $S^2$, contradicting the hairy-ball theorem.
 \end{itemize}
+The rule takes values in the true (diagonal) group; the argument uses no property of $q$ beyond continuity.
 
-\emph{(c)} For fixed endpoints $(z,z')$, the set $\{g:gz=z'\}$ is a coset of the circle stabilizing $z$. Under
-Gaussian coefficients the conditional law of $g$ on that circle has a density, so
-$\mathbb E\|\hat g-g\|^2\ge\mathbb E\,\operatorname{tr}\operatorname{Cov}(g\mid z,z')>0$ for every estimator
-$\hat g$. $\square$
+\emph{(c)} For fixed endpoints $(z,z')$ with $z_{1:3}\neq0$, the set $\{g:gz=z'\}$ is a coset of the circle
+stabilizing $z$. The states have a density and $\exp$ pushes the Gaussian coefficients to a law with a density on
+$SO(3)$, so the conditional law of $g$ on that circle has a density for almost every $(z,z')$. Hence
+$\mathbb E\|\hat g-g\|^2\ge\mathbb E\,\operatorname{tr}\operatorname{Cov}(g\mid z,z')>0$ for every endpoint
+estimator $\hat g$. $\square$
+
+\paragraph{Remark (what Prop.~\ref{prop:endpoint}b does not show).}
+\begin{itemize}
+\item \emph{Continuity is essential.} $S$ minus one point is contractible, so $SO(3)\to S^2$ has a continuous
+section $s$ there. Ignoring the coefficient bound, $R(z,z')=s(z')s(z)^{-1}$ is a measurable rule that is exact on
+every triple avoiding that point, i.e.\ off a null set.
+\item \emph{A gap for any fixed Lipschitz class.} Let $J_\epsilon(q)$ be the expected transport and composition loss
+on data triples with pairwise angles $<\epsilon$, small enough that the chiral rule is within the bound
+($J_\epsilon=0$ for it). For every $L$, the infimum of $J_\epsilon$ over $L$-Lipschitz rules with bounded
+coefficients is positive for the true algebra. Otherwise, by Arzel\`a--Ascoli a subsequence converges locally
+uniformly to such a rule with $J_\epsilon=0$, by dominated convergence (bounded integrand). The integrand is
+continuous and the support contains every such triple on every orbit sphere, so the rule is exact there, which
+contradicts (b).
+\item \emph{No quantitative statement.} We do not bound this gap, and it may vanish as $L\to\infty$. Nor do we
+compare the full training objective, which includes large steps and clipping, between the two algebras.
+\end{itemize}
 
 \paragraph{Corollary~\ref{cor:agree}.}
 This is Prop.~\ref{prop:endpoint}(a) applied to both models, together with Prop.~\ref{prop:classify}(b) and the

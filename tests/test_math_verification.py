@@ -228,7 +228,7 @@ def test_T6_no_closed_4dim_span_contains_diagonal_so3():
     assert closure_residual_np(np.concatenate([chiral(+1), chiral(-1)[:1]])) < 1e-20
 
 
-# ---------------------------------------------------------------- T7: Proposition 5 (endpoint ambiguity)
+# ---------------------------------------------------------------- T7: Proposition 3 of the paper (endpoint ambiguity)
 def test_T7_chiral_exact_transport_and_composition_on_data():
     """With the true state as latent code, su(2)_L and su(2)_R generators with endpoint-only inference transport
     and compose exactly (left multiplication by unit quaternions acts simply transitively on each sphere)."""
