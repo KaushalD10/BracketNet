@@ -121,13 +121,20 @@ def pdf_checks():
     pages = int(re.search(r"Pages:\s+(\d+)", info).group(1))
     ref = next((p for p in range(1, pages + 1) if re.search(r"^References$", subprocess.run(
         ["pdftotext", "-f", str(p), "-l", str(p), str(PDF), "-"], capture_output=True, text=True).stdout, re.M)), None)
-    log = (SUB / ".build_proxy/main.log").read_text(errors="ignore") if (SUB / ".build_proxy/main.log").exists() else ""
+    lp = next((SUB / f".build_{m}/main.log" for m in ("official", "proxy") if (SUB / f".build_{m}/main.log").exists()), None)
+    log = lp.read_text(errors="ignore") if lp else ""
+    style = re.search(r"Package: neurips_2026 (\S+)", log)
     author = re.search(r"^Author:[ \t]*(.*)$", info, re.M)
     return dict(pages=pages, references_page=ref, type3=fonts.count("Type 3"), latex_errors=len(re.findall(r"^! ", log, re.M)),
                 warnings=len(re.findall(r"Warning", log)), undefined=len(re.findall(r"undefined", log)),
                 overfull=len(re.findall(r"Overfull", log)), pdf_author=(author.group(1).strip() if author else ""),
                 identifying=[b for b in BANNED if b in text or b in info.lower()],
-                anonymous_header="anonymous author" in text)
+                anonymous_header="anonymous author" in text, build_log=str(lp.relative_to(ROOT)) if lp else None,
+                style=(style.group(1) if style else None),
+                official_style_sha256=(sha(SUB / "neurips_2026.sty") if (SUB / "neurips_2026.sty").exists() else None),
+                missing_files=len(re.findall(r"File `[^']*' not found|not found", log)),
+                main_text_within_9_pages=(ref is not None and ref <= 9) or (ref == 10 and re.match(r"\s*References", subprocess.run(
+                    ["pdftotext", "-f", "10", "-l", "10", str(PDF), "-"], capture_output=True, text=True).stdout) is not None))
 
 
 def archive_scan():
@@ -172,7 +179,8 @@ if __name__ == "__main__":
         recompute=V["recompute"]["identical"], macros=not V["macros"]["undefined"],
         literals=not V["macros"]["unlisted_literals"],
         theory=V["theory_literals"]["diag_matches_3p2e3"] and V["theory_literals"]["chiral_is_1e31_order"],
-        latex=V["pdf"]["latex_errors"] == 0 and V["pdf"]["undefined"] == 0, fonts=V["pdf"]["type3"] == 0,
+        latex=V["pdf"]["latex_errors"] == 0 and V["pdf"]["undefined"] == 0 and V["pdf"]["missing_files"] == 0,
+        fonts=V["pdf"]["type3"] == 0, page_limit=V["pdf"]["main_text_within_9_pages"],
         anonymity=not V["pdf"]["identifying"] and V["pdf"]["pdf_author"] == "",
         archive=V["archive"].get("exists", False) and V["archive"].get("n_hits", 1) == 0 and not V["archive"].get("has_git", True))
     print("HARD CHECKS:", hard, "->", "PASS" if all(hard.values()) else "FAIL")

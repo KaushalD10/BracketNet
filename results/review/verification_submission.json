@@ -38,8 +38,8 @@
   "radius_rad": 0.12253226793356839
  },
  "pdf": {
-  "pages": 19,
-  "references_page": 10,
+  "pages": 18,
+  "references_page": 9,
   "type3": 0,
   "latex_errors": 0,
   "warnings": 0,
@@ -47,7 +47,12 @@
   "overfull": 0,
   "pdf_author": "",
   "identifying": [],
-  "anonymous_header": true
+  "anonymous_header": true,
+  "build_log": "paper/submission/.build_official/main.log",
+  "style": "2026-01-29",
+  "official_style_sha256": "c3fc2894e83d2517ca18b66741d6c595986d97957dc08ec08bb2125a7ec4555a",
+  "missing_files": 0,
+  "main_text_within_9_pages": true
  },
  "archive": {
   "exists": true,

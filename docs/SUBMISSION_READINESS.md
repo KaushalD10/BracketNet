@@ -1,18 +1,21 @@
-# Submission readiness report: UniReps 2026 (final review)
+# Submission readiness report: UniReps 2026 (official style applied, 2026-10-09)
 
-**Manuscript:** `paper/final_submission.pdf`, built from `paper/submission/` with `build.sh proxy`. 19 pages: main
-text ends on page 9, references start on page 10, then the appendix. Rebuilt after the final readiness re-audit
-(Sec. F).
+**Manuscript to upload:** `paper/final_submission.pdf`, built from `paper/submission/` with `build.sh official` using
+the official `neurips_2026.sty` (v2026-01-29, SHA-256 c3fc2894…a4555a) supplied by the authors, on top of the
+Sec. F re-audit content. 18 pages: main text ends on page 9 (the reference list starts partway down page 9), then
+references (29 entries) and appendices A–G. Option `dblblindworkshop`: anonymous author block, line numbers, standard
+"Submitted to … Do not distribute" notice. Applying the style changed no research content, claim or number.
 
-## Recommendation: CONDITIONAL GO
-Scientifically the paper is ready: claims, proofs, statistics and numbers are verified against raw artifacts as far as
-an automated process can verify them. It is **not ready to upload as-is** because three items need a human:
-1. the official `neurips_2026.sty` must replace the layout proxy, followed by a rebuild and page check;
-2. the UniReps 2026 call (deadline, track, page limit, supplement rules, LLM/AI-disclosure policy) must be confirmed;
-3. the authors must read and validate the proofs and claims themselves.
+**Venue requirements (UniReps 2026 call, read directly on 2026-10-09 at unireps.org/2026/call-for-papers):**
+deadline **Oct 10, 2026 AoE** on OpenReview; Full Paper (archival) ≤ 9 pages main text excluding references and
+appendix; Extended Abstract (non-archival) ≤ 4 pages; NeurIPS template; both tracks anonymized; the NeurIPS paper
+checklist "doesn't need to be included" (it is not included). The call states no supplementary-material rules and no
+LLM/AI policy.
 
-If any of these fails (e.g. the page limit is below 9, or AI-generated content is not allowed), the recommendation
-becomes NO-GO until resolved.
+## Recommendation: GO for the Full Paper (archival) track, conditional only on the authors' own read-through
+Formatting, page limit, anonymity, references, figures and the reproducibility checks all pass with the official
+style. What automation cannot discharge is in Sec. G: the authors must verify the proofs and the related-work
+sentences. The paper does **not** fit the 4-page Extended Abstract track.
 
 ## A. Completed and verified (automated)
 | Item | Evidence |
@@ -24,10 +27,12 @@ becomes NO-GO until resolved.
 | Six primary tests independently recomputed; all match | `results/review/statistical_audit.json` |
 | PDF: 0 LaTeX errors, 0 warnings, 0 undefined references or citations, 0 overfull boxes, no Type-3 fonts | `pdf` block |
 | Anonymity: author block anonymous; PDF metadata empty; no names, e-mail, repository URL or "NeurReps"; no date | `pdf.identifying = []`, `pdf_author = ""` |
-| Anonymous supplement: 1,231 files; no git metadata; no identifiers or absolute paths | `archive` block; `supplement/bracketnet_supplement_anonymous.zip` |
+| Anonymous supplement (rebuilt 2026-10-09, byte-identical to the Sec. F build): 1,231 files; no git metadata; no identifiers or absolute paths | `archive` block; `supplement/bracketnet_supplement_anonymous.zip` |
 | Development/test separation; review predictions committed before review runs (`2236a4b`) | `docs/EXPERIMENTAL_VERIFICATION.md` |
-| Main text ≤ 9 pages in the NeurIPS 2026 layout (proxy) | references start on page 10 |
-| Visual inspection | all pages in round 3; the changed theory and proof pages (4, 13–14) re-inspected |
+| Main text ≤ 9 pages, **official** NeurIPS 2026 style | references start on page 9; `pdf.main_text_within_9_pages = true` |
+| All 5 figures embedded; 29/29 bibliography entries cited and resolved; 0 undefined references; 0 missing files | `.build_official/main.log`; `pdf` block |
+| Fonts: Type 1 + embedded TrueType (matplotlib DejaVu) only, no Type 3; US Letter | `pdffonts`, `pdfinfo` |
+| Visual inspection | all 18 pages of the official-style PDF (2026-10-09): no overflow; figures and tables legible |
 
 ## B. Completed but not independently verified
 * **Proofs** (Props. 1–3, Cor. 1). They were re-derived line by line and checked numerically (49 unit tests in total,
@@ -38,11 +43,11 @@ becomes NO-GO until resolved.
 * **Bibliography.** Entries are standard and were checked for internal consistency, not against publisher records.
 * **Simulated reviews** (`docs/REVIEWER_RISK_AUDIT.md`). Not independent peer review.
 
-## C. Incomplete or blocked
+## C. Previously blocked items and other gaps
 | Item | Status |
 |---|---|
-| Official `neurips_2026.sty` | **blocked**: neurips.cc, Overleaf and OpenReview are unreachable from the build environment. A community copy (self-described "partial rewrite"; SHA-256 in `paper/submission/layout_proxy/PROVENANCE.md`) was used only as a layout proxy. |
-| UniReps 2026 call for papers | **blocked**: unireps.org unreachable. Search results indicate an Oct 10, 2026 (AoE) deadline (extended from Oct 4) and that the 2025 call had a 9-page full-paper track and a 4-page extended-abstract track. NeurIPS 2026 guidance mentions a Sep 29 workshop notification date, which conflicts; ask the organizers. |
+| Official `neurips_2026.sty` | **resolved 2026-10-09**: supplied by the authors; `paper/final_submission.pdf` is built from it. The community proxy is kept for history only (`layout_proxy/PROVENANCE.md`). |
+| UniReps 2026 call for papers | **resolved 2026-10-09**: read directly (see top). NeurIPS checklist not required, so the supplied `checklist.tex` is deliberately not included. |
 | Branch `unireps-final-review` | The first push returned HTTP 403 but had created the remote branch; a later push succeeded. The final work is on **both** `unireps-final-review` and `claude/eager-franklin-y9zaho` (same commit). The v2 backup is preserved in history (`6cbc3af`) and in `paper/backup_v2/`. |
 | External published baselines (LieGAN, LaLiGAN, HAE) | **not run**. Supervision differs; the oracle-coefficient variant is the action-supervised analogue. Stated in the paper. |
 | Natural-image benchmark | **not done**. The rendered benchmark is synthetic. Stated. |
@@ -59,16 +64,7 @@ becomes NO-GO until resolved.
 * The closure-weight rule needed an amendment (committed before any fresh run).
 
 ## E. Human confirmation required before upload
-1. Download the official NeurIPS 2026 author kit, put `neurips_2026.sty` in `paper/submission/`, run
-   `paper/submission/build.sh official`, and check: page count (main text ≤ the track limit), no overflow, the
-   workshop option (`dblblindworkshop`) and `\workshoptitle` as the call requires.
-2. Read the UniReps 2026 call. Confirm the deadline, the track (archival full paper vs. extended abstract), the page
-   limit, the supplementary-material rules and the policy on AI assistance. Adjust or remove the appendix "Use of AI
-   assistance" paragraph accordingly. Do not remove it to conceal material AI involvement.
-3. Read and verify every proof and claim. The authors are responsible for the content.
-4. Upload `supplement/bracketnet_supplement_anonymous.zip` only if the venue allows code supplements. Do not link the
-   private repository.
-5. Fill in OpenReview metadata yourselves. Nothing was submitted from this environment.
+Superseded by Sec. G below (items 1–2 of the earlier list were resolved on 2026-10-09).
 
 ## F. Final readiness re-audit (no new experiments, protocol unchanged)
 **AI self-review is not independent human verification.** Everything below was checked by the AI system that drafted
@@ -108,14 +104,17 @@ all are refused by the egress proxy. Web search reports these, **all unconfirmed
 * the workshop options `\usepackage[dblblindworkshop]{neurips_2026}` and `\workshoptitle{...}`, which `main.tex`
   already uses.
 
-## G. GO / NO-GO
-**CONDITIONAL GO.** Every remaining blocker needs a human and none can be resolved from this environment:
-1. **Official style.** Download the NeurIPS 2026 author kit, put `neurips_2026.sty` into `paper/submission/`, run
-   `sh paper/submission/build.sh official`, then copy `paper/submission/main_official.pdf` to the upload. Check that
-   references start on page 10 or earlier and that the log has no errors. If the main text then exceeds 9 pages,
-   trim it, for example by moving the Sec. 6.3 rendered-benchmark paragraph to the appendix.
-2. **UniReps 2026 call.** Confirm the deadline (reported as Oct 10 AoE, which is **tomorrow**), the track, the page
-   limit, supplement rules and the AI policy.
-3. **Proofs.** Verify Props. 1–3 and Cor. 1 yourselves.
-4. **Novelty.** Read the full texts of Painter et al. 2020, Forestano et al. 2023 and Keurti et al. 2023 to confirm
+## G. GO / NO-GO (2026-10-09, official style)
+**GO for the Full Paper (archival) track**, once the authors have done the following (none can be done from this
+environment):
+1. **Proofs.** Verify Props. 1–3, the Remark and Cor. 1 yourselves. If you have, you may say so in Appendix G.
+2. **Novelty.** Read the full texts of Painter et al. 2020, Forestano et al. 2023 and Keurti et al. 2023 to confirm
    the related-work sentences.
+3. **Submit** `paper/final_submission.pdf` to the Full Paper track on OpenReview before **Oct 10, 2026 AoE**, and fill
+   in the metadata yourselves. Nothing was submitted from this environment.
+4. **Supplement.** Upload `supplement/bracketnet_supplement_anonymous.zip` only if OpenReview offers a supplementary
+   field (the call does not mention one). Do not link the private repository.
+5. **AI-use statement** (Appendix G): keep it. The call has no AI policy, and the paragraph must not be removed to
+   conceal material AI involvement.
+
+Superseded: the earlier conditional-GO list (official style, call confirmation) is resolved.

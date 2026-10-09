@@ -1,6 +1,7 @@
 # BracketNet: Lie-closure regularization for learned transformation representations
 
-**Submission package (final review):** `paper/final_submission.pdf` (source in `paper/submission/`),
+**Submission package (final review):** `paper/final_submission.pdf`, built with the official NeurIPS 2026 style
+(`paper/submission/build.sh official`; source in `paper/submission/`),
 `supplement/bracketnet_supplement_anonymous.zip`, and `docs/SUBMISSION_READINESS.md` (status and required human
 actions). The sections below describe the round-2 study; the final review added the endpoint-ambiguity mechanism, an
 oracle intervention, a rendered-image benchmark and a transfer-prediction analysis (`docs/FINAL_REVIEW_CHANGELOG.md`).
@@ -43,7 +44,7 @@ Fresh seeds 100–119, frozen protocol (4000 updates, λ = 3), pre-registered te
 ## Reproduce
 ```bash
 pip install -r requirements.txt
-python -m pytest -q tests                 # 43 tests: mathematical claims + pipeline
+python -m pytest -q tests                 # 49 tests: mathematical claims + pipeline
 # full pipeline and exact order: docs/REPRODUCIBILITY_FINAL.md
 python scripts/verify_final.py            # determinism re-runs, recomputation, manuscript number audit, PDF checks
 ```

@@ -13,3 +13,10 @@ Use: `paper/submission/build.sh proxy` copies this file into a temporary build d
 approximate the official layout and page count. **Before submission, download the official
 Formatting_Instructions_For_NeurIPS_2026.zip, place the official `neurips_2026.sty` in `paper/submission/`, and run
 `paper/submission/build.sh official`.**
+
+## Superseded (2026-10-09)
+The authors supplied the official `neurips_2026.sty` (`\ProvidesPackage{neurips_2026}[2026-01-29 ...]`, SHA-256
+c3fc2894e83d2517ca18b66741d6c595986d97957dc08ec08bb2125a7ec4555a), now at `paper/submission/neurips_2026.sty`.
+`paper/final_submission.pdf` is built from it with `build.sh official`. The official file differs from this proxy only
+by an extra `education` track option and the absence of an empty-workshop-title warning; all layout parameters
+(geometry, fonts, spacing, line numbers, notice) are identical.
